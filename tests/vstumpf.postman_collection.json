@@ -1,6 +1,6 @@
 {
 	"id": "dceca431-4570-8bc7-9056-e065b174c083",
-	"name": "Events",
+	"name": "vstumpf",
 	"description": "",
 	"order": [
 		"acebae16-d739-a3b7-a9cd-ab54cda3955c",
@@ -31,7 +31,17 @@
 		"e64e49f9-73eb-c744-e90d-8dbff972239d",
 		"87a5e305-4ebf-0801-abf7-6b5a42585d91"
 	],
-	"folders": [],
+	"folders": [
+		{
+			"id": "7e3fb703-0180-8ccc-5448-f0b498bce4bf",
+			"name": "Nuke",
+			"description": "",
+			"order": [
+				"f407b4ec-39d1-ea33-2259-a137cb747241"
+			],
+			"owner": "1898893"
+		}
+	],
 	"timestamp": 0,
 	"owner": "1898893",
 	"public": false,
@@ -657,6 +667,27 @@
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"rawModeData": "{\n  \"title\": \"FirstEventRename\"\n}"
+		},
+		{
+			"id": "f407b4ec-39d1-ea33-2259-a137cb747241",
+			"headers": "",
+			"url": "{{url}}/DB",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "DELETE",
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"data": null,
+			"dataMode": "params",
+			"name": "Nuke DB",
+			"description": "NUKE IT",
+			"descriptionFormat": "html",
+			"time": 1497028516117,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "7e3fb703-0180-8ccc-5448-f0b498bce4bf"
 		},
 		{
 			"id": "f74555b4-57d6-4589-dbf9-0b1e32e292f7",
