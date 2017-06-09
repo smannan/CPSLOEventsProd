@@ -2,35 +2,7 @@
 	"id": "dceca431-4570-8bc7-9056-e065b174c083",
 	"name": "vstumpf",
 	"description": "",
-	"order": [
-		"acebae16-d739-a3b7-a9cd-ab54cda3955c",
-		"60840409-7f28-e2fc-07d8-aa4cf502f35e",
-		"d59cccf9-a002-3702-e552-0a41da38c456",
-		"a62d31f8-a758-d0e4-15e8-812bc0162595",
-		"2f4a18d1-2344-5d9c-1df8-90cbc4747913",
-		"2b1f5c7c-9768-0d38-3a27-34c199bd98df",
-		"a97a531d-791c-fc5e-9988-072c7917dfff",
-		"e7bfb052-24ce-3e1d-3c69-1719b314b0a0",
-		"cb36c785-05d8-b315-cfbd-566131e72ac6",
-		"bb54ff3b-a827-2a37-7e54-9a70919d0745",
-		"5438ceba-14b2-1ab8-839c-eefca4a8e2e1",
-		"5eb02441-f9a8-435a-8dbe-980be09d85df",
-		"31e81bb4-3f4d-fa6e-cfe2-4966b5af239c",
-		"0d91aecc-3e9a-1dc5-3b96-74f1843f9a2f",
-		"23ca0cd0-f0d7-fa2f-e1c1-7ce4a3e92938",
-		"f74555b4-57d6-4589-dbf9-0b1e32e292f7",
-		"83dcdd82-a832-f9bb-86cf-ee41f00f6c65",
-		"1f3b5994-8ea1-f829-38b7-0938936063e6",
-		"3f3b43f9-2a9c-f71d-97c5-5d867cdfb9db",
-		"8e4d043f-f3d2-06e5-af6a-9dada69434d9",
-		"56933884-80fa-37dd-6d79-2160444592cb",
-		"d6ae082d-a242-8855-7858-adb7cb5e312c",
-		"ec94b1ee-5868-5e49-dcba-3092e4adf19c",
-		"c5bc024e-e1d4-c2e6-4faf-39d9ca542168",
-		"8c980bf4-f88a-e9e4-d2ff-86aaa406ea79",
-		"e64e49f9-73eb-c744-e90d-8dbff972239d",
-		"87a5e305-4ebf-0801-abf7-6b5a42585d91"
-	],
+	"order": [],
 	"folders": [
 		{
 			"id": "7e3fb703-0180-8ccc-5448-f0b498bce4bf",
@@ -40,6 +12,42 @@
 				"f407b4ec-39d1-ea33-2259-a137cb747241"
 			],
 			"owner": "1898893"
+		},
+		{
+			"id": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
+			"name": "tests",
+			"description": "",
+			"order": [
+				"acebae16-d739-a3b7-a9cd-ab54cda3955c",
+				"60840409-7f28-e2fc-07d8-aa4cf502f35e",
+				"d59cccf9-a002-3702-e552-0a41da38c456",
+				"a62d31f8-a758-d0e4-15e8-812bc0162595",
+				"2f4a18d1-2344-5d9c-1df8-90cbc4747913",
+				"2b1f5c7c-9768-0d38-3a27-34c199bd98df",
+				"a97a531d-791c-fc5e-9988-072c7917dfff",
+				"e7bfb052-24ce-3e1d-3c69-1719b314b0a0",
+				"cb36c785-05d8-b315-cfbd-566131e72ac6",
+				"bb54ff3b-a827-2a37-7e54-9a70919d0745",
+				"5438ceba-14b2-1ab8-839c-eefca4a8e2e1",
+				"5eb02441-f9a8-435a-8dbe-980be09d85df",
+				"31e81bb4-3f4d-fa6e-cfe2-4966b5af239c",
+				"0d91aecc-3e9a-1dc5-3b96-74f1843f9a2f",
+				"23ca0cd0-f0d7-fa2f-e1c1-7ce4a3e92938",
+				"f74555b4-57d6-4589-dbf9-0b1e32e292f7",
+				"83dcdd82-a832-f9bb-86cf-ee41f00f6c65",
+				"1f3b5994-8ea1-f829-38b7-0938936063e6",
+				"3f3b43f9-2a9c-f71d-97c5-5d867cdfb9db",
+				"8e4d043f-f3d2-06e5-af6a-9dada69434d9",
+				"56933884-80fa-37dd-6d79-2160444592cb",
+				"d6ae082d-a242-8855-7858-adb7cb5e312c",
+				"ec94b1ee-5868-5e49-dcba-3092e4adf19c",
+				"c5bc024e-e1d4-c2e6-4faf-39d9ca542168",
+				"8c980bf4-f88a-e9e4-d2ff-86aaa406ea79",
+				"e64e49f9-73eb-c744-e90d-8dbff972239d",
+				"87a5e305-4ebf-0801-abf7-6b5a42585d91"
+			],
+			"owner": "1898893",
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
 		}
 	],
 	"timestamp": 0,
@@ -67,10 +75,11 @@
 			"helperAttributes": {},
 			"isFromCollection": true,
 			"collectionRequestId": "d59cccf9-a002-3702-e552-0a41da38c456",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"a@a\",\n\t\"password\" :\"passwordA\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "1f3b5994-8ea1-f829-38b7-0938936063e6",
 			"name": "GetEvts10-PrsB-2",
 			"dataMode": "params",
@@ -89,7 +98,9 @@
 			"queryParams": [],
 			"headerData": [],
 			"pathVariableData": [],
-			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "1f3b5994-8ea1-f829-38b7-0938936063e6"
 		},
 		{
 			"id": "23ca0cd0-f0d7-fa2f-e1c1-7ce4a3e92938",
@@ -110,10 +121,11 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"personId\" : 2\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "2b1f5c7c-9768-0d38-3a27-34c199bd98df",
 			"name": "GetEvts1-PrsA",
 			"dataMode": "params",
@@ -132,7 +144,9 @@
 			"queryParams": null,
 			"headerData": null,
 			"pathVariableData": null,
-			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "2b1f5c7c-9768-0d38-3a27-34c199bd98df"
 		},
 		{
 			"id": "2f4a18d1-2344-5d9c-1df8-90cbc4747913",
@@ -151,10 +165,13 @@
 			"description": "Make second event, private - PersonA",
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "2f4a18d1-2344-5d9c-1df8-90cbc4747913",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"title\" : \"SecondEvent\",\n\t\"date\" :  1496988176000,\n\t\"city\" :  \"San Luis Obispo\",\n\t\"state\" :  \"California\",\n\t\"country\" : \"USA\",\n\t\"addr\" : \"1 Grand Avenue\",\n\t\"zip\" : \"93410\",\n\t\"private\" : 1,\n\t\"desc\": \"Second event at Poly, Private\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "31e81bb4-3f4d-fa6e-cfe2-4966b5af239c",
 			"name": "GetEvts2-PrsB",
 			"dataMode": "params",
@@ -173,10 +190,12 @@
 			"queryParams": [],
 			"headerData": [],
 			"pathVariableData": [],
-			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "31e81bb4-3f4d-fa6e-cfe2-4966b5af239c"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "3f3b43f9-2a9c-f71d-97c5-5d867cdfb9db",
 			"name": "PutEvts1-PrsB",
 			"dataMode": "raw",
@@ -202,6 +221,8 @@
 			],
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "3f3b43f9-2a9c-f71d-97c5-5d867cdfb9db",
 			"rawModeData": "{\n  \"title\": \"FirstEventRename\"\n}"
 		},
 		{
@@ -222,10 +243,13 @@
 			"description": "Log in PersonA",
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "5438ceba-14b2-1ab8-839c-eefca4a8e2e1",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"b@b\",\n\t\"password\" :\"passwordB\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "56933884-80fa-37dd-6d79-2160444592cb",
 			"name": "DeleteEvts2-PrsB",
 			"dataMode": "raw",
@@ -251,10 +275,12 @@
 			],
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "56933884-80fa-37dd-6d79-2160444592cb",
 			"rawModeData": "{\n  \"title\": \"FirstEventRename\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "5eb02441-f9a8-435a-8dbe-980be09d85df",
 			"name": "GetEvts1-PrsB",
 			"dataMode": "params",
@@ -273,7 +299,9 @@
 			"queryParams": [],
 			"headerData": [],
 			"pathVariableData": [],
-			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "5eb02441-f9a8-435a-8dbe-980be09d85df"
 		},
 		{
 			"id": "60840409-7f28-e2fc-07d8-aa4cf502f35e",
@@ -292,10 +320,11 @@
 			"description": "Register PrsB",
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"responses": [],
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\": \"b@b\",\n\t\"firstName\" : \"firstB\",\n\t\"lastName\" : \"lastB\",\n\t\"password\" : \"passwordB\",\n\t\"city\" : \"cityB\",\n\t\"state\" : \"stateB\",\n\t\"zip\" : \"zipB\",\n\t\"country\"  : \"countryB\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "83dcdd82-a832-f9bb-86cf-ee41f00f6c65",
 			"name": "GetEvts2-PrsB-2",
 			"dataMode": "params",
@@ -314,10 +343,12 @@
 			"queryParams": [],
 			"headerData": [],
 			"pathVariableData": [],
-			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "83dcdd82-a832-f9bb-86cf-ee41f00f6c65"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "87a5e305-4ebf-0801-abf7-6b5a42585d91",
 			"name": "DeleteEvts2-PrsA",
 			"dataMode": "raw",
@@ -343,10 +374,12 @@
 			],
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "87a5e305-4ebf-0801-abf7-6b5a42585d91",
 			"rawModeData": "{\n  \"title\": \"FirstEventRename\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "8c980bf4-f88a-e9e4-d2ff-86aaa406ea79",
 			"name": "DeleteEvts2Rsvs1-PrsB",
 			"dataMode": "raw",
@@ -372,10 +405,12 @@
 			],
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "8c980bf4-f88a-e9e4-d2ff-86aaa406ea79",
 			"rawModeData": "{\n  \"title\": \"FirstEventRename\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "8e4d043f-f3d2-06e5-af6a-9dada69434d9",
 			"name": "PutEvts2-PrsB",
 			"dataMode": "raw",
@@ -401,6 +436,8 @@
 			],
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "8e4d043f-f3d2-06e5-af6a-9dada69434d9",
 			"rawModeData": "{\n  \"title\": \"FirstEventRename\"\n}"
 		},
 		{
@@ -420,10 +457,11 @@
 			"description": "Make first event, public - PersonA",
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"responses": [],
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"title\" : \"FirstEvent\",\n\t\"date\" :  1496988176000,\n\t\"city\" :  \"San Luis Obispo\",\n\t\"state\" :  \"California\",\n\t\"country\" : \"USA\",\n\t\"addr\" : \"1 Grand Avenue\",\n\t\"zip\" : \"93410\",\n\t\"private\" : 0,\n\t\"desc\": \"First event at Poly\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "a97a531d-791c-fc5e-9988-072c7917dfff",
 			"name": "PutEvts1-PrsA",
 			"dataMode": "raw",
@@ -468,10 +506,13 @@
 			"description": "Register PrsA",
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "acebae16-d739-a3b7-a9cd-ab54cda3955c",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\": \"a@a\",\n\t\"firstName\" : \"firstA\",\n\t\"lastName\" : \"lastA\",\n\t\"password\" : \"passwordA\",\n\t\"city\" : \"cityA\",\n\t\"state\" : \"stateA\",\n\t\"zip\" : \"zipA\",\n\t\"country\"  : \"countryA\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "bb54ff3b-a827-2a37-7e54-9a70919d0745",
 			"name": "GetEvts2-PrsA",
 			"dataMode": "params",
@@ -490,7 +531,9 @@
 			"queryParams": [],
 			"headerData": [],
 			"pathVariableData": [],
-			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083"
+			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "bb54ff3b-a827-2a37-7e54-9a70919d0745"
 		},
 		{
 			"id": "c5bc024e-e1d4-c2e6-4faf-39d9ca542168",
@@ -512,10 +555,11 @@
 			"responses": [],
 			"isFromCollection": true,
 			"collectionRequestId": "f74555b4-57d6-4589-dbf9-0b1e32e292f7",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"b@b\",\n\t\"password\" :\"passwordB\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "cb36c785-05d8-b315-cfbd-566131e72ac6",
 			"name": "PutEvts1-PrsA-3",
 			"dataMode": "raw",
@@ -541,6 +585,8 @@
 			],
 			"pathVariableData": [],
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
+			"isFromCollection": true,
+			"collectionRequestId": "cb36c785-05d8-b315-cfbd-566131e72ac6",
 			"rawModeData": "{\n  \"date\": \"320\"\n}"
 		},
 		{
@@ -562,6 +608,9 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
+			"isFromCollection": true,
+			"collectionRequestId": "d59cccf9-a002-3702-e552-0a41da38c456",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"a@a\",\n\t\"password\" :\"passwordA\"\n}"
 		},
 		{
@@ -585,6 +634,7 @@
 			"helperAttributes": {},
 			"isFromCollection": true,
 			"collectionRequestId": "0d91aecc-3e9a-1dc5-3b96-74f1843f9a2f",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"a@a\",\n\t\"password\" :\"passwordA\"\n}"
 		},
 		{
@@ -608,10 +658,11 @@
 			"helperAttributes": {},
 			"isFromCollection": true,
 			"collectionRequestId": "d6ae082d-a242-8855-7858-adb7cb5e312c",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"a@a\",\n\t\"password\" :\"passwordA\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "e7bfb052-24ce-3e1d-3c69-1719b314b0a0",
 			"name": "PutEvts1-PrsA-2",
 			"dataMode": "raw",
@@ -640,7 +691,7 @@
 			"rawModeData": "{\n  \"title\": \"SecondEvent\"\n}"
 		},
 		{
-			"folder": null,
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"id": "ec94b1ee-5868-5e49-dcba-3092e4adf19c",
 			"name": "DeleteEvts1Rsvs2-PrsA",
 			"dataMode": "raw",
@@ -708,7 +759,8 @@
 			"collectionId": "dceca431-4570-8bc7-9056-e065b174c083",
 			"responses": [],
 			"isFromCollection": true,
-			"collectionRequestId": "5438ceba-14b2-1ab8-839c-eefca4a8e2e1",
+			"collectionRequestId": "f74555b4-57d6-4589-dbf9-0b1e32e292f7",
+			"folder": "403bc38f-222e-54d7-969a-9a5f5ccc34b1",
 			"rawModeData": "{\n\t\"email\":\"b@b\",\n\t\"password\" :\"passwordB\"\n}"
 		}
 	]
