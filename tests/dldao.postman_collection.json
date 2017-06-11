@@ -1,0 +1,569 @@
+{
+	"variables": [],
+	"info": {
+		"name": "1 - CPSLOEvents",
+		"_postman_id": "0d6af9f0-caaf-a701-db7a-31d6982e1617",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "200 - Admin Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Cookie Returned\"] = postman.getResponseCookie(\"CHSAuth\")",
+							" !== null && postman.getResponseCookie(\"CHSAuth\").value !== undefined;",
+							"if (tests[\"Cookie Returned\"]) {",
+							"   postman.setEnvironmentVariable(\"curLogin\",",
+							"    postman.getResponseCookie(\"CHSAuth\").value)",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Ssns",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"adm@11.com\", \"password\": \"password\"}"
+				},
+				"description": "Good Login\n"
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Nuke Database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"DB cleared\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/DB",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/javascript",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Admin Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Cookie Returned\"] = postman.getResponseCookie(\"CHSAuth\")",
+							" !== null && postman.getResponseCookie(\"CHSAuth\").value !== undefined;",
+							"if (tests[\"Cookie Returned\"]) {",
+							"   postman.setEnvironmentVariable(\"curLogin\",",
+							"    postman.getResponseCookie(\"CHSAuth\").value)",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Ssns",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"adm@11.com\", \"password\": \"password\"}"
+				},
+				"description": "Good Login\n"
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"",
+							"// Check if users exist"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Register Duc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Duc\",\n    \"lastName\" : \"Dao\",\n    \"password\" : \"password\",\n    \"termsAccepted\" : false,\n  \"city\": \"Oxnard\",\n  \"state\": \"California\",\n  \"zipCode\": 93033,\n  \"country\": \"United States\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Get Admin Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"",
+							"// Check if users exist",
+							"tests[\"Correct email\"] = body[0].email === \"ad@11.com\";",
+							"tests[\"Correct password\"] = body[0].password === \"password\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Modify Duc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"city\": \"San Luis Obispo\",\n  \"zipCode\": 93401\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Delete Duc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss/2",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Get Admin Reservations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss/1/Rsvs",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Modify 1 Admin Reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Prss/1/Rsvs",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"CPE 437 Final Demo\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Register Event 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Name of Event 1\",\n  \"city\": \"Oxnard\",\n  \"state\": \"California\",\n  \"address\": \"123 Fake Street\",\n  \"datetime\": 123,\n  \"desc\": \"This is the description for event one.\",\n  \"private\": false\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Get All Events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"",
+							"// Check if users exist",
+							"//tests[\"Correct email\"] = body[0].email === \"ad@11.com\";",
+							"//tests[\"Correct email\"] = body[0].password === \"password\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Get Event 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"",
+							"// Check if users exist",
+							"tests[\"Correct name\"] = body[0].name === \"Name of Event 1\",",
+							"tests[\"Correct city\"] = body[0].city === \"Oxnard\",",
+							"tests[\"Correct state\"] = body[0].state === \"California\",",
+							"tests[\"Correct address\"] = body[0].address === \"123 Fake Street\",",
+							"tests[\"Correct datetime\"] = body[0].datetime === 123,",
+							"tests[\"Correct desc\"] = body[0].desc === \"This is the description for event one.\",",
+							"tests[\"Correct private\"] = body[0].private === false;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Modify Event 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var body = JSON.parse(responseBody);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Changed Name of Event 1\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Delete Event 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Make Reservation for User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts/1/Rsvs",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"personId\": 1,\n  \"status\": \"Going\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Get Reservation for User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var body = JSON.parse(responseBody);",
+							"",
+							"tests[\"Correct first name\"] = body[0].firstName === \"Joe\";",
+							"tests[\"Correct last name\"] = body[0].lastName === \"Admin\";",
+							"tests[\"Correct status\"] = body[0].status === \"Going\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts/1/Rsvs",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"personId\": 1,\n  \"status\": \"Going\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "200 - Delete Reservation for User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/Evts/1/Rsvs/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
