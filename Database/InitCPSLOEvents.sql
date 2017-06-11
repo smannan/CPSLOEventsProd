@@ -1,0 +1,42 @@
+DROP DATABASE IF EXISTS CPSLOEvents;
+CREATE DATABASE CPSLOEvents;
+USE CPSLOEvents;
+
+CREATE TABLE Person (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   firstName VARCHAR(30) NOT NULL,
+   lastName VARCHAR(30) NOT NULL,
+   email VARCHAR(30) NOT NULL,
+   password VARCHAR(50) NOT NULL,
+   city VARCHAR(30) NOT NULL,
+   state VARCHAR(16) NOT NULL, 
+   zipCode INT NOT NULL,
+   country VARCHAR(30) NOT NULL,
+   UNIQUE key(email)
+);
+
+CREATE TABLE Event (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(30) NOT NULL,
+   organizerId INT NOT NULL,
+   city VARCHAR(30) NOT NULL,
+   state VARCHAR(30) NOT NULL,
+   zipCode VARCHAR(30) NOT NULL,
+   country VARCHAR(30) NOT NULL,
+   address VARCHAR(30) NOT NULL,
+   time DATETIME NOT NULL,
+   description VARCHAR(80) NOT NULL,
+   CONSTRAINT FKEvent_prsId FOREIGN KEY (id) REFERENCES Person (id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE Reservation (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   prsId INT NOT NULL,
+   evtId INT NOT NULL,
+   status ENUM("Going", "Maybe", "Not Going"),
+   CONSTRAINT FKReservation_prsId FOREIGN KEY (prsId) REFERENCES Person(id)
+      ON DELETE CASCADE,
+   CONSTRAINT FKReservation_evtId FOREIGN KEY (evtId) REFERENCES Event(id)
+      ON DELETE CASCADE
+);
