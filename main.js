@@ -44,7 +44,7 @@ app.use(CnnPool.router);
 // Load all subroutes
 app.use('/Prss', require('./Routes/Account/Prss.js'));
 app.use('/Ssns', require('./Routes/Account/Ssns.js'));
-app.use('/Evts', require('./Routes/Event/Evts.js'));
+app.use('/Evts', require('./Routes/Events/Evts.js'));
 
 // Special debugging route for /DB DELETE.  
 // Clears all table contents,
@@ -102,6 +102,15 @@ app.use(function(req, res, next) {
    req.cnn.release();
 });
 
-app.listen(parseInt(process.argv[3]), function () {
+// Use default port or supplied port from commandline arguments
+var port = 8080; // default port
+for (var i = 2; i < process.argv.length; i++) {
+   if (process.argv[i] === '-p') {
+      port = parseInt(process.argv[i + 1]);
+      break;
+   }
+}
+
+app.listen(port, function () {
    console.log('App Listening on port');
 });

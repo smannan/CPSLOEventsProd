@@ -8,11 +8,7 @@ router.baseURL = '/Prss';
 
 /* Much nicer versions */
 router.get('/', function(req, res) {
-   var email = req.session.isAdmin() && req.query.email ||
-    !req.session.isAdmin() && req.session.email;
-
-   if (email && !email.startsWith(req.query.email))
-      email = null;
+   var email = req.query.email;
 
    var handler = function(err, prsArr) {
       res.json(prsArr);
@@ -22,22 +18,17 @@ router.get('/', function(req, res) {
    if (email)
       req.cnn.chkQry('select id, email from Person where email like ?',
        [email + '%'], handler);
-   else if (req.session.isAdmin())
-      req.cnn.chkQry('select id, email from Person', handler);
    else {
-      res.status(200).json([]);
-      req.cnn.release();
+      req.cnn.chkQry('select id, email from Person', handler);
    }
 });
 
 router.post('/', function(req, res) {
    var vld = req.validator;  // Shorthands
    var body = req.body;
-   var admin = req.session && req.session.isAdmin();
+   //~~~ var admin = req.session && req.session.isAdmin();
    var cnn = req.cnn;
-
-   if (admin && !body.password)
-      body.password = "*";                       // Blocking password
+                        // Blocking password
    body.whenRegistered = new Date();
 
    // remove fields with empty string or null values
@@ -50,19 +41,12 @@ router.post('/', function(req, res) {
 
    async.waterfall([
    function(cb) { // Check properties and search for Email duplicates
-      if (vld.hasFields(body, ["email", "lastName", "password", "role"], cb) &&
-       vld.chain(body.role === 0 || admin, Tags.noPermission)
-       .chain(body.termsAccepted || admin, Tags.noTerms)
-       .check(body.role === 0 || body.role === 1, Tags.badValue, ["role"],
-       cb)) {
+      if (vld.hasFields(body, ["email", "lastName", "password"], cb)) {
          cnn.chkQry('select * from Person where email = ?', body.email, cb);
       }
    },
    function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
       if (vld.check(!existingPrss.length, Tags.dupEmail, null, cb)) {
-         body.termsAccepted = body.termsAccepted && new Date();
-         if (!body.termsAccepted)
-            body.termsAccepted = null;
          cnn.chkQry('insert into Person set ?', body, cb);
       }
    },
@@ -79,13 +63,10 @@ router.get('/:id', function(req, res) {
    var vld = req.validator;
 
    if (vld.checkPrsOK(req.params.id)) {
-      req.cnn.chkQry('select id, firstName, lastName, email, whenRegistered,' +
-       ' termsAccepted, role from Person where id = ?', [req.params.id],
+      req.cnn.chkQry('select id, firstName, lastName, email, city, state,' +
+       ' zipCode, country from Person where id = ?', [req.params.id],
       function(err, prsArr) {
          if (vld.check(prsArr.length, Tags.notFound)) {
-            prsArr[0].whenRegistered = prsArr[0].whenRegistered.getTime();
-            prsArr[0].termsAccepted = prsArr[0].termsAccepted &&
-             prsArr[0].termsAccepted.getTime();
             res.json(prsArr);
          }
          else
@@ -101,23 +82,19 @@ router.get('/:id', function(req, res) {
 router.put('/:id', function(req, res) {
    var vld = req.validator;
    var body = req.body;
-   var admin = req.session.isAdmin();
    var cnn = req.cnn;
 
    async.waterfall([
    function(cb) {
       if (vld.checkPrsOK(req.params.id, cb) &&
-       vld.chain(!body.role || (admin && body.role === 1),
-       Tags.badValue, ["role"])
-       .hasOnlyFields(body,
-       ["firstName", "lastName", "password", "oldPassword", "role"])
-       .check((!body.password && body.password !== "") || body.oldPassword || 
-       admin, Tags.noOldPwd, null, cb)) {
+       vld.hasOnlyFields(body, ["firstName", "lastName", "password",
+       "oldPassword", "city", "state", "zipCode", "country"])
+       .check((!body.password && body.password !== "") || body.oldPassword,
+       Tags.noOldPwd, null, cb)) {
          cnn.chkQry('select * from Person where id = ?', [req.params.id], cb);
       }
    },
    function(qRes, fields, cb) {
-      console.log("res length: " + qRes.length);
       if (vld.check(qRes.length, Tags.notFound,  null, cb) && 
        vld.check(admin || !body.password ||
        qRes[0].password === body.oldPassword, Tags.oldPwdMismatch, null, cb)) {
