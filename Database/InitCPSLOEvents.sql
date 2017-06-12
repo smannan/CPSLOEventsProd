@@ -4,14 +4,14 @@ USE CPSLOEvents;
 
 CREATE TABLE Person (
    id INT AUTO_INCREMENT PRIMARY KEY,
-   firstName VARCHAR(30) NOT NULL,
-   lastName VARCHAR(30) NOT NULL,
-   email VARCHAR(30) NOT NULL,
+   firstName VARCHAR(50) NOT NULL,
+   lastName VARCHAR(50) NOT NULL,
+   email VARCHAR(50) NOT NULL,
    password VARCHAR(50) NOT NULL,
-   city VARCHAR(30) NOT NULL,
-   state VARCHAR(16) NOT NULL, 
-   zipCode INT NOT NULL,
-   country VARCHAR(30) NOT NULL,
+   city VARCHAR(50) NOT NULL,
+   state VARCHAR(50) NOT NULL, 
+   zip VARCHAR(50) NOT NULL,
+   country VARCHAR(50) NOT NULL,
    UNIQUE key(email)
 );
 
