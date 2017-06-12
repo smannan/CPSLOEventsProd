@@ -68,8 +68,8 @@ router.post('/', function(req, res) {
    function(cb) {
       /* Make sure body has a non-empty title, addr, time */
       if (vld.chain(body.title, Tags.missingField, ["title"])
-       .chain(body.addr, Tags.missingField, ["address"])
-       .check(body.date, Tags.missingField, ["time"], cb)) {
+       .chain(body.addr, Tags.missingField, ["addr"])
+       .check(body.date, Tags.missingField, ["date"], cb)) {
 
          cnn.chkQry('select * from Event where title = ?', 
           body.title, cb);
@@ -81,20 +81,34 @@ router.post('/', function(req, res) {
        * Duplicate title error if the event
        * already exists.
       */
-      if (vld.chain(body.title.length < 80, Tags.badValue, null)
-       .chain(body.private === 0 || body.private === 1, Tags.badValue, null)
-       .chain(body.date > 0 && body.date <= Now(), Tags.badValue, null)
-       .chain(body.desc.length < 500, Tags.badValue, null)
-       .chain(body.city.length < 50, Tags.badValue, null)
-       .chain(body.state.length < 50, Tags.badValue, null)
-       .chain(body.country.length < 50, Tags.badValue, null)
-       .chain(body.addr.length < 50, Tags.badValue, null)
-       .chain(body.zip.length < 50, Tags.badValue, null)
-       .hasOnlyFields(body,['title','city','state','country','addr',
-        'date','descr','private','zip'])
+      if (vld.hasOnlyFields(body,['title','city','state','country','addr',
+        'date','descr','private','zip']).check(true,null,null,cb) &&
+
+        vld.chain(body.title.length < 80, Tags.badValue, 'title')
+       .chain(!body.private ||
+        (body.private === 0 || body.private === 1), 
+        Tags.badValue, 'private')
+
+       .chain(body.date > 0 && body.date <= 
+        (new Date().getTime()), Tags.badValue, 'date')
+
+       .chain(!body.descr || body.descr.length < 500, Tags.badValue, 'descr')
+
+       .chain(!body.city || body.city.length < 50, Tags.badValue, 'city')
+
+       .chain(!body.state || body.state.length < 50, Tags.badValue, 'state')
+       .chain(!body.country || body.country.length < 50, 
+        Tags.badValue, 'country')
+
+       .chain(body.addr.length < 50, Tags.badValue, 'addr')
+       .chain(!body.zip || body.zip.length < 50, Tags.badValue, 'zip')
        .check(!existingEvt.length, Tags.dupTitle, null, cb)) {
 
          body.orgId = req.session.id;
+         body.date = new Date(body.date);
+         if (!body.private) {
+            body.private = 1;
+         }
          console.log(body);
          cnn.chkQry("insert into Event set ?", body, cb);
       }
