@@ -106,7 +106,7 @@ router.post('/', function(req, res) {
 
          body.orgId = req.session.id;
          body.date = new Date(body.date);
-         if (!body.private) {
+         if (body.private === null || body.private === "") {
             body.private = 1;
          }
          console.log(body);
