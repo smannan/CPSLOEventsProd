@@ -84,24 +84,24 @@ router.post('/', function(req, res) {
       if (vld.hasOnlyFields(body,['title','city','state','country','addr',
         'date','descr','private','zip']).check(true,null,null,cb) &&
 
-        vld.chain(body.title.length < 80, Tags.badValue, 'title')
+        vld.chain(body.title.length < 80, Tags.badValue, ['title'])
        .chain(!body.private ||
         (body.private === 0 || body.private === 1), 
-        Tags.badValue, 'private')
+        Tags.badValue, ['private'])
 
        .chain(body.date > 0 && body.date <= 
-        (new Date().getTime()), Tags.badValue, 'date')
+        (new Date().getTime()), Tags.badValue, ['date'])
 
-       .chain(!body.descr || body.descr.length < 500, Tags.badValue, 'descr')
+       .chain(!body.descr || body.descr.length < 500, Tags.badValue, ['descr'])
 
-       .chain(!body.city || body.city.length < 50, Tags.badValue, 'city')
+       .chain(!body.city || body.city.length < 50, Tags.badValue, ['city'])
 
-       .chain(!body.state || body.state.length < 50, Tags.badValue, 'state')
+       .chain(!body.state || body.state.length < 50, Tags.badValue, ['state'])
        .chain(!body.country || body.country.length < 50, 
-        Tags.badValue, 'country')
+        Tags.badValue, ['country'])
 
-       .chain(body.addr.length < 50, Tags.badValue, 'addr')
-       .chain(!body.zip || body.zip.length < 50, Tags.badValue, 'zip')
+       .chain(body.addr.length < 50, Tags.badValue, ['addr'])
+       .chain(!body.zip || body.zip.length < 50, Tags.badValue, ['zip'])
        .check(!existingEvt.length, Tags.dupTitle, null, cb)) {
 
          body.orgId = req.session.id;
@@ -230,6 +230,67 @@ router.get('/:id/Rsvs', function(req, res) {
 });
 
 router.post('/:id/Rsvs', function(req, res) {
+   var vld = req.validator;
+   var id = req.params.id;
+   var body = req.body;
+   var cnn = req.cnn;
+
+   async.waterfall([
+   function(cb) {
+      /* Make sure body has a non-empty person id 
+       * And status is either Going, Maybe, or Not Going
+       * Event they are RSVP'ing to must exist
+      */
+      if (vld.chain(!body.status || (body.status==="Going" ||
+       body.status==="Maybe" || body.status==="Not Going"), 
+       Tags.badValue, ["status"])
+       .check(body.prsId, Tags.missingField, ["prsId"], cb)) {
+
+         cnn.chkQry('select * from Event where id = ?', 
+          id, cb);
+      }
+   },
+
+   function(existingEvt, fields, cb) {
+      /* Make sure event exists
+       * and AU is event organizer OR event is public
+      */
+      if (vld.check(existingEvt.length, Tags.notFound, null, cb)
+       && vld.check(existingEvt[0].private === 0 || 
+       existingEvt[0].orgId === req.session.id, Tags.noPermission,
+       null, cb)) {
+
+         body.evtId = existingEvt[0].id;
+
+         cnn.chkQry('select * from Person where id = ?', 
+          body.prsId, cb);
+      }
+   },
+
+   function(existingPrs, fields, cb) {
+      /* Make sure person in question exists
+      */
+      if (vld.check(existingPrs.length, Tags.notFound, null, cb)) {
+
+         if (!body.status) {
+            body.status = "Not Going";
+         }
+
+         console.log(body);
+         cnn.chkQry("insert into Reservation set ?", body, cb);
+      }
+   },
+
+   function(insRes, fields, cb) {
+      res.location(router.baseURL + '/' + insRes.insertId).end();
+      cb();
+   }],
+
+   /* Finally, release the db connection */
+   function() {
+      cnn.release();
+   });
+
 });
 
 
@@ -237,3 +298,12 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
 });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
