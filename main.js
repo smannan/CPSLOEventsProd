@@ -112,5 +112,5 @@ for (var i = 2; i < process.argv.length; i++) {
 }
 
 app.listen(port, function () {
-   console.log('App Listening on port');
+   console.log('App Listening on port ' + port);
 });

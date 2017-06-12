@@ -83,15 +83,18 @@ router.post('/', function(req, res) {
       */
       if (vld.chain(body.title.length < 80, Tags.badValue, null)
        .chain(body.private === 0 || body.private === 1, Tags.badValue, null)
+       .chain(body.date > 0 && body.date <= Now(), Tags.badValue, null)
        .chain(body.desc.length < 500, Tags.badValue, null)
        .chain(body.city.length < 50, Tags.badValue, null)
        .chain(body.state.length < 50, Tags.badValue, null)
        .chain(body.country.length < 50, Tags.badValue, null)
        .chain(body.addr.length < 50, Tags.badValue, null)
        .chain(body.zip.length < 50, Tags.badValue, null)
+       .hasOnlyFields(body,['title','city','state','country','addr',
+        'date','descr','private','zip'])
        .check(!existingEvt.length, Tags.dupTitle, null, cb)) {
 
-         body.ownerId = req.session.id;
+         body.orgId = req.session.id;
          console.log(body);
          cnn.chkQry("insert into Event set ?", body, cb);
       }
@@ -175,14 +178,15 @@ router.put('/:id', function(req, res) {
    }, 
    function(rows, fields, cb) {
       var handler =  function (err, rows) {
-         if (vld.check(!rows.length, Tags.dupTitle, null, cb)
+         if (vld.check(!rows.length, Tags.dupTitle, null, cb)) {
             cb();
+         }
       }
 
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
        vld.checkPrsOk(rows[0].organizerId, cb) &&
-       vld.chain((!body.role ||  ) {
-         if (body.title)) {
+       vld.chain(!body.role)) {
+         if (body.title) {
             cnn.chkQry('SELECT * from Events WHERE id <> ? && title = ?',
             [req.params.id, body.title], handler);
          } else {
