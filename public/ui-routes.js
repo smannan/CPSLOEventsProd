@@ -19,37 +19,37 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Register/register.template.html',
          controller: 'registerController',
       })
-      .state('cnvPrsOverview', {
-         url: '/myCnvs?owner',
-         templateUrl: 'Conversation/cnvOverview.template.html',
+      .state('evtPrsOverview', {
+         url: '/myEvt?owner',
+         templateUrl: 'Conversation/evtOverview.template.html',
          controller: 'cnvPrsOverviewController',
          resolve: {
             cnvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Cnvs?owner=" + $stateParams.owner)
+               return $http.get("Evt?owner=" + $stateParams.owner)
                .then(function(response) {
                   return response.data;
                });
             }]
          },
       })
-      .state('cnvOverview', {
-         url: '/cnvs',
-         templateUrl: 'Conversation/cnvOverview.template.html',
-         controller: 'cnvOverviewController',
+      .state('evtOverview', {
+         url: '/evt',
+         templateUrl: 'Event/evtOverview.template.html',
+         controller: 'evtOverviewController',
          resolve: {
             cnvs: ['$q', '$http', function($q, $http) {
-               return $http.get('Cnvs')
+               return $http.get('Evt')
                .then(function(response) {
                   return response.data;
                });
             }]
          }
       })
-      .state('cnvDetail', {
-         url:'/cnvs/:cnvId',
-         templateUrl: 'Conversation/cnvDetail.template.html',
-         controller: 'cnvDetailController',
+      .state('evtDetail', {
+         url:'/evt/:evtId',
+         templateUrl: 'Event/evtDetail.template.html',
+         controller: 'evtDetailController',
       });
    }
 ]);

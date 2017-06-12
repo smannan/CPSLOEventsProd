@@ -1,8 +1,8 @@
-<h2>Conversations</h2>
+<h2>Events</h2>
 <div class="list-group">
-   <div class="list-group-item" ng-repeat="cnv in cnvs">
-      <cnv-summary to-summarize="cnv" edit-cnv="editCnv($index)"
-      del-cnv="delCnv($index)" check-usr="cnv.ownerId === user.id">
+   <div class="list-group-item" ng-repeat="evt in evts">
+      <cnv-summary to-summarize="evt" edit-evt="editEvt($index)"
+      del-evt="delEvt($index)" check-usr="evt.ownerId === user.id">
       </cnv-summary>
    </div>
 </div>
@@ -10,5 +10,5 @@
 <button class="btn btn-primary" 
         type="button" 
         style="margin-top:5px" 
-        ng-click="newCnv()">New Conversation
+        ng-click="newEvent()">New Event
 </button>
