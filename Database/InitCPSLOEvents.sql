@@ -17,15 +17,16 @@ CREATE TABLE Person (
 
 CREATE TABLE Event (
    id INT AUTO_INCREMENT PRIMARY KEY,
-   name VARCHAR(30) NOT NULL,
-   organizerId INT NOT NULL,
-   city VARCHAR(30) NOT NULL,
-   state VARCHAR(30) NOT NULL,
-   zipCode VARCHAR(30) NOT NULL,
-   country VARCHAR(30) NOT NULL,
-   address VARCHAR(30) NOT NULL,
-   time DATETIME NOT NULL,
-   description VARCHAR(80) NOT NULL,
+   title VARCHAR(80) NOT NULL,
+   orgId INT NOT NULL,
+   city VARCHAR(50) NOT NULL,
+   state VARCHAR(50) NOT NULL,
+   zip VARCHAR(50) NOT NULL,
+   country VARCHAR(50) NOT NULL,
+   addr VARCHAR(50) NOT NULL,
+   date DATETIME NOT NULL,
+   desc VARCHAR(500) NOT NULL,
+   private BOOL NOT NULL,
    CONSTRAINT FKEvent_prsId FOREIGN KEY (id) REFERENCES Person (id)
     ON DELETE CASCADE
 );
@@ -35,8 +36,8 @@ CREATE TABLE Reservation (
    prsId INT NOT NULL,
    evtId INT NOT NULL,
    status ENUM("Going", "Maybe", "Not Going"),
-   CONSTRAINT FKReservation_prsId FOREIGN KEY (prsId) REFERENCES Person(id)
+   CONSTRAINT FKReservation_prsId FOREIGN KEY (prsId) REFERENCES Person (id)
       ON DELETE CASCADE,
-   CONSTRAINT FKReservation_evtId FOREIGN KEY (evtId) REFERENCES Event(id)
+   CONSTRAINT FKReservation_evtId FOREIGN KEY (evtId) REFERENCES Event (id)
       ON DELETE CASCADE
 );
