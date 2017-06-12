@@ -26,6 +26,7 @@ CREATE TABLE Event (
    address VARCHAR(30) NOT NULL,
    time DATETIME NOT NULL,
    description VARCHAR(80) NOT NULL,
+   private INT(1) NOT NULL DEFAULT 0,
    CONSTRAINT FKEvent_prsId FOREIGN KEY (id) REFERENCES Person (id)
     ON DELETE CASCADE
 );
