@@ -1,65 +1,73 @@
-<!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
-    <title>CP SLO Events</title>
-</head>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
-<!-- Bootstrap style sheet -->
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-
-<script src="cpsloeventsapp.js"></script>
+   <title>CP SLO Events</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+   <!-- Angular Material style sheet -->
+   <link rel="stylesheet" 
+    href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+</head> 
 
 <link rel="stylesheet" href="cpsloeventsapp.css">
 
-<script src="Home/homeController.js"></script>
-<script src="Register/registerController.js"></script>
-<script src="Login/loginController.js"></script>
-<script src="Login/loginService.js"></script>
-<script src="Event/evtDetailController.js"></script>
-<script src="Event/evtOverviewController.js"></script>
-<script src="Event/evtPrsOverviewController.js"></script>
-<script src="Util/notifyDlg.js"></script>
-<script src="ui-routes.js"></script>
+<body ng-app="MainApp" ng-cloak>
+   <!--  HTML content -->  
+   <div>
+       <md-nav-bar
+         md-selected-nav-item="currentNavItem"
+         nav-bar-aria-label="navigation links">
+         <md-nav-item md-nav-sref="login" name="login" ng-if="!user">
+            Login
+         </md-nav-item>          
 
-<body ng-app="mainApp">
- <nav class="nav navbar-default">
-      <ul class="nav navbar-nav">
-         <li ng-if="!user">
-            <a ui-sref="login">Login</a>
-         </li>
-         <li ng-if="!user">
-            <a ui-sref="register">Register</a>
-         </li>
-         <li ng-if="!!user">
-            <a ui-sref="cnvOverview">All Events</a>
-         </li>
-         <li ng-if="!!user">
-            <a ui-sref="cnvPrsOverview({owner: {{user.id}}})">
-               My Events
-            </a>
-         </li>
-      </ul>
-      <ul class="nav navbar-nav pull-right">
-         <li ng-if="!!user" ng-controller="loginController">
-            <a ng-click="logout()">Logout</a></li>
-         
-         <li ng-if="!!user" class="navbar-text">
-            {{user.firstName + " " + user.lastName}}
-         </li>
-         
-         <li ng-controller="langDropController" 
-            class="navbar-text" style="display:inline-block">
-            <select
-               ng-model="selectedLang"
-               ng-change="changeLang(selectedLang)"
-               ng-options="lang for lang in languages">
-            </select>
-         </li>
-      </ul>
-   </nav>
-   <ui-view/>
+         <md-nav-item md-nav-sref="register" name="register" ng-if="!user">
+            Register
+         </md-nav-item>
+
+         <md-nav-item md-nav-sref="evtOverview" name="evtOverview" ng-if="!user">
+            All Events
+         </md-nav-item>
+
+         <md-nav-item md-nav-sref="evtPrsOveriew" name="evtPrsOverview" ng-if="!user">
+            Your Events
+         </md-nav-item>
+
+         <!-- Right justify Logout button --> 
+         <span flex></span>
+         <md-nav-item md-nav-sref="logout" name="logout" ng-if="!user">
+            Logout
+         </md-nav-item>
+      </md-nav-bar>
+      <ui-view/>
+   </div>
+
+   <!-- Angular Material requires Angular.js Libraries -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+   <!-- ui.router + ui.bootstrap -->
+   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+   <!-- Angular Material Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+   
+   <script src="cpsloeventsapp.js"></script>
+   <script src="Home/homeController.js"></script>
+   <script src="Register/registerController.js"></script>
+   <script src="Login/loginController.js"></script>
+   <script src="Login/loginService.js"></script>
+   <script src="Event/evtDetailController.js"></script>
+   <script src="Event/evtOverviewController.js"></script>
+   <script src="Event/evtPrsOverviewController.js"></script>
+   <script src="Util/notifyDlg.js"></script>
+   <script src="ui-routes.js"></script>
 </body>
 </html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at https://material.angularjs.org/license.
+-->

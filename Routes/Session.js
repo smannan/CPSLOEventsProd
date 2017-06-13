@@ -14,14 +14,9 @@ var Session = function Session(user) {
    this.lastName = user.lastName;
    this.id = user.id;
    this.email = user.email;
-   this.role = user.role;
 
    this.loginTime = new Date().getTime();
    this.lastUsed = new Date().getTime();
-};
-
-Session.prototype.isAdmin = function() {
-   return this.role == 1;
 };
 
 // Export a function that logs in |user| by creating an authToken and sending it back

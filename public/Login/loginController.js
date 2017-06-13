@@ -1,9 +1,6 @@
 app.controller('loginController', 
  ['$rootScope', '$scope', '$state', 'login', 'notifyDlg', 
  function($rootScope, $scope, $state, login, nDlg) {
-   // Autologin as admin for testing
-   // $scope.user = {email: "adm@11.com", password: "password"};
-   
    $scope.login = function() {
       console.log("Trying to login user " + $scope.user.email);
       

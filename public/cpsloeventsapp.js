@@ -1,4 +1,5 @@
-var app = angular.module('mainApp', [
+var app = angular.module('MainApp', [
+   'ngMaterial',
    'ui.router',
    'ui.bootstrap'
 ]);
@@ -19,10 +20,10 @@ app.constant("errMap", {
    queryFailed: 'Query failed (server problem).'
 });
 
-app.filter('tagError', ['errMap', 'errLangCode', 
- function(errMap, errLangCode) {
+app.filter('tagError', ['errMap'/*, 'errLangCode'*/, 
+ function(errMap, /*errLangCode*/) {
    return function(err) {
-      return errLangCode.chosenCode + " " + errMap[err.tag] + " " + 
+      return /*errLangCode.chosenCode + " " + */errMap[err.tag] + " " + 
        (err.params ? err.params[0] : "");
    };
 }]);
@@ -58,7 +59,7 @@ app.directive('cnvDetail', [function() {
       '{{msg.email}}</div><br/>{{msg.content}}'
    };
 }]);
-
+/*
 app.service("errLangCode", [function() {
    this.chosenCode = "[EN]";
 }]);
@@ -88,5 +89,5 @@ app.controller("langDropController", ["$scope", "errLangCode",
          modifyDrop(codes.es, ["Ingles", "Espanol"], "Espanol");
        }
     }
-}]);
+}]); */
 
