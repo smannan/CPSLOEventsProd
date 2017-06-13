@@ -10,19 +10,19 @@ var ssnUtil = require('../Session.js');
 router.baseURL = '/Evts';
 
 router.get('/', function (req, res) {
-	var start = req.query.start;
-   var end = req.query.end;
+	var start = new Date(req.query.start);
+   var end = new Date(req.query.end);
    var loc = req.query.loc;
    var owner = req.query.owner; 
    var id = req.session.id;
 
-   var query = 'select id, name, organizerId, ' + 
-    'unix_timestamp(time) as time, city, state, ' +
-    'country, address, private, description, zipCode ' +
+   var query = 'select distinct Event.id, title, orgId, ' + 
+    'unix_timestamp(date) as date, city, state, ' +
+    'country, addr, private, descr, zip ' +
     'from Event join Reservation where (Event.id = ' +
     'Reservation.evtId or Event.private = 0 or ' +
-    'Event.organizerId = id)';
-   var params = [];
+    'Event.orgId = ?)';
+   var params = [id];
 
    /* limited to Event organized by
     * the specified owner if query param
@@ -34,12 +34,12 @@ router.get('/', function (req, res) {
    }
 
    if (start) {
-      query += ' and date >= ? '
+      query += ' and unix_timestamp(date) >= ? '
       params.push(start.getTime())
    }
 
    if (end) {
-      query += ' and date <= ? '
+      query += ' and unix_timestamp(date) <= ? '
       params.push(end.getTime())
    }
 
