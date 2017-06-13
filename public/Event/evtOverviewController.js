@@ -2,45 +2,55 @@ app.controller('evtOverviewController',
  ['$scope', '$state', '$http', '$uibModal', 'notifyDlg'/*, 'evts'*/,
  function($scope, $state, $http, $uibM, nDlg/*,evts*/) {
    $scope.evts = "HELLO";
-    var imagePath = 'MaterialIcon.png';
+    var imagePath = 'Icons/MaterialIcon.png';
     
     // Hard coded events
     $scope.dumbEvts = [
       {
-        face: imagePath,
-        what: 'Description 1',
-        who: 'Event 1',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
+         face: imagePath, 
+         evtName: "Event 1",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
       },
       {
-        face: imagePath,
-        what: 'Description 2',
-        who: 'Event 2',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
+         face: imagePath, 
+         evtName: "Event 2",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
       },
       {
-        face: imagePath,
-        what: 'Description 3',
-        who: 'Event 3',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
+         face: imagePath, 
+         evtName: "Event 3",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
       },
       {
-        face: imagePath,
-        what: 'Description 4',
-        who: 'Event 4',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
+         face: imagePath, 
+         evtName: "Event 4",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
       },
       {
-        face: imagePath,
-        what: 'Description 5',
-        who: 'Event 5',
-        when: '3:08PM',
-        notes: " I'll be in your neighborhood doing errands"
-      },
+         face: imagePath, 
+         evtName: "Event 5",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
+      }
     ]; 
     
    displayError = function(err) {

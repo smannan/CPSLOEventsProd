@@ -27,6 +27,10 @@
             Register
          </md-nav-item>
 
+         <md-nav-item md-nav-sref="rsvsOverview" name="rsvsOverview" ng-if="!user">
+            Your Reservations
+         </md-nav-item>
+          
          <md-nav-item md-nav-sref="evtOverview" name="evtOverview" ng-if="!user">
             All Events
          </md-nav-item>

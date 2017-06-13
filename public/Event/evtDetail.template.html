@@ -1,4 +1,23 @@
-<h2>{{evtTitle}}</h2>
+<h1 style="margin-left:7px; font-family:'Roboto', san-serif;">EVENT TITLE HERE</h1>
+<md-content flex layout-padding>
+   <md-divider></md-divider>
+   <h3 style="font-style: italic">
+      DATE, TIME @ LOCATION
+   </h3>
+   <md-divider></md-divider>
+
+   <p>Event description would go here. Lorem ipsum dolor sit amet, ne quod novum mei. Sea omnium invenire mediocrem at, in lobortis conclusionemque nam. Ne deleniti appetere reprimique pro, inani labitur disputationi te sed. At vix sale omnesque, id pro labitur reformidans accommodare, cum labores honestatis eu. Nec quem lucilius in, eam praesent reformidans no. Sed laudem aliquam ne.</p>
+
+   <md-divider></md-divider>
+   
+   <span>
+   <md-button class="md-primary md-raised" ng-click="createEvt()">Going</md-button>
+      <md-button class="md-secondary md-raised" ng-click="createEvt()">Maybe</md-button>
+      <md-button class="md-primary md-raised md-warn" ng-click="createEvt()">Not Going</md-button>
+   </span>
+</md-content>
+
+<!--<h2>{{evtTitle}}</h2>
 <div class="list-group">
    <div class="list-group-item" ng-repeat="evt in events">
       <cnv-detail evt="evt"></cnv-detail>
@@ -16,4 +35,4 @@
            style="margin-top:10px;" 
            ng-click="createEvent()">New Event
    </button>
-</div>
+</div> -->

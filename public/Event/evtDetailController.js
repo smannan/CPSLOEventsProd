@@ -1,9 +1,9 @@
 app.controller("evtDetailController", 
  ['$scope', '$stateParams', '$state', '$http', 'notifyDlg',
  function($scope, $stateParams, $state, $http, nDlg) {
-   var evtId = $stateParams.evtId;
+   var evtId = 1/*$stateParams.evtId*/;
   
-   $http.get('/Cnvs/' + evtId + '/Msgs')
+   /*$http.get('/Evts/' + evtId + '/')
    .then(function(response) {
       $scope.events = response.data;
    })
@@ -17,10 +17,10 @@ app.controller("evtDetailController",
           evtId, "Error");
       }
       else {
-         $http.post('/Cnvs/' + evtId + '/Msgs', {content: $scope.newEvent})
+         $http.post('/Evts/' + evtId + '/Msgs', {content: $scope.newEvent})
          .then(function() {
             $scope.newEvent = null;
-            return $http.get('/Cnvs/' + evtId + '/Msgs')
+            //return $http.get('/Cnvs/' + evtId + '/Msgs')
          })
          .then(function(response) {
             $scope.messages = response.data;
@@ -31,5 +31,5 @@ app.controller("evtDetailController",
             }
          })
       }
-   };
+   };*/
 }]);
