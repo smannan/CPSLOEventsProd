@@ -14,6 +14,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Login/login.template.html',
          controller: 'loginController',
       })
+      // Currently just takes you to login page
+      .state('logout', {
+         url: '/login',
+         controller: 'loginController'
+      })
       .state('register', {
          url: '/register',
          templateUrl: 'Register/register.template.html',
@@ -22,7 +27,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
       .state('evtPrsOverview', {
          url: '/myEvts/', //TODO: Query param needs to go after myEvts
          templateUrl: 'Event/evtOverview.template.html',
-         controller: 'evtPrsOverviewController',
+         controller: 'evtOverviewController',
          resolve: {
             /*cnvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {

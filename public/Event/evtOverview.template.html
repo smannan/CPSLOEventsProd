@@ -2,17 +2,19 @@
 <md-content>
    <md-list flex>
       <md-divider></md-divider>
-         <md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="null">
+         <md-list-item class="md-3-line" ng-repeat="item in dumbEvts" ng-click="null">
             <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
                <div class="md-list-item-text" layout="column">
-                  <h3>{{ item.who }}</h3>
-                  <h4>{{ item.what }}</h4>
-                  <p>{{ item.notes }}</p>
-                  <md-divider ></md-divider>
+                  <h3>{{item.who}} on [DATE HERE] at {{item.when}}</h3>
+                  <h4>{{item.what}}</h4>
+                  <p>{{item.notes}}</p>
+                  <md-divider></md-divider>
                </div>
          </md-list-item>
     </md-list>
 </md-content>
+
+<md-button class="md-primary md-raised" ng-click="createEvt()">New Event</md-button>
 
 <!-- <h2>Events</h2>
 <div class="list-group">
