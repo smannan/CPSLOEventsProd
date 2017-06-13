@@ -33,9 +33,11 @@
 				"bb9778af-6a03-f166-01b0-6059ab88981b",
 				"b9ec4dab-35cb-a29d-fa26-9c3e65d80934",
 				"0432e920-2bc4-e92a-b4d1-44376862b76b",
+				"0e5e6a9c-7a19-ba06-1bab-c5c69b174aa3",
 				"a0ca2e62-ee5f-85d2-6513-3b0e33a32e38",
 				"cf2afe8d-0e4d-d493-027a-834b0a082036"
-			]
+			],
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
 			"owner": "1538467",
@@ -50,6 +52,8 @@
 				"26a94747-a791-53d2-b417-0541e2d28c41",
 				"6d1c6485-2053-7840-1e8d-bdd8d045e8b5",
 				"c92d6bb1-0104-c5ac-4f04-06a92a51d0d5",
+				"e2230c53-f02f-6737-a37d-c928d19e9639",
+				"3eb6f0f9-27b0-20dc-787c-c4e83786e7e1",
 				"2e8b4a74-76e6-d69c-84d5-d42fe44a819b",
 				"4b792562-6cc6-8529-49e9-f6779ffca82b",
 				"147db0a0-fbd0-ca46-c10b-35a7ff8bd33d",
@@ -67,7 +71,8 @@
 				"93953079-b361-9698-cf55-3ddc994345f7",
 				"927ead75-4f05-5b64-32c4-48d26b40738f",
 				"39ee8a64-d0f6-07d2-343d-643c645e3262"
-			]
+			],
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
 			"owner": "1538467",
@@ -94,8 +99,8 @@
 			"name": "4 Prs Reservations",
 			"description": "",
 			"order": [
-				"b0fa7ecc-10f5-830b-4f73-9028ea07b39d",
 				"24f66105-b2a5-7f53-0dc2-6984c6b2403d",
+				"b0fa7ecc-10f5-830b-4f73-9028ea07b39d",
 				"658ac5be-cbf7-179c-db3b-290df4b022cc",
 				"fa57eac7-40c5-077a-9560-576754d392a0",
 				"0a131595-f4c4-508b-f264-f3eb9c8acec9",
@@ -136,26 +141,32 @@
 			"rawModeData": "{\n    \"email\": \"UserB@domainB\",\n    \"firstName\": \"FirstB\",\n    \"lastName\" : \"LastB\",\n    \"password\" : \"passwordB\"\n}"
 		},
 		{
-			"folder": "bb261666-1358-2771-9505-f3c29d591626",
 			"id": "05b0b620-e350-7dc0-3738-969370135627",
-			"name": "Register Person B",
-			"dataMode": "raw",
-			"data": [],
-			"rawModeData": "",
-			"descriptionFormat": null,
-			"description": "\n",
 			"headers": "Content-Type: application/json\n",
-			"method": "POST",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Prss",
+			"queryParams": [],
 			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
-			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
+			"time": 1497324587398,
+			"name": "Register Person B",
+			"description": "\n",
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
+			"rawModeData": "{\n    \"email\": \"UserB@domainB\",\n    \"firstName\": \"FirstB\",\n    \"lastName\" : \"LastB\",\n    \"password\" : \"passwordB\"\n}"
 		},
 		{
 			"id": "0a131595-f4c4-508b-f264-f3eb9c8acec9",
@@ -179,12 +190,40 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497033271322,
+			"time": 1497327302686,
 			"name": "Event A Rsv for Person A",
 			"description": "\n",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
 			"responses": [],
-			"rawModeData": "{\n\tpersonId: 1,\n\tstatus: \"maybe\"\n}"
+			"rawModeData": "{\n\t\"prsId\": 1,\n\t\"status\": \"Maybe\"\n}"
+		},
+		{
+			"id": "0e5e6a9c-7a19-ba06-1bab-c5c69b174aa3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/Ssns",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "var locURL = postman.getResponseHeader(\"Location\").split('/');\nvar cookie = postman.getResponseCookie(\"CHSAuth\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Cookie Returned\"] = cookie && cookie.value !== undefined;\n\nif (tests[\"Cookie Returned\"]) {\n   postman.setEnvironmentVariable(\"curLogin\", cookie.value);\n   tests[\"Cookie matches session\"] = locURL[locURL.length - 1]\n    === cookie.value;\n}",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1497323689427,
+			"name": "Login as Person B",
+			"description": "Good Login\n",
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
+			"rawModeData": "{\"email\": \"UserB@domainB\", \"password\": \"passwordB\"}"
 		},
 		{
 			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
@@ -243,10 +282,10 @@
 			"data": null,
 			"dataMode": "params",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"1 reservation\"] = jsonData.length === 1 && jsonData[0].eventId === 1 && jsonData[0].title === \"End of BBQ\"\n    && jsonData[0].status === \"going\";",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"1 reservation\"] = jsonData.length === 1 && jsonData[0].evtId === 1 && jsonData[0].title === \"End of BBQ\"\n    && jsonData[0].status === \"Going\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497033421383,
+			"time": 1497327469815,
 			"name": "Person A Reservations",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
@@ -409,9 +448,44 @@
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
+			"id": "3eb6f0f9-27b0-20dc-787c-c4e83786e7e1",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/Prss?email=InvalidUser",
+			"queryParams": [
+				{
+					"key": "email",
+					"value": "InvalidUser",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"No results\"] = responseBody === \"[]\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1497325339406,
+			"name": "Get Info With Invalid Email",
+			"description": "",
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
+		},
+		{
 			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
 			"id": "4b792562-6cc6-8529-49e9-f6779ffca82b",
-			"name": "Edit Person Invalid",
+			"name": "Edit Person Email",
 			"dataMode": "raw",
 			"data": [],
 			"descriptionFormat": null,
@@ -475,48 +549,60 @@
 			"rawModeData": "{\n    \"email\": \"UserA@domainA\",\n    \"firstName\": \"FirstA\",\n    \"lastName\" : \"LastA\",\n    \"password\" : \"passwordA\"\n}"
 		},
 		{
-			"folder": "f19968a0-ded4-7c29-174c-01edaaf417c8",
 			"id": "579229a1-869e-8818-c5e6-909f31e9af28",
-			"name": "Login as Person A",
-			"dataMode": "raw",
-			"data": [],
-			"descriptionFormat": null,
-			"description": "Good Login\n",
 			"headers": "Content-Type: application/json\n",
-			"method": "POST",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Ssns",
+			"queryParams": [],
 			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
 			"tests": "var locURL = postman.getResponseHeader(\"Location\").split('/');\nvar cookie = postman.getResponseCookie(\"CHSAuth\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Cookie Returned\"] = cookie && cookie.value !== undefined;\n\nif (tests[\"Cookie Returned\"]) {\n   postman.setEnvironmentVariable(\"curLogin\", cookie.value);\n   tests[\"Cookie matches session\"] = locURL[locURL.length - 1]\n    === cookie.value;\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
+			"time": 1497323679139,
+			"name": "Login as Person A",
+			"description": "Good Login\n",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
-			"rawModeData": "{\"email\": \"userA@domainA\", \"password\": \"passwordA\"}"
+			"rawModeData": "{\"email\": \"UserA@domainA\", \"password\": \"passwordA\"}"
 		},
 		{
-			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
 			"id": "5a9a9876-def5-edbf-b853-29df3978b555",
-			"name": "Login as Person B",
-			"dataMode": "raw",
-			"data": [],
-			"rawModeData": "",
-			"descriptionFormat": null,
-			"description": "Good Login\n",
 			"headers": "Content-Type: application/json\n",
-			"method": "POST",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Ssns",
+			"queryParams": [],
 			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
 			"tests": "var locURL = postman.getResponseHeader(\"Location\").split('/');\nvar cookie = postman.getResponseCookie(\"CHSAuth\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Cookie Returned\"] = cookie && cookie.value !== undefined;\n\nif (tests[\"Cookie Returned\"]) {\n   postman.setEnvironmentVariable(\"curLogin\", cookie.value);\n   tests[\"Cookie matches session\"] = locURL[locURL.length - 1]\n    === cookie.value;\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
-			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
+			"time": 1497324343040,
+			"name": "Login as Person B",
+			"description": "Good Login\n",
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
+			"rawModeData": "{\"email\": \"UserB@domainB\", \"password\": \"passwordB\"}"
 		},
 		{
 			"folder": "bb261666-1358-2771-9505-f3c29d591626",
@@ -575,10 +661,10 @@
 			"data": null,
 			"dataMode": "params",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"No reservations\"] = responseBody === [];",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"No reservations\"] = responseBody === \"[]\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497032357111,
+			"time": 1497327073527,
 			"name": "Person A Reservations",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
@@ -606,32 +692,37 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\n\ntests[\"bad status\"] = responseBody.has(\"badValue\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497033829878,
+			"time": 1497327447733,
 			"name": "Person A Rsv1 Status Invalid",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
-			"rawModeData": "{\n\tstatus: \"idk\"\n}"
+			"rawModeData": "{\n\t\"status\": \"idk\"\n}"
 		},
 		{
-			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
 			"id": "6d1c6485-2053-7840-1e8d-bdd8d045e8b5",
-			"name": "Get Info With Login",
-			"dataMode": "params",
-			"data": null,
-			"rawModeData": null,
-			"descriptionFormat": null,
-			"description": "",
 			"headers": "Content-Type: application/json\n",
-			"method": "GET",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Prss/1",
+			"queryParams": [],
 			"preRequestScript": null,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"Body matches string\"] = jsonData[0].id === 1 && jsonData[0].email === \"UserA@domainA\"\n    && jsonData[0].firstName === \"FirstA\" && jsonData[0].lastName === \"LastA\";\n    \ntests[\"Has only required info\"] = !responseBody.has(\"password\") && responseBody.has(\"City\") && responseBody.has(\"State\")\n    && responseBody.has(\"ZipCode\") && responseBody.has(\"Country\");",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"Body matches string\"] = jsonData[0].id === 1 && jsonData[0].email === \"UserA@domainA\"\n    && jsonData[0].firstName === \"FirstA\" && jsonData[0].lastName === \"LastA\";\n    \ntests[\"Has only required info\"] = !responseBody.has(\"password\") && responseBody.has(\"firstName\")\n    && responseBody.has(\"lastName\") && responseBody.has(\"email\") && responseBody.has(\"city\")\n    && responseBody.has(\"state\") && responseBody.has(\"zip\") && responseBody.has(\"country\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
+			"time": 1497324038698,
+			"name": "Get Info With Login",
+			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
@@ -669,10 +760,10 @@
 			"data": null,
 			"dataMode": "params",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"1 reservation\"] = jsonData.length === 1 && jsonData[0].eventId === 1 && jsonData[0].title === \"End of BBQ\"\n    && jsonData[0].status === \"maybe\";",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"1 reservation\"] = jsonData.length === 1 && jsonData[0].evtId === 1 && jsonData[0].title === \"End of BBQ\"\n    && jsonData[0].status === \"Maybe\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497033294581,
+			"time": 1497327400244,
 			"name": "Person A Reservations",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
@@ -876,33 +967,40 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497033394768,
+			"time": 1497327436877,
 			"name": "Person A Rsv1 Status Going",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
-			"rawModeData": "{\n\tstatus: \"going\"\n}"
+			"rawModeData": "{\n\t\"status\": \"Going\"\n}"
 		},
 		{
 			"id": "b0fa7ecc-10f5-830b-4f73-9028ea07b39d",
 			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Evts",
+			"queryParams": [],
 			"preRequestScript": "",
 			"pathVariables": {},
+			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1496965240827,
-			"name": "Create EventA copy",
+			"helperAttributes": {},
+			"time": 1497327023243,
+			"name": "Create EventA",
 			"description": "\n",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"desc\":\"End of BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"End of BBQ\"\n}",
-			"folder": "63aa5140-e2e6-0d99-05a8-983f3499bed7",
-			"isFromCollection": true,
-			"collectionRequestId": "e00ca4c8-214f-0861-9594-d56a33c7ea39"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of BBQ\"\n}"
 		},
 		{
 			"folder": "f19968a0-ded4-7c29-174c-01edaaf417c8",
@@ -927,48 +1025,60 @@
 			"rawModeData": "{\n    \"email\": \"UserA@domainA\",\n    \"firstName\": \"FirstA\",\n    \"lastName\" : \"LastA\",\n    \"password\" : \"\"\n}"
 		},
 		{
-			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
 			"id": "b40817f1-ad8d-ee9f-7501-d001539012f5",
-			"name": "Edit Person B",
-			"dataMode": "raw",
-			"data": [],
-			"descriptionFormat": null,
-			"description": "",
 			"headers": "Content-Type: application/json\n",
-			"method": "PUT",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Prss/2",
+			"queryParams": [],
 			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Body matches string\"] = responseBody === \"\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
+			"time": 1497324504175,
+			"name": "Edit Person B",
+			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
-			"rawModeData": "{\n  firstName: \"firstB2\"\n  password: \"newpass\",\n  oldPassword: \"passwordB\"\n}"
+			"rawModeData": "{\n  \"firstName\": \"FirstB2\",\n  \"password\": \"newpass\",\n  \"oldPassword\": \"passwordB\"\n}"
 		},
 		{
-			"folder": "bb261666-1358-2771-9505-f3c29d591626",
 			"id": "b61e648d-4878-9a72-c2e5-4c510f0377c9",
-			"name": "Login as Person B",
-			"dataMode": "raw",
-			"data": [],
-			"descriptionFormat": null,
-			"description": "",
 			"headers": "Content-Type: application/json\n",
-			"method": "POST",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Ssns",
+			"queryParams": [],
 			"preRequestScript": "",
-			"tests": "tests[\"Code 200\"] = responseCode.code === 200;\n\ntests[\"Cookie Returned\"] = postman.getResponseCookie(\"CHSAuth\")\n !== null && postman.getResponseCookie(\"CHSAuth\").value !== undefined;\nif (tests[\"Cookie Returned\"])\n   postman.setEnvironmentVariable(\"curLogin\",\n    postman.getResponseCookie(\"CHSAuth\").value)\n    \npostman.setEnvironmentVariable(\"otherLogin\", \"curLogin\");",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Code 200\"] = responseCode.code === 200;\n\ntests[\"Cookie Returned\"] = postman.getResponseCookie(\"CHSAuth\")\n !== null && postman.getResponseCookie(\"CHSAuth\").value !== undefined;\nif (tests[\"Cookie Returned\"])\n   postman.setEnvironmentVariable(\"curLogin\",\n    postman.getResponseCookie(\"CHSAuth\").value)\n    \npostman.setEnvironmentVariable(\"otherLogin\", postman.getEnvironmentVariable(\"curLogin\"));",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
+			"time": 1497326738209,
+			"name": "Login as Person B",
+			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
-			"rawModeData": "{\n    \"email\": \"UserA@domainA\",\n    \"password\" : \"passwordA\"\n}"
+			"rawModeData": "{\n    \"email\": \"UserB@domainB\",\n    \"password\" : \"passwordB\"\n}"
 		},
 		{
 			"folder": "f19968a0-ded4-7c29-174c-01edaaf417c8",
@@ -1015,24 +1125,30 @@
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
-			"folder": "f19968a0-ded4-7c29-174c-01edaaf417c8",
 			"id": "bb9778af-6a03-f166-01b0-6059ab88981b",
-			"name": "Register Person w/o Body",
-			"dataMode": "raw",
-			"data": [],
-			"descriptionFormat": null,
-			"description": "\n",
 			"headers": "Content-Type: application/json\n",
-			"method": "POST",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Prss",
+			"queryParams": [],
 			"preRequestScript": "",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"Body matches string\"] = jsonData.length === 6 && responseBody.has(\"password\") && responseBody.has(\"email\") && responseBody.has(\"lastName\");",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"Body matches string\"] = jsonData.length === 3 && responseBody.has(\"password\") && responseBody.has(\"email\") && responseBody.has(\"lastName\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
+			"time": 1497323569349,
+			"name": "Register Person w/o Body",
+			"description": "\n",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
 			"rawModeData": "{\n  \"lastName\": \"\",\n  \"email\": \"\"\n}"
 		},
@@ -1081,24 +1197,30 @@
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
-			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
 			"id": "cf5d137f-46d6-68b6-a012-7c8991c2e808",
-			"name": "Edit Invalid Person",
-			"dataMode": "raw",
-			"data": [],
-			"descriptionFormat": null,
-			"description": "",
 			"headers": "Content-Type: application/json\n",
-			"method": "PUT",
-			"pathVariables": {},
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Prss/20",
+			"queryParams": [],
 			"preRequestScript": "",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status code is 403\"] = responseCode.code === 403;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"queryParams": null,
-			"headerData": null,
-			"pathVariableData": null,
+			"time": 1497324367982,
+			"name": "Edit Invalid Person",
+			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
 			"rawModeData": "{\n    \"firstName\": \"FirstAV1\"\n}"
 		},
@@ -1147,6 +1269,41 @@
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
 		},
 		{
+			"id": "e2230c53-f02f-6737-a37d-c928d19e9639",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{url}}/Prss?email=UserB",
+			"queryParams": [
+				{
+					"key": "email",
+					"value": "UserB",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\n\ntests[\"Body matches string\"] = jsonData[0].id === 2 && jsonData[0].email === \"UserB@domainB\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1497324103166,
+			"name": "Get Info With Other Email",
+			"description": "",
+			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53"
+		},
+		{
 			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
 			"id": "e41e77ea-46c6-dd34-f7c8-3e0b8bf5e67b",
 			"name": "Check New Person B Name",
@@ -1190,11 +1347,11 @@
 			"tests": "tests[\"Status code is 403\"] = responseCode.code === 403;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497033445944,
+			"time": 1497327484129,
 			"name": "Update other's reservation",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",
-			"rawModeData": "{\n\tstatus: \"going\"\n}"
+			"rawModeData": "{\n\t\"status\": \"Going\"\n}"
 		},
 		{
 			"folder": "0e6e6427-5904-0a92-9451-034143387f92",
@@ -1222,7 +1379,7 @@
 			"id": "fa57eac7-40c5-077a-9560-576754d392a0",
 			"headers": "",
 			"headerData": [],
-			"url": "{{url}}/Prss/1/Rsvs",
+			"url": "{{url}}/Prss/2/Rsvs",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -1234,7 +1391,7 @@
 			"tests": "tests[\"Status code is 403\"] = responseCode.code === 403;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497032417309,
+			"time": 1497327095424,
 			"name": "Person B Reservations",
 			"description": "",
 			"collectionId": "d5c51b1f-db15-439b-ed80-75d5f12fff53",

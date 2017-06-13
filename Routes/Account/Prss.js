@@ -26,10 +26,7 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
    var vld = req.validator;  // Shorthands
    var body = req.body;
-   //~~~ var admin = req.session && req.session.isAdmin();
    var cnn = req.cnn;
-                        // Blocking password
-   body.whenRegistered = new Date();
 
    // remove fields with empty string or null values
    if (!body.email)
@@ -64,7 +61,7 @@ router.get('/:id', function(req, res) {
 
    if (vld.checkPrsOK(req.params.id)) {
       req.cnn.chkQry('select id, firstName, lastName, email, city, state,' +
-       ' zipCode, country from Person where id = ?', [req.params.id],
+       ' zip, country from Person where id = ?', [req.params.id],
       function(err, prsArr) {
          if (vld.check(prsArr.length, Tags.notFound)) {
             res.json(prsArr);
@@ -88,7 +85,7 @@ router.put('/:id', function(req, res) {
    function(cb) {
       if (vld.checkPrsOK(req.params.id, cb) &&
        vld.hasOnlyFields(body, ["firstName", "lastName", "password",
-       "oldPassword", "city", "state", "zipCode", "country"])
+       "oldPassword", "city", "state", "zip", "country"])
        .check((!body.password && body.password !== "") || body.oldPassword,
        Tags.noOldPwd, null, cb)) {
          cnn.chkQry('select * from Person where id = ?', [req.params.id], cb);
@@ -96,8 +93,8 @@ router.put('/:id', function(req, res) {
    },
    function(qRes, fields, cb) {
       if (vld.check(qRes.length, Tags.notFound,  null, cb) && 
-       vld.check(admin || !body.password ||
-       qRes[0].password === body.oldPassword, Tags.oldPwdMismatch, null, cb)) {
+       vld.check(!body.password || qRes[0].password === body.oldPassword,
+       Tags.oldPwdMismatch, null, cb)) {
          delete body.oldPassword;
          cnn.chkQry("update Person set ? where id = ?",
           [body, req.params.id], cb);
@@ -115,7 +112,7 @@ router.put('/:id', function(req, res) {
 router.delete('/:id', function(req, res) {
    var vld = req.validator;
 
-   if (vld.checkAdmin())
+   if (vld.checkPrsOK(req.params.id, null))
       req.cnn.chkQry('DELETE from Person where id = ?', [req.params.id],
       function (err, result) {
          if (!err && vld.check(result.affectedRows, Tags.notFound))
@@ -127,6 +124,63 @@ router.delete('/:id', function(req, res) {
    else {
       req.cnn.release();
    }
+});
+
+router.get('/:id/Rsvs', function(req, res) {
+	var vld = req.validator;
+	var cnn = req.cnn;
+	var prsId = req.params.id;
+	var query = 'select r.id, p.firstName, p.lastName, r.status, r.evtId,' +
+	 ' e.title, e.date from Reservation r join Event e on r.evtId = e.id' +
+	 ' join Person p on r.prsId = p.id where p.id = ?';
+
+   async.waterfall([
+   function(cb) {  // Check for existence of person
+   	if (vld.checkPrsOK(prsId, cb))
+      	cnn.chkQry('select * from Person where id = ?', [prsId], cb);
+   },
+   function(prss, fields, cb) { // Get indicated reservations
+      if (vld.check(prss.length, Tags.notFound, null, cb))
+         cnn.chkQry(query, [prsId], cb);
+   },
+   function(rsvs, fields, cb) { // Return retrieved reservations
+      res.json(rsvs);
+      cb();
+   }],
+   function(err){
+      cnn.release();
+   });
+});
+
+router.put('/:id/Rsvs/:rsvId', function(req, res) {
+	var vld = req.validator;
+	var cnn = req.cnn;
+	var prsId = req.params.id;
+	var rsvId = req.params.rsvId;
+	var body = req.body;
+	var query = 'update Reservation set status = ? where id = ?';
+
+	async.waterfall([
+   function(cb) {  // Check for existence of person
+   	if (vld.checkPrsOK(prsId, cb))
+      	cnn.chkQry('select * from Person where id = ?', [prsId], cb);
+   },
+   function(prss, fields, cb) { // Check for existence of reservation
+   	if (vld.check(prss.length, Tags.notFound, null, cb))
+   		cnn.chkQry('select * from Reservation where id = ? and prsId = ?', 
+   	 	 [rsvId, prsId], cb);
+   },
+   function(rsvs, fields, cb) { // update indicated reservations
+      if (vld.check(rsvs.length, Tags.notFound, null, cb) &&
+       vld.check(body.status === "Going" || body.status === "Maybe" ||
+       body.status === "Not Going", Tags.badValue, ["status"], cb))
+         cnn.chkQry(query, [body.status, prsId], cb);
+   }],
+   function(err) {
+   	if (!err)
+         res.status(200).end();
+      cnn.release();
+   });
 });
 
 module.exports = router;
