@@ -24,6 +24,20 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Register/register.template.html',
          controller: 'registerController',
       })
+      .state('rsvsOverview', {
+         url: '/Rsvs/', //TODO: Query param needs to go after myEvts
+         templateUrl: 'Reservation/rsvsOverview.template.html',
+         controller: 'rsvsOverviewController',
+         resolve: {
+            /*cnvs: ['$q', '$http', '$stateParams', 
+             function($q, $http, $stateParams) {
+               return $http.get("Evt?owner=" + $stateParams.owner)
+               .then(function(response) {
+                  return response.data;
+               });
+            }]*/
+         },
+      })
       .state('evtPrsOverview', {
          url: '/myEvts/', //TODO: Query param needs to go after myEvts
          templateUrl: 'Event/evtOverview.template.html',
