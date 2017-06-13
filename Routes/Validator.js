@@ -64,16 +64,10 @@ Validator.prototype.chain = function(test, tag, params) {
    return this;
 };
 
-Validator.prototype.checkAdmin = function(cb) {
-   return this.check(this.session && this.session.isAdmin(),
-    Validator.Tags.noPermission, null, cb);
-};
-
-// Validate that AU is the specified person or is an admin
+// Validate that AU is the specified person
 Validator.prototype.checkPrsOK = function(prsId, cb) {
 
-   return this.check(this.session &&
-    (this.session.isAdmin() || this.session.id == prsId),
+   return this.check(this.session && this.session.id == prsId,
     Validator.Tags.noPermission, null, cb);
 };
 
