@@ -1,4 +1,4 @@
-var app = angular.module('mainApp', [
+var app = angular.module('MainApp', [
    'ngMaterial',
    'ui.router',
    'ui.bootstrap'
