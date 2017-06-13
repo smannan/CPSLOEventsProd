@@ -4,14 +4,14 @@ USE CPSLOEvents;
 
 CREATE TABLE Person (
    id INT AUTO_INCREMENT PRIMARY KEY,
-   firstName VARCHAR(50) NOT NULL,
-   lastName VARCHAR(50) NOT NULL,
+   firstName VARCHAR(50),
+   lastName VARCHAR(50),
    email VARCHAR(50) NOT NULL,
    password VARCHAR(50) NOT NULL,
-   city VARCHAR(50) NOT NULL,
-   state VARCHAR(50) NOT NULL, 
-   zip VARCHAR(50) NOT NULL,
-   country VARCHAR(50) NOT NULL,
+   city VARCHAR(50),
+   state VARCHAR(50), 
+   zip VARCHAR(50),
+   country VARCHAR(50),
    UNIQUE key(email)
 );
 
@@ -19,15 +19,15 @@ CREATE TABLE Event (
    id INT AUTO_INCREMENT PRIMARY KEY,
    title VARCHAR(80) NOT NULL,
    orgId INT NOT NULL,
-   city VARCHAR(50) NOT NULL,
-   state VARCHAR(50) NOT NULL,
-   zip VARCHAR(50) NOT NULL,
-   country VARCHAR(50) NOT NULL,
+   city VARCHAR(50),
+   state VARCHAR(50),
+   zip VARCHAR(50),
+   country VARCHAR(50),
    addr VARCHAR(50) NOT NULL,
    date DATETIME NOT NULL,
-   descr VARCHAR(500) NOT NULL,
-   private BOOL NOT NULL,
-   CONSTRAINT FKEvent_prsId FOREIGN KEY (id) REFERENCES Person (id)
+   descr VARCHAR(500),
+   private BOOL,
+   CONSTRAINT FKEvent_prsId FOREIGN KEY (orgId) REFERENCES Person (id)
     ON DELETE CASCADE
 );
 
