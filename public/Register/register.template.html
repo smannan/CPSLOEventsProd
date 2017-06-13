@@ -2,40 +2,36 @@
    <md-content layout-padding>
     <div>
       <form name="userForm">
+         <md-input-container type="email" class="md-block">
+            <label>Email</label>
+            <input ng-model="user.email" required>
+         </md-input-container>         
+
          <md-input-container class="md-block">
-            <label>First name</label>
+            <label>First Name</label>
             <input ng-model="user.firstName">
          </md-input-container>
          
-         <br/>
-         
          <md-input-container class="md-block">
             <label>Last Name</label>
-            <input ng-model="user.lastName">
+            <input ng-model="user.lastName" required>
          </md-input-container>
-         
-         <br/>
         
-         <md-input-container class="md-block">
+         <md-input-container type="password" class="md-block">
             <label>Password</label>
-            <input ng-model="user.password">
+            <input ng-model="user.password" required>
          </md-input-container>
-         
-         <br/>
-         
-         <md-input-container class="md-block">
-            <label>Repeat Password</label>
-            <input ng-model="repeatPassword">
+
+         <md-input-container type="password" class="md-block">
+            <label>Confirm Password</label>
+            <input ng-model="confPass" required>
          </md-input-container>
-        
-         <br/>
          
          <md-input-container class="md-block">
             <label>City</label>
             <input ng-model="user.city">
          </md-input-container>
 
-         <br/>
          
          <md-input-container class="md-block">
             <label>State</label>
@@ -51,12 +47,15 @@
          <md-input-container class="md-block">
             <label>Zip Code</label>
             <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
-                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+               ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
             
             <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-               <div ng-message="required" class="my-message">You must supply a postal code.</div>
+               <div ng-message="required" class="my-message">
+                  You must supply a postal code.
+               </div>
                <div ng-message="pattern" class="my-message">
-                That doesn't look like a valid postal code.</div>
+                That doesn't look like a valid postal code.
+               </div>
                <div ng-message="md-maxlength" class="my-message">
                   Don't use the long version silly...we don't need to be that specific...
                </div>
@@ -68,6 +67,23 @@
             <input ng-model="user.country">
          </md-input-container>
          
+         <md-input-container class="md-block">
+           <md-checkbox name="tos" ng-model="project.tos" required>
+             I accept the terms of service.
+           </md-checkbox>
+           <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
+             <div ng-message="required">
+               You must accept the terms of service before you can proceed.
+             </div>
+           </div>
+         </md-input-container>
+         
+         <md-button type="submit" class="md-primary md-raised" 
+            ng-click="register()"
+            ng-disabled="!user.email || !user.lastName || !user.password || 
+                         !confPass || user.password !== confPass">
+            Register
+         </md-button>
       </form>
     </div>
   </md-content>

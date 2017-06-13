@@ -1,8 +1,80 @@
 app.controller('evtOverviewController',
- ['$scope', '$state', '$http', '$uibModal', 'notifyDlg', 'evts',
- function($scope, $state, $http, $uibM, nDlg, evts) {
-   $scope.evts = evts;
-
+ ['$scope', '$state', '$http', '$uibModal', 'notifyDlg'/*, 'evts'*/,
+ function($scope, $state, $http, $uibM, nDlg/*,evts*/) {
+   $scope.evts = "HELLO";
+    var imagePath = 'MaterialIcon.png';
+    
+    
+    $scope.phones = [
+      {
+        type: 'Home',
+        number: '(555) 251-1234',
+        options: {
+          icon: 'communication:phone'
+        }
+      },
+      {
+        type: 'Cell',
+        number: '(555) 786-9841',
+        options: {
+          icon: 'communication:phone',
+          avatarIcon: true
+        }
+      },
+      {
+        type: 'Office',
+        number: '(555) 314-1592',
+        options: {
+          face : imagePath
+        }
+      },
+      {
+        type: 'Offset',
+        number: '(555) 192-2010',
+        options: {
+          offset: true,
+          actionIcon: 'communication:phone'
+        }
+      }
+    ];
+    $scope.todos = [
+      {
+        face : imagePath,
+        what: 'Description 1',
+        who: 'Event 1',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        face : imagePath,
+        what: 'Description 2',
+        who: 'Event 2',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        face : imagePath,
+        what: 'Description 3',
+        who: 'Event 3',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        face : imagePath,
+        what: 'Description 4',
+        who: 'Event 4',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        face : imagePath,
+        what: 'Description 5',
+        who: 'Event 5',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+    ]; 
+    
    displayError = function(err) {
      if (err.data[0].tag === "dupTitle") {
          nDlg.show($scope, "Event with this title already " + 

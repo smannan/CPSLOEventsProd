@@ -1,4 +1,20 @@
-<h2>Events</h2>
+<h1 style="margin-left:20px; font-family:'Roboto', san-serif;">Events</h1>
+<md-content>
+   <md-list flex>
+      <md-divider></md-divider>
+         <md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="null">
+            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+               <div class="md-list-item-text" layout="column">
+                  <h3>{{ item.who }}</h3>
+                  <h4>{{ item.what }}</h4>
+                  <p>{{ item.notes }}</p>
+                  <md-divider ></md-divider>
+               </div>
+         </md-list-item>
+    </md-list>
+</md-content>
+
+<!-- <h2>Events</h2>
 <div class="list-group">
    <div class="list-group-item" ng-repeat="evt in evts">
       <cnv-summary to-summarize="evt" edit-evt="editEvt($index)"
@@ -11,4 +27,4 @@
         type="button" 
         style="margin-top:5px" 
         ng-click="newEvent()">New Event
-</button>
+</button> -->
