@@ -31,7 +31,7 @@ app.use(Session.router);
 // otherwise respond immediately with 401 and noLogin error tag.
 app.use(function(req, res, next) {
    if (req.session || (req.method === 'POST' &&
-    (req.path === '/Prss' || req.path === '/Ssns'))) {
+    (req.path === '/Prss' || req.path === '/Ssns') || req.path === '/DB')) {
       req.validator = new Validator(req, res);
       next();
    } else
@@ -48,8 +48,7 @@ app.use('/Evts', require('./Routes/Events/Evts.js'));
 
 // Special debugging route for /DB DELETE.  
 // Clears all table contents,
-// resets all auto_increment keys to start at 1, 
-// and reinserts one admin user.
+// resets all auto_increment keys to start at 1
 app.delete('/DB', function(req, res) {
    var vld = req.validator;
    var cnn = req.cnn;
@@ -61,7 +60,7 @@ app.delete('/DB', function(req, res) {
          cnn.query('delete from Person', callback); 
       },
       function(callback) {
-         cnn.query('delete from Conversation', callback); 
+         cnn.query('delete from Event', callback); 
       },
       function(callback) {
          cnn.query('delete from Reservation', callback);
@@ -83,7 +82,7 @@ app.delete('/DB', function(req, res) {
          for (var session in Session.sessions) {
             delete Session.sessions[session];
          }
-         res.send(200).end();
+         res.sendStatus(200).end();
          callback();
       }
    ],
@@ -91,7 +90,8 @@ app.delete('/DB', function(req, res) {
    /* Finally, release db connection */
    function(err, status) {
       cnn.release();
-      console.log(err);
+      if (err)
+      	console.log(err);
    });
 });
 
