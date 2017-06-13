@@ -10,8 +10,8 @@ var ssnUtil = require('../Session.js');
 router.baseURL = '/Evts';
 
 router.get('/', function (req, res) {
-	var start = new Date(req.query.start);
-   var end = new Date(req.query.end);
+	var start = req.query.start;
+   var end = req.query.end;
    var loc = req.query.loc;
    var owner = req.query.owner; 
    var id = req.session.id;
@@ -34,21 +34,21 @@ router.get('/', function (req, res) {
    }
 
    if (start) {
-      query += ' and unix_timestamp(date) >= ? '
-      params.push(start.getTime())
+      query += ' and unix_timestamp(date)*1000 >= ? '
+      params.push(parseInt(start))
+      console.log('PARAMS')
+      console.log(params)
    }
 
    if (end) {
-      query += ' and unix_timestamp(date) <= ? '
-      params.push(end.getTime())
+      query += ' and unix_timestamp(date)*1000 <= ? '
+      params.push(parseInt(end))
    }
 
    if (loc) {
-      query += ' and zipCode = ? '
+      query += ' and zip = ? '
       params.push(loc)
    }
-
-   console.log(query)
 
    req.cnn.chkQry(query, params,
    function(err, evts) {
