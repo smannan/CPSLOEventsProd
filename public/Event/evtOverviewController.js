@@ -1,75 +1,73 @@
-app.controller('cnvOverviewController',
- ['$scope', '$state', '$http', '$uibModal', 'notifyDlg', 'cnvs',
- function($scope, $state, $http, $uibM, nDlg, cnvs) {
-   $scope.cnvs = cnvs;
+app.controller('evtOverviewController',
+ ['$scope', '$state', '$http', '$uibModal', 'notifyDlg', 'evts',
+ function($scope, $state, $http, $uibM, nDlg, evts) {
+   $scope.evts = evts;
 
    displayError = function(err) {
      if (err.data[0].tag === "dupTitle") {
-         nDlg.show($scope, "Conversation with this title already " + 
+         nDlg.show($scope, "Event with this title already " + 
             "exists!", "Error");
       }
    };
 
-   $scope.newCnv = function() {
-      $scope.dlgTitle = "New Conversation";
+   $scope.newEvt = function() {
+      $scope.dlgTitle = "New Event";
       $uibM.open({
-         templateUrl: 'Conversation/editCnvDlg.template.html',
+         templateUrl: 'Event/editCnvDlg.template.html',
          scope: $scope
       }).result
       .then(function(newTitle) {
-         return $http.post("/Cnvs", {title: newTitle});
+         return $http.post("/Evts", {title: newTitle});
       })
       .then(function() {
-         return $http.get('/Cnvs');
+         return $http.get("/Evts");
       })
       .then(function(response) {
-         $scope.cnvs = response.data;
+         $scope.evts = response.data;
       })
       .catch(function(err) {
-         console.log("DUPS!");
          displayError(err);
       });
    };
 
-   $scope.editCnv = function($index) {
-      var cnvId = $scope.cnvs[$index].id;
+   $scope.editEvt = function($index) {
+      var evtId = $scope.evts[$index].id;
 
-      $scope.dlgTitle = "Edit Conversation Title";
+      $scope.dlgTitle = "Edit Event Title";
       $uibM.open({
-         templateUrl: 'Conversation/editCnvDlg.template.html',
+         templateUrl: 'Event/editCnvDlg.template.html',
          scope: $scope
       }).result
       .then(function(newTitle) {
-         return $http.put("/Cnvs/" + cnvId, {title: newTitle});
+         return $http.put("/Evts/" + evtId, {title: newTitle});
       })
       .then(function() {
          return $http.get("/Cnvs");
       })
       .then(function(response) {
-         $scope.cnvs = response.data;
+         $scope.evts = response.data;
       })
       .catch(function(err) {
-         console.log("DUPS edit");
          displayError(err);
       });
    };
 
-   $scope.delCnv = function($index) {
-      var cnvId = $scope.cnvs[$index].id;
+   $scope.delEvt = function($index) {
+      var evtId = $scope.evts[$index].id;
 
-      nDlg.show($scope, "Delete this Conversation?", "Delete Conversation",
+      nDlg.show($scope, "Delete this event?", "Delete Event",
        ["Yes", "No"])
       .then(function(btn) {
          if (btn === "Yes") {
-            return $http.delete("/Cnvs/" + cnvId, {title:
-            $scope.cnvs[$index].title});
+            return $http.delete("/Evts/" + evtId, {title:
+            $scope.evts[$index].title});
          }
       })
       .then(function() {
-         return $http.get("/Cnvs/");
+         return $http.get("/Evts/");
       })
       .then(function(response) {
-         $scope.cnvs = response.data;
+         $scope.evts = response.data;
       });
    };
 }]);

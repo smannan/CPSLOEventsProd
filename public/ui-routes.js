@@ -20,9 +20,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
          controller: 'registerController',
       })
       .state('evtPrsOverview', {
-         url: '/myEvt?owner',
-         templateUrl: 'Conversation/evtOverview.template.html',
-         controller: 'cnvPrsOverviewController',
+         url: '/myEvts?owner',
+         templateUrl: 'Event/evtOverview.template.html',
+         controller: 'evtPrsOverviewController',
          resolve: {
             cnvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
@@ -34,12 +34,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
          },
       })
       .state('evtOverview', {
-         url: '/evt',
+         url: '/evts',
          templateUrl: 'Event/evtOverview.template.html',
          controller: 'evtOverviewController',
          resolve: {
             cnvs: ['$q', '$http', function($q, $http) {
-               return $http.get('Evt')
+               return $http.get('Evts')
                .then(function(response) {
                   return response.data;
                });

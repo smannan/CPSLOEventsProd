@@ -1,26 +1,26 @@
-app.controller("cnvDetailController", 
+app.controller("evtDetailController", 
  ['$scope', '$stateParams', '$state', '$http', 'notifyDlg',
  function($scope, $stateParams, $state, $http, nDlg) {
-   var cnvId = $stateParams.cnvId;
+   var evtId = $stateParams.evtId;
   
-   $http.get('/Cnvs/' + cnvId + '/Msgs')
+   $http.get('/Cnvs/' + evtId + '/Msgs')
    .then(function(response) {
-      $scope.messages = response.data;
+      $scope.events = response.data;
    })
    .catch(function(err) {
       $scope.messages = null;
    });
    
-   $scope.createMessage = function() {
-      if (!$scope.newMessage) {
-         nDlg.show($scope, "Error: No Message for Conversation " +
-          cnvId, "Error");
+   $scope.createEvent = function() {
+      if (!$scope.newEvent) {
+         nDlg.show($scope, "Error: No Reservation for Event " +
+          evtId, "Error");
       }
       else {
-         $http.post('/Cnvs/' + cnvId + '/Msgs', {content: $scope.newMessage})
+         $http.post('/Cnvs/' + evtId + '/Msgs', {content: $scope.newEvent})
          .then(function() {
-            $scope.newMessage = null;
-            return $http.get('/Cnvs/' + cnvId + '/Msgs')
+            $scope.newEvent = null;
+            return $http.get('/Cnvs/' + evtId + '/Msgs')
          })
          .then(function(response) {
             $scope.messages = response.data;

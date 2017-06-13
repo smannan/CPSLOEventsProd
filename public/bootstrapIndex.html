@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CP SLO Events</title>
+</head>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+<!-- Bootstrap style sheet -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+<script src="cpsloeventsapp.js"></script>
+
+<link rel="stylesheet" href="cpsloeventsapp.css">
+
+<script src="Home/homeController.js"></script>
+<script src="Register/registerController.js"></script>
+<script src="Login/loginController.js"></script>
+<script src="Login/loginService.js"></script>
+<script src="Event/evtDetailController.js"></script>
+<script src="Event/evtOverviewController.js"></script>
+<script src="Event/evtPrsOverviewController.js"></script>
+<script src="Util/notifyDlg.js"></script>
+<script src="ui-routes.js"></script>
+
+<body ng-app="mainApp">
+ <nav class="nav navbar-default">
+      <ul class="nav navbar-nav">
+         <li ng-if="!user">
+            <a ui-sref="login">Login</a>
+         </li>
+         <li ng-if="!user">
+            <a ui-sref="register">Register</a>
+         </li>
+         <li ng-if="!!user">
+            <a ui-sref="cnvOverview">All Events</a>
+         </li>
+         <li ng-if="!!user">
+            <a ui-sref="cnvPrsOverview({owner: {{user.id}}})">
+               My Events
+            </a>
+         </li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+         <li ng-if="!!user" ng-controller="loginController">
+            <a ng-click="logout()">Logout</a></li>
+         
+         <li ng-if="!!user" class="navbar-text">
+            {{user.firstName + " " + user.lastName}}
+         </li>
+         
+         <li ng-controller="langDropController" 
+            class="navbar-text" style="display:inline-block">
+            <select
+               ng-model="selectedLang"
+               ng-change="changeLang(selectedLang)"
+               ng-options="lang for lang in languages">
+            </select>
+         </li>
+      </ul>
+   </nav>
+   <ui-view/>
+</body>
+</html>

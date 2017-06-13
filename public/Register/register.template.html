@@ -1,4 +1,79 @@
-<div>
+<div> 
+   <md-content layout-padding>
+    <div>
+      <form name="userForm">
+         <md-input-container class="md-block">
+            <label>First name</label>
+            <input ng-model="user.firstName">
+         </md-input-container>
+         
+         <br/>
+         
+         <md-input-container class="md-block">
+            <label>Last Name</label>
+            <input ng-model="user.lastName">
+         </md-input-container>
+         
+         <br/>
+        
+         <md-input-container class="md-block">
+            <label>Password</label>
+            <input ng-model="user.password">
+         </md-input-container>
+         
+         <br/>
+         
+         <md-input-container class="md-block">
+            <label>Repeat Password</label>
+            <input ng-model="repeatPassword">
+         </md-input-container>
+        
+         <br/>
+         
+         <md-input-container class="md-block">
+            <label>City</label>
+            <input ng-model="user.city">
+         </md-input-container>
+
+         <br/>
+         
+         <md-input-container class="md-block">
+            <label>State</label>
+            <md-select ng-model="user.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+         </md-input-container>
+         
+         <br/>
+         
+         <md-input-container class="md-block">
+            <label>Zip Code</label>
+            <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+                   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+            
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+               <div ng-message="required" class="my-message">You must supply a postal code.</div>
+               <div ng-message="pattern" class="my-message">
+                That doesn't look like a valid postal code.</div>
+               <div ng-message="md-maxlength" class="my-message">
+                  Don't use the long version silly...we don't need to be that specific...
+               </div>
+            </div>
+         </md-input-container>
+         
+         <md-input-container class="md-block">
+            <label>Country</label>
+            <input ng-model="user.country">
+         </md-input-container>
+         
+      </form>
+    </div>
+  </md-content>
+</div>
+
+<!-- <div>
       <form>
          <div class="panel panel-danger" ng-show="errors.length">
             <h2 class="panel-heading">Please fix these problems</h2>
@@ -46,4 +121,4 @@
       <button type="button" class="btn btn-warning" ng-click="quit()">Cancel
        </button>
    </form>
-</div>
+</div> -->
