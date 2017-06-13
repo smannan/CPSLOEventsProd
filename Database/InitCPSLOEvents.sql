@@ -4,7 +4,7 @@ USE CPSLOEvents;
 
 CREATE TABLE Person (
    id INT AUTO_INCREMENT PRIMARY KEY,
-   firstName VARCHAR(50,
+   firstName VARCHAR(50),
    lastName VARCHAR(50) NOT NULL,
    email VARCHAR(50) NOT NULL,
    password VARCHAR(50) NOT NULL,
