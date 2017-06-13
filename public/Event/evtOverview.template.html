@@ -5,7 +5,7 @@
 <md-content>
    <md-list flex>
       <md-divider></md-divider>
-         <md-list-item class="md-3-line" ng-repeat="item in dumbEvts" ng-click="null">
+         <md-list-item class="md-3-line" ng-repeat="item in dumbEvts" ui-sref="evtDetail">
             <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
                <div class="md-list-item-text" layout="column">
                   <span flex></span>
@@ -14,10 +14,9 @@
                      {{item.date}}, {{item.time}} @ {{item.location}}
                   </h3>
                   <p>{{item.evtDesc}}</p>
-                  <span flex></span>
                   <md-divider></md-divider>
          </md-list-item>   
-         </div>
+               </div>
          <span>
             <md-button class="md-icon-button md-primary" aria-label="Edit">
                <md-icon md-svg-icon="Icons/edit.svg"></md-icon>
