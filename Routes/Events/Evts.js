@@ -307,7 +307,7 @@ router.get('/:id/Rsvs', function(req, res) {
    function(evts, fields, cb) {
       console.log(evts)
 
-      if ('NULL' in evts && !(evts[0]['NULL'])) {
+      if ('NULL' in evts[0] && !(evts[0]['NULL'])) {
          console.log('HERE')
          res.json([]).end();
       }
