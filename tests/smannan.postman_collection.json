@@ -631,12 +631,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497402022170,
+			"time": 1497408514507,
 			"name": "Create EventA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of YearBBQ\",\n\t\"private\":1,\n\t\"date\":{{eventADate}},\n\t\"title\":\"End of Year BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of YearBBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of Year BBQ\"\n}"
 		},
 		{
 			"id": "9e07556e-0cb7-b7db-f64e-9cd33f5f5ba7",
@@ -688,12 +688,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497407966987,
+			"time": 1497408525634,
 			"name": "Create public EventC",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"Come to the beach! It will be fun!\",\n\t\"private\":0,\n\t\"date\":{{eventCDate}},\n\t\"title\":\"Beach day\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"Come to the beach! It will be fun!\",\n\t\"private\":0,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Beach day\"\n}"
 		},
 		{
 			"id": "b17d5a73-5a25-3d68-7785-15ebc47612e2",
@@ -723,10 +723,10 @@
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Three Response\"] = jsonData.length === 3;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 1\n     && jsonData[0].title === \"End of Year BBQ\" && \n     jsonData[0].orgId === 1 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].desc === \"End of YearBBQ\" \n     && jsonData[0].zip === \"93405\"\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].id === 2\n     && jsonData[1].title === \"Beach day\" && \n     jsonData[1].orgId === 3 &&  jsonData[1].city === \"SLO\"\n     && jsonData[1].state === \"CA\" && jsonData[1].country === \"US\"\n     && jsonData[1].addr === \"1 Grand Ave\" && jsonData[1].private === 0\n     && jsonData[1].desc === \"Come to the beach! It will be fun!\"\n     && jsonData[1].zip === \"93405\";\n     \n    tests[\"Correct Resp 3\"] = jsonData[2].id === 3\n     && jsonData[2].title === \"Puppy party\" && \n     jsonData[2].orgId === 2 &&  jsonData[2].city === \"SLO\"\n     && jsonData[2].state === \"CA\" && jsonData[2].country === \"US\"\n     && jsonData[2].addr === \"1 Grand Ave\" && jsonData[2].private === 0\n     && jsonData[2].desc === \"Bring two dogs!\"\n     && jsonData[2].zip === \"95138\";\n     \n    tests[\"Correct date\"] = jsonData[0].date < jsonData[1].date < jsonData[2].date;\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Three Response\"] = jsonData.length === 3;\n\nif (tests[\"Three Response\"]) {\n    tests[\"Correct Resp 0\"] = \n    jsonData[0].id === 1\n    && jsonData[0].title === \"End of Year BBQ\"\n    && jsonData[0].orgId === 1\n    &&  jsonData[0].city === \"SLO\"\n    && jsonData[0].state === \"CA\"\n    && jsonData[0].country ===  \"US\"\n    && jsonData[0].addr === \"1 Grand Ave\"\n    && jsonData[0].private === 1\n    && jsonData[0].descr === \"End of YearBBQ\"\n    && jsonData[0].zip === \"93405\";\n    \n    tests[\"Correct Resp 2\"] = jsonData[2].id === 3\n     && jsonData[2].title === \"Puppy party\" && \n     jsonData[2].orgId === 2 &&  jsonData[2].city === \"SLO\"\n     && jsonData[2].state === \"CA\" && jsonData[2].country === \"US\"\n     && jsonData[2].addr === \"1 Grand Ave\" && jsonData[2].private === 1\n     && jsonData[2].descr === \"Bring two dogs!\"\n     && jsonData[2].zip === \"95138\";\n     \n    tests[\"Correct Resp 1\"] = jsonData[1].id === 2\n     && jsonData[1].title === \"Beach day\" && \n     jsonData[1].orgId === 3 &&  jsonData[0].city === \"SLO\"\n     && jsonData[1].state === \"CA\" && jsonData[1].country === \"US\"\n     && jsonData[1].addr === \"1 Grand Ave\" && jsonData[1].private === 0\n     && jsonData[1].descr === \"Come to the beach! It will be fun!\"\n     && jsonData[1].zip === \"93405\";\n     \n    tests[\"Correct date\"] = jsonData[0].date <= jsonData[1].date <= jsonData[2].date;\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497027219120,
+			"time": 1497408641820,
 			"name": "Get Evts UserB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -878,12 +878,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497407805233,
+			"time": 1497408504558,
 			"name": "Create EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"95138\",\n\t\"descr\":\"Bring two dogs!\",\n\t\"private\":1,\n\t\"date\":{{eventBDate}},\n\t\"title\":\"Puppy party\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"95138\",\n\t\"descr\":\"Bring two dogs!\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Puppy party\"\n}"
 		},
 		{
 			"id": "c864099a-e2f7-f74f-40e6-b7c827e68d3b",
