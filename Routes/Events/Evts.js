@@ -36,8 +36,6 @@ router.get('/', function (req, res) {
    if (start) {
       query += ' and unix_timestamp(date)*1000 >= ? '
       params.push(parseInt(start))
-      console.log('PARAMS')
-      console.log(params)
    }
 
    if (end) {
@@ -227,6 +225,70 @@ router.delete('/:id', function(req, res) {
 
 
 router.get('/:id/Rsvs', function(req, res) {
+   var vld = req.validator;
+   var evtId = req.params.id;
+   var prsId = req.session.id;
+   var evt;
+   var body = req.body;
+   var cnn = req.cnn;
+
+   var query = 'select distinct firstName, lastName, status from ' +
+   'Event join Reservation join Person where Reservation.prsId ' +
+   '= Person.id and evtId = ? ';
+
+   async.waterfall([
+   function(cb) {
+      /* Make event exists */
+      cnn.chkQry('select * from Event where id = ?', 
+       [evtId], cb);
+   },
+
+   function(existingEvt, fields, cb) {
+      /* Check if user is invited to evtId
+      */
+      if (vld.check(existingEvt.length, Tags.notFound, null, cb)) {
+         evt = existingEvt[0]
+
+         cnn.chkQry('select distinct prsId from Reservation ' + 
+          ' where prsId = ? and evtId = ?', 
+          [prsId, evtId], cb);
+      }
+   },
+
+   function(existingRsv, fields, cb) {
+      /* If the event is private and the user is invited
+      */
+      if (evt.private === 1 && existingRsv.length > 0) {
+         cnn.chkQry(query, evtId, cb)
+      }
+
+      else if (evt.private === 0 || evt.orgId === prsId) {
+         cnn.chkQry(query, evtId, cb)
+      }
+
+      else {
+         cnn.chkQry('SELECT NULL', [], cb)
+      }
+   },
+
+   function(evts, fields, cb) {
+      console.log(evts[0]['NULL'] && evts[0]['NULL'] === 'null')
+      console.log(evts[0]['NULL'])
+      if (!(evts[0]['NULL'] && evts[0]['NULL'] === 'null')) {
+         console.log('HERE')
+         res.json([]).end();
+      }
+      else {
+         res.json(evts).end();
+      }
+      cb();
+   }],
+
+   /* Finally, release the db connection */
+   function() {
+      cnn.release();
+   });
+
 });
 
 router.post('/:id/Rsvs', function(req, res) {
