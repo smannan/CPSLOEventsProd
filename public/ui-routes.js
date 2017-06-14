@@ -57,14 +57,14 @@ app.config(['$stateProvider', '$urlRouterProvider',
          url: '/evts',
          templateUrl: 'Event/evtOverview.template.html',
          controller: 'evtOverviewController',
-         /*resolve: {
-            cnvs: ['$q', '$http', function($q, $http) {
+         resolve: {
+            evts: ['$q', '$http', function($q, $http) {
                return $http.get('Evts')
                .then(function(response) {
                   return response.data;
                });
             }]
-         }*/
+         }
       })
       .state('evtDetail', {
          url:'/evtDetail/',

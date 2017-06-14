@@ -1,7 +1,7 @@
 app.controller('evtOverviewController',
- ['$scope', '$state', '$http', '$uibModal', 'notifyDlg'/*, 'evts'*/,
- function($scope, $state, $http, $uibM, nDlg/*,evts*/) {
-   $scope.evts = "HELLO";
+ ['$scope', '$state', '$http', '$uibModal', 'notifyDlg', 'evts',
+ function($scope, $state, $http, $uibM, nDlg, evts) {
+   $scope.evts = evts;
     var imagePath = 'Icons/MaterialIcon.png';
     
     // Hard coded events

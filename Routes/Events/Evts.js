@@ -16,13 +16,11 @@ router.get('/', function (req, res) {
    var owner = req.query.owner; 
    var id = req.session.id;
 
-   var query = 'select distinct Event.id, title, orgId, ' + 
-    'unix_timestamp(date) as date, city, state, ' +
-    'country, addr, private, descr, zip ' +
-    'from Event join Reservation where (Event.id = ' +
-    'Reservation.evtId or Event.private = 0 or ' +
-    'Event.orgId = ?)';
-   var params = [id];
+   var query = 'select distinct e.id, title, orgId, unix_timestamp(date)' +
+    ' as date, city, state, country, addr, private, descr, zip' +
+	' from Event e left join Reservation r on e.id = r.evtId' +
+	' where e.private = 0 or e.orgId = ? or r.prsId = ?';
+   var params = [id, id];
 
    /* limited to Event organized by
     * the specified owner if query param
@@ -411,10 +409,13 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
          if (orgId === req.session.id ||
           vld.checkPrsOK(rows[0].prsId), cb)
-            cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
-             [req.params.id], 
-             function() {
-               cb();
+            cnn.chkQry('SELECT * FROM Reservation WHERE id = ?',
+             [req.params.rid], 
+             function(err, rows2) {
+               if (vld.check(rows2.length, Tags.notFound, null, cb)) {
+                  cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
+                   [req.params.rid], cb);
+               }
              });
       }
    }],

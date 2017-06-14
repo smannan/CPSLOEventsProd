@@ -27,21 +27,21 @@
             Register
          </md-nav-item>
 
-         <md-nav-item md-nav-sref="rsvsOverview" name="rsvsOverview" ng-if="!user">
+         <md-nav-item md-nav-sref="rsvsOverview" name="rsvsOverview" ng-if="!!user">
             Your Reservations
          </md-nav-item>
           
-         <md-nav-item md-nav-sref="evtOverview" name="evtOverview" ng-if="!user">
+         <md-nav-item md-nav-sref="evtOverview" name="evtOverview" ng-if="!!user">
             All Events
          </md-nav-item>
 
-         <md-nav-item md-nav-sref="evtPrsOverview" name="evtPrsOverview" ng-if="!user">
+         <md-nav-item md-nav-sref="evtPrsOverview" name="evtPrsOverview" ng-if="!!user">
             Your Events
          </md-nav-item>
 
          <!-- Right justify Logout button --> 
          <span flex></span>
-         <md-nav-item md-nav-sref="logout" name="logout" ng-if="!user">
+         <md-nav-item md-nav-sref="logout" name="logout" ng-if="!!user">
             Logout
          </md-nav-item>
       </md-nav-bar>
