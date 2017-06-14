@@ -23,6 +23,8 @@ function($http, $state) {
       logout: function() {
          return $http.delete("Ssns/" + cookie)
          .then(function() {
+            console.log("Trying to logout..." + user.email);
+            
             user = null;
             cookie = null;
             $state.go('home');

@@ -14,10 +14,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Login/login.template.html',
          controller: 'loginController',
       })
-      // Currently just takes you to login page
+      // Fix logout
       .state('logout', {
          url: '/login',
-         controller: 'loginController'
+         template: '',
+         controller: 'logoutController',
       })
       .state('register', {
          url: '/register',
