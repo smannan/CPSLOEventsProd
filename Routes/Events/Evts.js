@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
    var query = 'select distinct e.id, title, orgId, unix_timestamp(date)' +
     ' as date, city, state, country, addr, private, descr, zip' +
 	' from Event e left join Reservation r on e.id = r.evtId' +
-	' where e.private = 0 or e.orgId = ? or r.prsId = ?;';
+	' where e.private = 0 or e.orgId = ? or r.prsId = ?';
    var params = [id, id];
 
    /* limited to Event organized by
