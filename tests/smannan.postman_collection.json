@@ -60,6 +60,7 @@
 				"27c7511b-4e08-10fe-78fb-d53bf3079aae",
 				"bffa5749-7203-c1e9-9655-b2a666938988",
 				"74850f54-2449-c41f-eb32-93910a5e8d4e",
+				"234ba09f-c342-b664-6503-bbb192cdd4f5",
 				"bb68cd6b-2c90-57a6-d127-93c120e92de1",
 				"66bff9d6-9b01-993f-8b1c-21d7df944eca",
 				"8fc5b06b-cf5d-e51b-971a-e3d1b9456bca",
@@ -136,6 +137,25 @@
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
 			"rawModeData": "{\n\t\"prsId\":5\n}"
+		},
+		{
+			"id": "234ba09f-c342-b664-6503-bbb192cdd4f5",
+			"headers": "Content-Type: application/json\n",
+			"url": "{{url}}/Evts/2/Rsvs",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"dupRsv\");",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1497409591782,
+			"name": "RSVP to public event twice",
+			"description": "\n",
+			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
+			"responses": [],
+			"rawModeData": "{\n\t\"prsId\":\"3\",\n\t\"status\":\"Going\"\n}"
 		},
 		{
 			"id": "27c7511b-4e08-10fe-78fb-d53bf3079aae",
