@@ -89,7 +89,7 @@ router.post('/', function(req, res) {
         (body.private === 0 || body.private === 1), 
         Tags.badValue, ['private'])
 
-       .chain(body.date > 0 && body.date <= 
+       .chain(body.date >= 0 && body.date >= 
         (new Date().getTime()), Tags.badValue, ['date'])
 
        .chain(!body.descr || body.descr.length < 500, Tags.badValue, ['descr'])

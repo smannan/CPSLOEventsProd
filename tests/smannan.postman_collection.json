@@ -651,12 +651,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497408514507,
+			"time": 1497410045546,
 			"name": "Create EventA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of YearBBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of Year BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of YearBBQ\",\n\t\"private\":1,\n\t\"date\":1528598021000,\n\t\"title\":\"End of Year BBQ\"\n}"
 		},
 		{
 			"id": "9e07556e-0cb7-b7db-f64e-9cd33f5f5ba7",
@@ -708,12 +708,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497408525634,
+			"time": 1497410071036,
 			"name": "Create public EventC",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"Come to the beach! It will be fun!\",\n\t\"private\":0,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Beach day\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"Come to the beach! It will be fun!\",\n\t\"private\":0,\n\t\"date\":1528684421000,\n\t\"title\":\"Beach day\"\n}"
 		},
 		{
 			"id": "b17d5a73-5a25-3d68-7785-15ebc47612e2",
@@ -898,12 +898,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497408504558,
+			"time": 1497410095051,
 			"name": "Create EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"95138\",\n\t\"descr\":\"Bring two dogs!\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Puppy party\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"95138\",\n\t\"descr\":\"Bring two dogs!\",\n\t\"private\":1,\n\t\"date\":1528770821000,\n\t\"title\":\"Puppy party\"\n}"
 		},
 		{
 			"id": "c864099a-e2f7-f74f-40e6-b7c827e68d3b",
