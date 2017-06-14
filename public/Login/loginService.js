@@ -1,5 +1,5 @@
-app.service("login", ["$http",
-function($http) {
+app.service("login", ["$http", "$state",
+function($http, $state) {
    var cookie;
    var user;
 
@@ -25,6 +25,7 @@ function($http) {
          .then(function() {
             user = null;
             cookie = null;
+            $state.go('home');
          });
       },
       getUser: function() {

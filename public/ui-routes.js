@@ -39,17 +39,17 @@ app.config(['$stateProvider', '$urlRouterProvider',
          },
       })
       .state('evtPrsOverview', {
-         url: '/myEvts/', //TODO: Query param needs to go after myEvts
+         url: '/myEvts/:prsId', //TODO: Query param needs to go after myEvts
          templateUrl: 'Event/evtOverview.template.html',
          controller: 'evtOverviewController',
          resolve: {
-            /*cnvs: ['$q', '$http', '$stateParams', 
+            evts: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Evt?owner=" + $stateParams.owner)
+               return $http.get("Evts?owner=" + $stateParams.prsId)
                .then(function(response) {
                   return response.data;
                });
-            }]*/
+            }]
          },
       })
       // Gets all public events
