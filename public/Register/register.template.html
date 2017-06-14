@@ -1,0 +1,140 @@
+<div> 
+   <md-content layout-padding>
+    <div>
+      <form name="userForm">
+         <md-input-container type="email" class="md-block">
+            <label>Email</label>
+            <input ng-model="user.email" required>
+         </md-input-container>         
+
+         <md-input-container class="md-block">
+            <label>First Name</label>
+            <input ng-model="user.firstName">
+         </md-input-container>
+         
+         <md-input-container class="md-block">
+            <label>Last Name</label>
+            <input ng-model="user.lastName" required>
+         </md-input-container>
+        
+         <md-input-container type="password" class="md-block">
+            <label>Password</label>
+            <input ng-model="user.password" required>
+         </md-input-container>
+
+         <md-input-container type="password" class="md-block">
+            <label>Confirm Password</label>
+            <input ng-model="confPass" required>
+         </md-input-container>
+         
+         <md-input-container class="md-block">
+            <label>City</label>
+            <input ng-model="user.city">
+         </md-input-container>
+
+         
+         <md-input-container class="md-block">
+            <label>State</label>
+            <md-select ng-model="user.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+         </md-input-container>
+         
+         <br/>
+         
+         <md-input-container class="md-block">
+            <label>Zip Code</label>
+            <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+               ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+            
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+               <div ng-message="required" class="my-message">
+                  You must supply a postal code.
+               </div>
+               <div ng-message="pattern" class="my-message">
+                That doesn't look like a valid postal code.
+               </div>
+               <div ng-message="md-maxlength" class="my-message">
+                  Don't use the long version silly...we don't need to be that specific...
+               </div>
+            </div>
+         </md-input-container>
+         
+         <md-input-container class="md-block">
+            <label>Country</label>
+            <input ng-model="user.country">
+         </md-input-container>
+         
+         <md-input-container class="md-block">
+           <md-checkbox name="tos" ng-model="project.tos" required>
+             I accept the terms of service.
+           </md-checkbox>
+           <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
+             <div ng-message="required">
+               You must accept the terms of service before you can proceed.
+             </div>
+           </div>
+         </md-input-container>
+         
+         <md-button type="submit" class="md-primary md-raised" 
+            ng-click="register()"
+            ng-disabled="!user.email || !user.lastName || !user.password || 
+                         !confPass || user.password !== confPass">
+            Register
+         </md-button>
+      </form>
+    </div>
+  </md-content>
+</div>
+
+<!-- <div>
+      <form>
+         <div class="panel panel-danger" ng-show="errors.length">
+            <h2 class="panel-heading">Please fix these problems</h2>
+            <ul>
+               <li ng-repeat="err in errors">{{err | tagError}}</li>
+            </ul>
+         </div>
+
+      <fieldset class="form-group">
+         <label>Email address</label>
+         <input type="email" class="form-control" placeholder="Enter email"
+          ng-model="user.email">
+      </fieldset>
+      <fieldset class="form-group">
+         <label>First Name</label>
+         <input type="text" class="form-control" placeholder="First Name"
+          ng-model="user.firstName">
+      </fieldset>
+      <fieldset class="form-group">
+         <label>Last Name</label>
+         <input type="text" class="form-control" placeholder="Last Name"
+          ng-model="user.lastName">
+      </fieldset>
+      <fieldset class="form-group">
+         <label>New Password</label>
+         <input type="password" class="form-control" placeholder="Password"
+          ng-model="user.password">
+      </fieldset>
+      <fieldset class="form-group">
+         <label>Repeat Password</label>
+         <input type="password" class="form-control" placeholder="Password"
+          ng-model="confPass">
+         <h3 ng-if="confPass !== user.password">Passwords do not match</h3>
+      </fieldset>
+      <div class="checkbox">
+        <label>
+           <input type="checkbox" ng-model="user.termsAccepted">
+            Do you accept the terms and conditions?
+        </label>
+     </div>
+
+      <button type="submit" class="btn btn-primary" ng-click="registerUser()"
+       ng-disabled="!user.email || !user.password || 
+        user.password !== confPass">Submit</button>
+      <button type="button" class="btn btn-warning" ng-click="quit()">Cancel
+       </button>
+   </form>
+</div> -->
