@@ -294,11 +294,8 @@ router.get('/:id/Rsvs', function(req, res) {
    function(existingRsv, fields, cb) {
       /* If the event is private and the user is invited
       */
-      if (evt.private === 1 && existingRsv.length > 0) {
-         cnn.chkQry(query, evtId, cb)
-      }
-
-      else if (evt.private === 0 || evt.orgId === prsId) {
+      if (evt.private === 1 && existingRsv.length > 0
+       || (evt.private === 0 || evt.orgId === prsId)) {
          cnn.chkQry(query, evtId, cb)
       }
 
@@ -308,9 +305,9 @@ router.get('/:id/Rsvs', function(req, res) {
    },
 
    function(evts, fields, cb) {
-      console.log(evts[0]['NULL'] && evts[0]['NULL'] === 'null')
-      console.log(evts[0]['NULL'])
-      if (!(evts[0]['NULL'] && evts[0]['NULL'] === 'null')) {
+      console.log(evts)
+
+      if ('NULL' in evts && !(evts[0]['NULL'])) {
          console.log('HERE')
          res.json([]).end();
       }
