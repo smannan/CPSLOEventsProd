@@ -33,22 +33,22 @@ router.get('/', function (req, res) {
    }
 
    if (start) {
-      query += ' and unix_timestamp(date)*1000 >= ? '
-      params.push(parseInt(start))
+      query += ' and unix_timestamp(date)*1000 >= ? ';
+      params.push(parseInt(start));
    }
 
    if (end) {
-      query += ' and unix_timestamp(date)*1000 <= ? '
-      params.push(parseInt(end))
+      query += ' and unix_timestamp(date)*1000 <= ? ';
+      params.push(parseInt(end));
    }
 
    if (loc) {
-      query += ' and zip = ? '
-      params.push('"' + loc + '"')
+      query += ' and zip = ? ';
+      params.push(loc);
    }
 
-   console.log(params)
-   query += ' order by date asc;'
+   console.log(params);
+   query += ' order by date asc;';
 
    req.cnn.chkQry(query, params,
    function(err, evts) {
