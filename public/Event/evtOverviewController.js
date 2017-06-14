@@ -1,8 +1,58 @@
 app.controller('evtOverviewController',
- ['$scope', '$state', '$http', '$uibModal', 'notifyDlg', 'evts',
- function($scope, $state, $http, $uibM, nDlg, evts) {
-   $scope.evts = evts;
-
+ ['$scope', '$state', '$http', '$uibModal', 'notifyDlg'/*, 'evts'*/,
+ function($scope, $state, $http, $uibM, nDlg/*,evts*/) {
+   $scope.evts = "HELLO";
+    var imagePath = 'Icons/MaterialIcon.png';
+    
+    // Hard coded events
+    $scope.dumbEvts = [
+      {
+         face: imagePath, 
+         evtName: "Event 1",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
+      },
+      {
+         face: imagePath, 
+         evtName: "Event 2",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
+      },
+      {
+         face: imagePath, 
+         evtName: "Event 3",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
+      },
+      {
+         face: imagePath, 
+         evtName: "Event 4",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
+      },
+      {
+         face: imagePath, 
+         evtName: "Event 5",
+         organizer: 'adm@11.com',
+         time: '3:08PM',
+         date: 'June 14, 2017',
+         location: 'Cal Poly',
+         evtDesc: "This is some random description for this event.",
+      }
+    ]; 
+    
    displayError = function(err) {
      if (err.data[0].tag === "dupTitle") {
          nDlg.show($scope, "Event with this title already " + 

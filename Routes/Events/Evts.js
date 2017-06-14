@@ -132,16 +132,18 @@ router.get('/:id', function(req, res) {
 
    async.waterfall([
    function(cb) {
-      cnn.chkQuery('SELECT id, name, organizerId, city, state, zipCode, ' +
-       'country, address, time, description, private FROM Events WHERE id = ?',
+      cnn.chkQry('SELECT id, title, orgId, city, state, zip, ' +
+       'country, addr, unix_timestamp(date) as date, descr, private '+
+       'FROM Event WHERE id = ?',
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
-      body = fields;
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
-         priv = fields.private;
-         if (priv && rows[0].organizerId !== req.session.id) {
-            cnn.chkQuery('SELECT prsId, evtId FROM Reservation' +
+         rows[0].date *= 1000;
+         body = rows;
+         priv = rows[0].private;
+         if (priv && rows[0].orgId !== req.session.id) {
+            cnn.chkQry('SELECT prsId, evtId FROM Reservation ' +
              'WHERE prsId = ? AND evtId = ?',
              [req.session.id, req.params.id], cb);
          } else {
@@ -178,38 +180,43 @@ router.put('/:id', function(req, res) {
       delete body.state;
    if (!body.country)
       delete body.country;
-   if (!body.desc)
-      delete body.desc;
+   if (!body.descr)
+      delete body.descr;
    if (!body.zip)
       delete body.zip;
+   if (body.date)
+      body.date = new Date(body.date);
 
    async.waterfall([
    function(cb) {
-      cnn.chkQuery('SELECT organizerId FROM Events WHERE id = ?',
+      cnn.chkQry('SELECT orgId FROM Event WHERE id = ?',
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
-      var handler =  function (err, rows) {
-         if (vld.check(!rows.length, Tags.dupTitle, null, cb)) {
-            cb();
-         }
-      }
 
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
-       vld.checkPrsOk(rows[0].organizerId, cb) &&
-       vld.chain(!body.role)) {
+       vld.checkPrsOK(rows[0].orgId, cb)) {
          if (body.title) {
-            cnn.chkQry('SELECT * from Events WHERE id <> ? && title = ?',
-            [req.params.id, body.title], handler);
+            cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
+             [req.params.id, body.title], 
+             function (err, rows) {
+               vld.check(!rows.length, Tags.dupTitle, null)
+               cb();
+             });
          } else {
             cb();
          }
       }
    },
-   function(rows, fields, cb) {
-      if (vld.check(true)) {
-         cnn.chkQry('UPDATE Events SET ? WHERE id = ' + req.params.id,
-         body, cb);
+   function(cb) {
+      console.log(cb);
+      if(vld.check(true))
+         cnn.chkQry('UPDATE Event SET ? WHERE id = ' + req.params.id,
+          body, function() {
+            cb();
+          });
+      else {
+         cb();
       }
    }],
    function(err) {
@@ -221,6 +228,35 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
+   var vld = req.validator;
+   var cnn = req.cnn;
+
+   async.waterfall([
+   function(cb) {
+      cnn.chkQry('SELECT orgId FROM Event WHERE id = ?',
+       [req.params.id], cb);
+   },
+   function (rows, fields, cb) {
+      if (vld.check(rows.length, Tags.notFound, null) &&
+       vld.checkPrsOK(rows[0].orgId)) {
+         cnn.chkQry('DELETE FROM Reservation WHERE evtId = ?',
+          [req.params.id], cb);
+      } else {
+         cnn.release();
+         return;
+      }
+   },
+   function(rows, fields, cb) {
+      cnn.chkQry('DELETE FROM Event WHERE id = ?',
+         [req.params.id], cb);
+   }
+   ],
+   function(err) {
+      if (!err)
+         res.status(200).end();
+      cnn.release();
+   });
+
 });
 
 
@@ -357,6 +393,40 @@ router.post('/:id/Rsvs', function(req, res) {
 
 
 router.delete('/:id/Rsvs/:rid', function(req, res) {
+   var vld = req.validator;
+   var cnn = req.cnn;
+   var priv = 0;
+   var body;
+   var orgId;
+
+   async.waterfall([
+   function(cb) {
+      cnn.chkQry('SELECT orgId FROM Event WHERE id = ?',
+       [req.params.id], cb);
+   },
+   function(rows, fields, cb) {
+      if (vld.check(rows.length, Tags.notFound, null, cb)) {
+         orgId = rows[0].orgId;
+         cnn.chkQry('SELECT prsId FROM Reservation WHERE id = ?',
+          [req.params.rid], cb);
+      }
+   }, 
+   function(rows, fields, cb) {
+      if (vld.check(rows.length, Tags.notFound, null, cb)) {
+         if (orgId === req.session.id ||
+          vld.chkPrsOK(rows[0].prsId), cb)
+            cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
+             [req.params.id], 
+             function() {
+               cb();
+             });
+      }
+   }],
+   function(err) {
+      if (!err)
+         res.status(200).end()
+      cnn.release();
+   });
 });
 
 module.exports = router;

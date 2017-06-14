@@ -1,8 +1,8 @@
 app.controller('evtPrsOverviewController',
  ['$scope', '$state', '$stateParams', '$http', '$uibModal', 'notifyDlg', 
- 'evts',
- function($scope, $state, $stateParams, $http, $uibM, nDlg, evts) {
-   $scope.evts = evts;
+ /*'evts',*/
+ function($scope, $state, $stateParams, $http, $uibM, nDlg/*, evts*/) {
+   /*$scope.evts = evts*/;
    
    displayError = function(err) {
       if (err.data[0].tag === "dupTitle") {
