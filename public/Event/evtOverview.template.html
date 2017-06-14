@@ -1,6 +1,37 @@
 <h1 style="margin-left:7px; font-family:'Roboto', san-serif;">Events</h1>
 
-<md-button class="md-primary md-raised" ng-click="createEvt()">New Event</md-button>
+<md-button class="md-primary md-raised" ng-click="newEvt()">New Event</md-button>
+<md-divider></md-divider>
+<span flex>      
+   <md-datepicker ng-model="ctrl.myDate" md-placeholder="Start date"></md-datepicker>
+   <md-datepicker ng-model="ctrl.myDate" md-placeholder="End date"></md-datepicker>
+   
+   <md-input-container class="md-inline">
+      <label>Zip Code</label>
+      <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+         ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+
+      <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+         <div ng-message="required" class="my-message">
+            You must supply a postal code.
+         </div>
+         <div ng-message="pattern" class="my-message">
+          That doesn't look like a valid postal code.
+         </div>
+         <div ng-message="md-maxlength" class="my-message">
+            Don't use the long version silly...we don't need to be that specific...
+         </div>
+      </div>
+   </md-input-container>
+
+   <md-input-container>
+      <label>Organizer Email</label>
+         <input ng-model="user.email">
+   </md-input-container>
+
+   <md-button class="md-primary md-raised" 
+   ng-click="newEvt()">Filter</md-button>
+</span>
 
 <md-content>
    <md-list flex>

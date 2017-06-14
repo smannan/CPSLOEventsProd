@@ -25,13 +25,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
          controller: 'registerController',
       })
       .state('rsvsOverview', {
-         url: '/Rsvs/', //TODO: Query param needs to go after myEvts
+         url: '/Prss/:prsId/Rsvs',
          templateUrl: 'Reservation/rsvsOverview.template.html',
          controller: 'rsvsOverviewController',
          resolve: {
-            /*cnvs: ['$q', '$http', '$stateParams', 
+            /*rsvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Evt?owner=" + $stateParams.owner)
+               return $http.get("Prss/:prsId/Rsvs")
                .then(function(response) {
                   return response.data;
                });
@@ -52,6 +52,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
             }]*/
          },
       })
+      // Gets all public events
       .state('evtOverview', {
          url: '/evts',
          templateUrl: 'Event/evtOverview.template.html',
