@@ -16,13 +16,11 @@ router.get('/', function (req, res) {
    var owner = req.query.owner; 
    var id = req.session.id;
 
-   var query = 'select distinct Event.id, title, orgId, ' + 
-    'unix_timestamp(date) as date, city, state, ' +
-    'country, addr, private, descr, zip ' +
-    'from Event join Reservation where (Event.id = ' +
-    'Reservation.evtId or Event.private = 0 or ' +
-    'Event.orgId = ?)';
-   var params = [id];
+   var query = 'select distinct e.id, title, orgId, unix_timestamp(date)' +
+    ' as date, city, state, country, addr, private, descr, zip' +
+	' from Event e left join Reservation r on e.id = r.evtId' +
+	' where e.private = 0 or e.orgId = ? or r.prsId = ?;';
+   var params = [id, id];
 
    /* limited to Event organized by
     * the specified owner if query param
