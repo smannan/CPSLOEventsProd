@@ -388,11 +388,11 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497401370591,
+			"time": 1497410730415,
 			"name": "PostEvts-PrsA",
 			"description": "Make first event, public - PersonA",
 			"collectionId": "fe62a45d-7a94-41c4-0f6a-b29fbe6e5b5e",
-			"rawModeData": "{\n\"title\" : \"FirstEvent\",\n\"city\" :  \"San Luis Obispo\",\n\"state\" : \"California\",\n\"zip\": \"93410\",\n\"country\": \"USA\",\n\"addr\": \"1 Grand Avenue\",\n\"date\": 1496988176000,\n\"descr\": \"First event at Poly\",\n\"private\" : 0\n}\n"
+			"rawModeData": "{\n\"title\" : \"FirstEvent\",\n\"city\" :  \"San Luis Obispo\",\n\"state\" : \"California\",\n\"zip\": \"93410\",\n\"country\": \"USA\",\n\"addr\": \"1 Grand Avenue\",\n\"date\": 1498988176000,\n\"descr\": \"First event at Poly\",\n\"private\" : 0\n}\n"
 		},
 		{
 			"folder": "6dcf4b76-42f6-23e6-9287-c74d11068ff5",
@@ -521,11 +521,11 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497401375335,
+			"time": 1497410743567,
 			"name": "PostEvts-PrsA-2",
 			"description": "Make second event, private - PersonA",
 			"collectionId": "fe62a45d-7a94-41c4-0f6a-b29fbe6e5b5e",
-			"rawModeData": "{\n\"title\" : \"SecondEvent\",\n\"city\" :  \"San Luis Obispo\",\n\"state\" : \"California\",\n\"zip\": \"93410\",\n\"country\": \"USA\",\n\"addr\": \"1 Grand Avenue\",\n\"date\": 1496988176000,\n\"descr\": \"Second event at Poly\",\n\"private\" : 1\n}\n"
+			"rawModeData": "{\n\"title\" : \"SecondEvent\",\n\"city\" :  \"San Luis Obispo\",\n\"state\" : \"California\",\n\"zip\": \"93410\",\n\"country\": \"USA\",\n\"addr\": \"1 Grand Avenue\",\n\"date\": 1498988176000,\n\"descr\": \"Second event at Poly\",\n\"private\" : 1\n}\n"
 		},
 		{
 			"id": "cd95a93d-0694-5885-05d2-fced92e851ea",
