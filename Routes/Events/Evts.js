@@ -272,7 +272,7 @@ router.get('/:id/Rsvs', function(req, res) {
 
    var query = 'select distinct firstName, lastName, status from ' +
    'Event join Reservation join Person where Reservation.prsId ' +
-   '= Person.id and evtId = ? ';
+   '= Person.id and evtId = ? order by firstName, lastName asc';
 
    async.waterfall([
    function(cb) {
@@ -333,11 +333,20 @@ router.post('/:id/Rsvs', function(req, res) {
 
    async.waterfall([
    function(cb) {
+      cnn.chkQry('select * from Reservation where ' +
+       ' prsId = ? and evtId = ?', 
+       [req.session.id, id], cb);
+   },
+
+   function(existingRsv, fields, cb) {
+      console.log(existingRsv)
+
       /* Make sure body has a non-empty person id 
        * And status is either Going, Maybe, or Not Going
        * Event they are RSVP'ing to must exist
       */
-      if (vld.chain(!body.status || (body.status==="Going" ||
+      if (vld.check(!existingRsv.length, Tags.dupRsv, null, cb) &&
+       vld.chain(!body.status || (body.status==="Going" ||
        body.status==="Maybe" || body.status==="Not Going"), 
        Tags.badValue, ["status"])
        .check(body.prsId, Tags.missingField, ["prsId"], cb)) {
