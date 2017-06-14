@@ -19,6 +19,7 @@ Validator.Tags = {
    forbiddenRole: "forbiddenRole",  // Cannot set to this role
    noOldPwd: "noOldPwd",            // Change of password requires an old password
    dupTitle: "dupTitle",            // Title duplicates an existing Conversation title
+   dupRsv: "dupRsv",            // Title duplicates an existing Conversation title
    dupEnrollment: "dupEnrollment",  // Duplicate enrollment
    queryFailed: "queryFailed",
    forbiddenField: "forbiddenField",// Field in body not allowed

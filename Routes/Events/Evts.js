@@ -16,13 +16,12 @@ router.get('/', function (req, res) {
    var owner = req.query.owner; 
    var id = req.session.id;
 
-   var query = 'select distinct Event.id, title, orgId, ' + 
-    'unix_timestamp(date) as date, city, state, ' +
-    'country, addr, private, descr, zip ' +
-    'from Event join Reservation where (Event.id = ' +
-    'Reservation.evtId or Event.private = 0 or ' +
-    'Event.orgId = ?)';
-   var params = [id];
+   var query = 'select distinct e.id, title, orgId,' +
+    ' unix_timestamp(date) * 1000 as date, city, state,' +
+    ' country, addr, private, descr, zip' +
+	 ' from Event e left join Reservation r on e.id = r.evtId' +
+	 ' where (e.private = 0 or e.orgId = ? or r.prsId = ?)';
+   var params = [id, id];
 
    /* limited to Event organized by
     * the specified owner if query param
@@ -45,8 +44,11 @@ router.get('/', function (req, res) {
 
    if (loc) {
       query += ' and zip = ? '
-      params.push(loc)
+      params.push('"' + loc + '"')
    }
+
+   console.log(params)
+   query += ' order by date asc;'
 
    req.cnn.chkQry(query, params,
    function(err, evts) {
@@ -87,7 +89,7 @@ router.post('/', function(req, res) {
         (body.private === 0 || body.private === 1), 
         Tags.badValue, ['private'])
 
-       .chain(body.date > 0 && body.date <= 
+       .chain(body.date >= 0 && body.date >= 
         (new Date().getTime()), Tags.badValue, ['date'])
 
        .chain(!body.descr || body.descr.length < 500, Tags.badValue, ['descr'])
@@ -270,7 +272,7 @@ router.get('/:id/Rsvs', function(req, res) {
 
    var query = 'select distinct firstName, lastName, status from ' +
    'Event join Reservation join Person where Reservation.prsId ' +
-   '= Person.id and evtId = ? ';
+   '= Person.id and evtId = ? order by firstName, lastName asc';
 
    async.waterfall([
    function(cb) {
@@ -331,11 +333,20 @@ router.post('/:id/Rsvs', function(req, res) {
 
    async.waterfall([
    function(cb) {
+      cnn.chkQry('select * from Reservation where ' +
+       ' prsId = ? and evtId = ?', 
+       [req.session.id, id], cb);
+   },
+
+   function(existingRsv, fields, cb) {
+      console.log(existingRsv)
+
       /* Make sure body has a non-empty person id 
        * And status is either Going, Maybe, or Not Going
        * Event they are RSVP'ing to must exist
       */
-      if (vld.chain(!body.status || (body.status==="Going" ||
+      if (vld.check(!existingRsv.length, Tags.dupRsv, null, cb) &&
+       vld.chain(!body.status || (body.status==="Going" ||
        body.status==="Maybe" || body.status==="Not Going"), 
        Tags.badValue, ["status"])
        .check(body.prsId, Tags.missingField, ["prsId"], cb)) {
@@ -411,10 +422,13 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
          if (orgId === req.session.id ||
           vld.checkPrsOK(rows[0].prsId), cb)
-            cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
-             [req.params.id], 
-             function() {
-               cb();
+            cnn.chkQry('SELECT * FROM Reservation WHERE id = ?',
+             [req.params.rid], 
+             function(err, rows2) {
+               if (vld.check(rows2.length, Tags.notFound, null, cb)) {
+                  cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
+                   [req.params.rid], cb);
+               }
              });
       }
    }],

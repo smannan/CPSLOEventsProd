@@ -7,7 +7,7 @@ app.controller('registerController',
       return {abbrev: state};
     });   
 
-   $scope.user = {role: 0};
+   $scope.user = {};
    $scope.errors = [];
 
    $scope.registerUser = function() {
@@ -27,10 +27,6 @@ app.controller('registerController',
          else { 
             $state.go('login');
          }
-      })
-      .then(function(response) {
-          var location = response.headers().location.split('/');
-          return $http.get("Ssns/" + location[location.length - 1]);
       })
       .catch(function(err) {
          $scope.errors = err.data;

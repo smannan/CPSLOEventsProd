@@ -14,7 +14,6 @@ app.controller('loginController',
           "Error");
       });
    };
-   
    $scope.logout = function() {
       console.log("Trying to logout user...");
   

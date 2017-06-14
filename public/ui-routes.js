@@ -25,13 +25,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
          controller: 'registerController',
       })
       .state('rsvsOverview', {
-         url: '/Rsvs/', //TODO: Query param needs to go after myEvts
+         url: '/Prss/:prsId/Rsvs',
          templateUrl: 'Reservation/rsvsOverview.template.html',
          controller: 'rsvsOverviewController',
          resolve: {
-            /*cnvs: ['$q', '$http', '$stateParams', 
+            /*rsvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Evt?owner=" + $stateParams.owner)
+               return $http.get("Prss/:prsId/Rsvs")
                .then(function(response) {
                   return response.data;
                });
@@ -39,31 +39,32 @@ app.config(['$stateProvider', '$urlRouterProvider',
          },
       })
       .state('evtPrsOverview', {
-         url: '/myEvts/', //TODO: Query param needs to go after myEvts
+         url: '/myEvts/:prsId', //TODO: Query param needs to go after myEvts
          templateUrl: 'Event/evtOverview.template.html',
          controller: 'evtOverviewController',
          resolve: {
-            /*cnvs: ['$q', '$http', '$stateParams', 
+            evts: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Evt?owner=" + $stateParams.owner)
+               return $http.get("Evts?owner=" + $stateParams.prsId)
                .then(function(response) {
                   return response.data;
                });
-            }]*/
+            }]
          },
       })
+      // Gets all public events
       .state('evtOverview', {
          url: '/evts',
          templateUrl: 'Event/evtOverview.template.html',
          controller: 'evtOverviewController',
-         /*resolve: {
-            cnvs: ['$q', '$http', function($q, $http) {
+         resolve: {
+            evts: ['$q', '$http', function($q, $http) {
                return $http.get('Evts')
                .then(function(response) {
                   return response.data;
                });
             }]
-         }*/
+         }
       })
       .state('evtDetail', {
          url:'/evtDetail/',
