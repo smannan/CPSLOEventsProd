@@ -352,7 +352,7 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
    function(rows, fields, cb) {
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
          if (orgId === req.session.id ||
-          vld.chkPrsOK(rows[0].prsId), cb)
+          vld.checkPrsOK(rows[0].prsId), cb)
             cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
              [req.params.id], 
              function() {
