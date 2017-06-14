@@ -92,12 +92,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496961126875,
+			"time": 1497228556391,
 			"name": "Register UserA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n    \"email\": \"UserA@domainA\",\n    \"firstName\": \"FirstA\",\n    \"lastName\" : \"LastA\",\n    \"password\" : \"passwordA\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zipcode\": \"95138\"\n}"
+			"rawModeData": "{\n    \"firstName\": \"FirstA\",\n    \"lastName\" : \"LastA\",\n    \"email\": \"UserA@domainA\",\n    \"password\" : \"passwordA\",\n    \"city\": \"San Jose\",\n    \"state\": \"CA\",\n    \"zip\": \"95138\",\n    \"country\": \"US\"\n}"
 		},
 		{
 			"id": "1473931b-494d-15dd-87bc-a13984be20ad",
@@ -108,15 +108,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 401\"] = responseCode.code === 401;",
+			"tests": "tests[\"Status code is 403\"] = responseCode.code === 403;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497021171498,
+			"time": 1497308910033,
 			"name": "RSVP to private event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":\"3\"\n}"
+			"rawModeData": "{\n\t\"prsId\":\"3\"\n}"
 		},
 		{
 			"id": "1a61fe99-bd08-da76-d1a8-20c616837a55",
@@ -127,15 +127,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Not found\"] = responseBody.has(\"Not found\");",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Not found\"] = responseBody.has(\"notFound\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497020155056,
+			"time": 1497309294521,
 			"name": "Add non-existent user to event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":5\n}"
+			"rawModeData": "{\n\t\"prsId\":5\n}"
 		},
 		{
 			"id": "27c7511b-4e08-10fe-78fb-d53bf3079aae",
@@ -203,10 +203,10 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"name\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962847468,
+			"time": 1497289885077,
 			"name": "Create event missing name",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -216,16 +216,16 @@
 		{
 			"id": "3d4091e6-6b04-2499-cf0b-5b9923e75531",
 			"headers": "Content-Type: application/json\n",
-			"url": "{{url}}/Evts?start={{eventCDate}}",
+			"url": "{{url}}/Evts?start=0",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 2\n     && jsonData[0].title === \"Beach day\" && \n     jsonData[0].orgId === 3 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 0\n     && jsonData[0].desc === \"Come to the beach! It will be fun!\"\n     && jsonData[0].zip === \"93405\";\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].id === 3\n     && jsonData[1].title === \"Puppy party\" && \n     jsonData[1].orgId === 2 &&  jsonData[1].city === \"SLO\"\n     && jsonData[1].state === \"CA\" && jsonData[1].country === \"US\"\n     && jsonData[1].addr === \"1 Grand Ave\" && jsonData[1].private === 1\n     && jsonData[1].desc === \"Bring two dogs!\"\n     && jsonData[1].zip === \"95138\";\n     \n    tests[\"Correct date\"] = jsonData[0].date < jsonData[1].date;\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"No Response\"] = jsonData.length === 0;\n\n/*if (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 2\n     && jsonData[0].title === \"Beach day\" && \n     jsonData[0].orgId === 3 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 0\n     && jsonData[0].desc === \"Come to the beach! It will be fun!\"\n     && jsonData[0].zip === \"93405\";\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].id === 3\n     && jsonData[1].title === \"Puppy party\" && \n     jsonData[1].orgId === 2 &&  jsonData[1].city === \"SLO\"\n     && jsonData[1].state === \"CA\" && jsonData[1].country === \"US\"\n     && jsonData[1].addr === \"1 Grand Ave\" && jsonData[1].private === 1\n     && jsonData[1].desc === \"Bring two dogs!\"\n     && jsonData[1].zip === \"95138\";\n     \n    //tests[\"Correct date\"] = jsonData[0].date < jsonData[1].date;\n}*/",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497027617305,
+			"time": 1497335290562,
 			"name": "Get Evts UserB start date",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -244,12 +244,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"private\"",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496964628737,
+			"time": 1497335183542,
 			"name": "Create event bad private",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"desc\":\"Come to my event!\",\n\t\"date\":1496962346,\n\t\"private\":10,\n\t\"name\":\"EventA\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"descr\":\"Come to my event!\",\n\t\"date\":1496962346,\n\t\"private\":10,\n\t\"title\":\"EventA\"\n}"
 		},
 		{
 			"id": "463abb0f-db67-a7e6-be9d-bbf356c10f21",
@@ -263,12 +263,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497018934216,
+			"time": 1497335369424,
 			"name": "Register UserA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n    \"email\": \"UserA@domainA\",\n    \"firstName\": \"FirstA\",\n    \"lastName\" : \"LastA\",\n    \"password\" : \"passwordA\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zipcode\": \"95138\"\n}"
+			"rawModeData": "{\n    \"email\": \"UserA@domainA\",\n    \"firstName\": \"FirstA\",\n    \"lastName\" : \"LastA\",\n    \"password\" : \"passwordA\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zip\": \"95138\"\n}"
 		},
 		{
 			"id": "47a884ba-f56d-1826-4b74-590d21ef37d9",
@@ -282,12 +282,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497019463201,
+			"time": 1497335373575,
 			"name": "Register UserB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n    \"email\": \"UserB@domainB\",\n    \"firstName\": \"FirstB\",\n    \"lastName\" : \"LastB\",\n    \"password\" : \"passwordB\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zipcode\": \"95138\"\n}"
+			"rawModeData": "{\n    \"email\": \"UserB@domainB\",\n    \"firstName\": \"FirstB\",\n    \"lastName\" : \"LastB\",\n    \"password\" : \"passwordB\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zip\": \"95138\"\n}"
 		},
 		{
 			"id": "51819259-183f-8d78-9b13-a5990e55087b",
@@ -301,12 +301,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497021823611,
+			"time": 1497309491595,
 			"name": "Add UserC to EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":3\n}"
+			"rawModeData": "{\n\t\"prsId\":3\n}"
 		},
 		{
 			"id": "55fbc343-d9c3-46fb-5aa7-869b4c372b99",
@@ -359,15 +359,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"datetime\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"date\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962856604,
+			"time": 1497289944917,
 			"name": "Create event missing date",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"name\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\"\n}"
+			"rawModeData": "{\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\"\n}"
 		},
 		{
 			"id": "66bff9d6-9b01-993f-8b1c-21d7df944eca",
@@ -378,10 +378,10 @@
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstB\"\n     && jsonData[0].lastName === \"LastB\" && jsonData[0].status === \"Going\";\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].firstName === \"FirstA\"\n     && jsonData[1].lastName === \"LastA\" && jsonData[0].status === \"Maybe\";\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstA\"\n     && jsonData[0].lastName === \"LastA\" && jsonData[0].status === \"Maybe\";\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].firstName === \"FirstC\"\n     && jsonData[1].lastName === \"LastC\" && jsonData[1].status === \"Going\";\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497023216387,
+			"time": 1497346721221,
 			"name": "Get RSVS for public event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -419,15 +419,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"name\"\n&& jsonData[1][\"params\"][1] === \"desc\"\n&& jsonData[1][\"params\"][2] === \"country\"\n&& jsonData[1][\"params\"][3] === \"state\"\n&& jsonData[1][\"params\"][4] === \"city\"\n&& jsonData[1][\"params\"][5] === \"zip\"\n&& jsonData[1][\"params\"][6] === \"addr\"",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 7\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\"\n&& jsonData[1][\"params\"][0] === \"descr\"\n&& jsonData[2][\"params\"][0] === \"city\"\n&& jsonData[3][\"params\"][0] === \"state\"\n&& jsonData[4][\"params\"][0] === \"country\"\n&& jsonData[5][\"params\"][0] === \"addr\"\n&& jsonData[6][\"params\"][0] === \"zip\"",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497029060308,
+			"time": 1497335203977,
 			"name": "Exceed Char Limits",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"country\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"addr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"city\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"zip\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"desc\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula e\"\n}"
+			"rawModeData": "{\n\t\"state\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"country\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"addr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"city\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"zip\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"descr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula e\"\n}"
 		},
 		{
 			"id": "6d946388-4654-d48f-5f9b-b0e2770a8f95",
@@ -438,10 +438,10 @@
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 1\n     && jsonData[0].title === \"End of Year BBQ\" && \n     jsonData[0].orgId === 1 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].desc === \"End of YearBBQ\" \n     && jsonData[0].zip === \"93405\"\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].id === 2\n     && jsonData[1].title === \"Beach day\" && \n     jsonData[1].orgId === 3 &&  jsonData[1].city === \"SLO\"\n     && jsonData[1].state === \"CA\" && jsonData[1].country === \"US\"\n     && jsonData[1].addr === \"1 Grand Ave\" && jsonData[1].private === 0\n     && jsonData[1].desc === \"Come to the beach! It will be fun!\"\n     && jsonData[1].zip === \"93405\";\n     \n    tests[\"Correct date\"] = jsonData[0].date < jsonData[1].date;\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n/*var jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 1\n     && jsonData[0].title === \"End of Year BBQ\" && \n     jsonData[0].orgId === 1 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].desc === \"End of YearBBQ\" \n     && jsonData[0].zip === \"93405\"\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].id === 2\n     && jsonData[1].title === \"Beach day\" && \n     jsonData[1].orgId === 3 &&  jsonData[1].city === \"SLO\"\n     && jsonData[1].state === \"CA\" && jsonData[1].country === \"US\"\n     && jsonData[1].addr === \"1 Grand Ave\" && jsonData[1].private === 0\n     && jsonData[1].desc === \"Come to the beach! It will be fun!\"\n     && jsonData[1].zip === \"93405\";\n     \n    tests[\"Correct date\"] = jsonData[0].date < jsonData[1].date;\n}*/",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497027518456,
+			"time": 1497335306530,
 			"name": "Get Evts UserB start/end date",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -460,12 +460,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"dupTitle\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496965100968,
+			"time": 1497291953399,
 			"name": "Create EventA Dupl",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"desc\":\"End of the year BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"End of the year BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of the year BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of BBQ\"\n}"
 		},
 		{
 			"id": "733aa21b-3ee7-c0d6-4ecb-2eeb0e023176",
@@ -476,15 +476,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 2\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"description\" &&\njsonData[1][\"params\"][0] === \"person\"",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"forbiddenField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 2\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"description\" &&\njsonData[1][\"params\"][0] === \"person\"",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496964640577,
+			"time": 1497290623089,
 			"name": "Create event bad field",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"zipcode\":\"95138\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"date\":1496962346,\n\t\"name\":\"EventA\",\n\t\"description\":\"Come to my event!\",\n\t\"person\":\"UserA\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"zip\":\"95138\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"date\":{{$timestamp}},\n\t\"title\":\"EventA\",\n\t\"description\":\"Come to my event!\",\n\t\"person\":\"UserA\"\n}"
 		},
 		{
 			"id": "74850f54-2449-c41f-eb32-93910a5e8d4e",
@@ -498,12 +498,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497023232906,
+			"time": 1497309843225,
 			"name": "RSVP to public event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":\"1\",\n\t\"status\":\"Maybe\"\n}"
+			"rawModeData": "{\n\t\"prsId\":\"1\",\n\t\"status\":\"Maybe\"\n}"
 		},
 		{
 			"id": "82d54ad6-0313-a4ac-b8ec-e136dbba90cb",
@@ -533,15 +533,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"address\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"addr\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962939993,
+			"time": 1497290030919,
 			"name": "Create event empty addr",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"name\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"desc\": \"A cool event!!!\",\n\t\"addr\": \"\"\n}"
+			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"descr\": \"A cool event!!!\",\n\t\"addr\": \"\"\n}"
 		},
 		{
 			"id": "8807af7b-040f-6804-db7b-0125ad086a92",
@@ -612,12 +612,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497019473967,
+			"time": 1497335376879,
 			"name": "Register UserC",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n    \"email\": \"UserC@domainC\",\n    \"firstName\": \"FirstC\",\n    \"lastName\" : \"LastC\",\n    \"password\" : \"passwordC\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zipcode\": \"95138\"\n}"
+			"rawModeData": "{\n    \"email\": \"UserC@domainC\",\n    \"firstName\": \"FirstC\",\n    \"lastName\" : \"LastC\",\n    \"password\" : \"passwordC\",\n    \"city\": \"San Jose\",\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"zip\": \"95138\"\n}"
 		},
 		{
 			"id": "960ff05c-d381-79da-46e4-b00a025aff44",
@@ -631,12 +631,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\npostman.setEnvironmentVariable(\"eventADate\", new Date().getTime());",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497026103089,
+			"time": 1497296567630,
 			"name": "Create EventA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"desc\":\"End of YearBBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"End of Year BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of YearBBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of Year BBQ\"\n}"
 		},
 		{
 			"id": "9e07556e-0cb7-b7db-f64e-9cd33f5f5ba7",
@@ -647,10 +647,10 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Missing field\"] = responseBody.has(\"missingField\");\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"personId\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Missing field\"] = responseBody.has(\"missingField\");\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"prsId\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497020272810,
+			"time": 1497296853874,
 			"name": "RSVP missing user",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -669,12 +669,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496965266794,
+			"time": 1497295272456,
 			"name": "Create EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\n\t\"addr\":\"1 Grand Ave\",\n\t\"date\":{{$timestamp}},\n\t\"name\":\"Puppy Party\"\n}"
+			"rawModeData": "{\n\t\n\t\"addr\":\"1 Grand Ave\",\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Puppy Party\"\n}"
 		},
 		{
 			"id": "a6f59206-8051-0293-7554-dd427aec8f0a",
@@ -688,12 +688,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\npostman.setEnvironmentVariable(\"eventCDate\", new Date().getTime());",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497026155772,
+			"time": 1497308924729,
 			"name": "Create public EventC",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"desc\":\"Come to the beach! It will be fun!\",\n\t\"private\":0,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"Beach day\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"Come to the beach! It will be fun!\",\n\t\"private\":0,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Beach day\"\n}"
 		},
 		{
 			"id": "b17d5a73-5a25-3d68-7785-15ebc47612e2",
@@ -704,10 +704,10 @@
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 1\n     && jsonData[0].title === \"End of Year BBQ\" && \n     jsonData[0].orgId === 1 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].desc === \"End of YearBBQ\" \n     && jsonData[0].zip === \"93405\"\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 1\n     && jsonData[0].title === \"End of Year BBQ\" && \n     jsonData[0].orgId === 1 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].descr === \"End of YearBBQ\" \n     && jsonData[0].zip === \"93405\"\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497027888063,
+			"time": 1497316226659,
 			"name": "Get Evts UserB owner",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -761,15 +761,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Not found\"] = responseBody.has(\"Not found\");",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Not found\"] = responseBody.has(\"notFound\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497020048582,
+			"time": 1497296689395,
 			"name": "Add User to Event non-existent",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":2\n}"
+			"rawModeData": "{\n\t\"prsId\":2\n}"
 		},
 		{
 			"id": "bb68cd6b-2c90-57a6-d127-93c120e92de1",
@@ -783,7 +783,7 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Empty Response\"] = jsonData.length === 0;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497022920804,
+			"time": 1497398706293,
 			"name": "Get RSVS for private event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -821,12 +821,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497020754671,
+			"time": 1497296892706,
 			"name": "Add UserB to EventA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":2\n}"
+			"rawModeData": "{\n\t\"prsId\":2\n}"
 		},
 		{
 			"id": "c4b3f2eb-d385-08c5-c779-477880bd8413",
@@ -837,10 +837,10 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 3\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"name\" && \n    jsonData[1][\"params\"][0] === \"address\" &&\n    jsonData[2][\"params\"][0] === \"datetime\" ;",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 3\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\" && \n    jsonData[1][\"params\"][0] === \"addr\" &&\n    jsonData[2][\"params\"][0] === \"date\" ;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496961774603,
+			"time": 1497289831152,
 			"name": "Create empty event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -878,12 +878,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\npostman.setEnvironmentVariable(\"eventBDate\", new Date().getTime());",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497027108572,
+			"time": 1497308945632,
 			"name": "Create EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"95138\",\n\t\"desc\":\"Bring two dogs!\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"Puppy party\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"95138\",\n\t\"descr\":\"Bring two dogs!\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Puppy party\"\n}"
 		},
 		{
 			"id": "c864099a-e2f7-f74f-40e6-b7c827e68d3b",
@@ -897,12 +897,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"status\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497020717336,
+			"time": 1497296882871,
 			"name": "RSVP bad value",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"status\":\"Sonia\"\n}"
+			"rawModeData": "{\n\t\"prsId\":1,\n\t\"status\":\"Sonia\"\n}"
 		},
 		{
 			"id": "cc45abfb-9a28-1cce-8966-87670eafe777",
@@ -913,10 +913,10 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 3\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"name\" && \n    jsonData[1][\"params\"][0] === \"addr\" &&\n    jsonData[2][\"params\"][0] === \"date\" ;",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 3\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\" && \n    jsonData[1][\"params\"][0] === \"addr\" &&\n    jsonData[2][\"params\"][0] === \"date\" ;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962838580,
+			"time": 1497289875894,
 			"name": "Create event missing fields",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -932,15 +932,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"address\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"addr\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962870403,
+			"time": 1497290007775,
 			"name": "Create event missing addr",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"name\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"desc\": \"A cool event!!!\"\n}"
+			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"descr\": \"A cool event!!!\"\n}"
 		},
 		{
 			"id": "dd454501-552c-8550-c005-ec22b9301305",
@@ -951,15 +951,15 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"datetime\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"date\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962861276,
+			"time": 1497335249964,
 			"name": "Create event empty date",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"name\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"date\": \"\"\n}"
+			"rawModeData": "{\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"date\": \"\"\n}"
 		},
 		{
 			"id": "e2dbbae8-8ac3-7f04-9daa-eee3e1b3992a",
@@ -970,10 +970,10 @@
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 3\n     && jsonData[0].title === \"Puppy party\" && \n     jsonData[0].orgId === 2 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].desc === \"Bring two dogs!\"\n     && jsonData[0].zip === \"95138\";\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].id === 3\n     && jsonData[0].title === \"Puppy party\" && \n     jsonData[0].orgId === 2 &&  jsonData[0].city === \"SLO\"\n     && jsonData[0].state === \"CA\" && jsonData[0].country === \"US\"\n     && jsonData[0].addr === \"1 Grand Ave\" && jsonData[0].private === 1\n     && jsonData[0].descr === \"Bring two dogs!\"\n     && jsonData[0].zip === \"95138\";\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497027836904,
+			"time": 1497316218742,
 			"name": "Get Evts UserB loc",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -992,12 +992,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497023190443,
+			"time": 1497309505873,
 			"name": "RSVP to public event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"personId\":\"3\",\n\t\"status\":\"Going\"\n}"
+			"rawModeData": "{\n\t\"prsId\":\"3\",\n\t\"status\":\"Going\"\n}"
 		},
 		{
 			"id": "e6237e85-60f5-d047-10f4-6a9eb0b80ebb",
@@ -1008,10 +1008,10 @@
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"name\";",
+			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496962853220,
+			"time": 1497289891037,
 			"name": "Create event empty name",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -1053,12 +1053,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"date\"",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496964620994,
+			"time": 1497335187281,
 			"name": "Create event bad date",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"desc\":\"Come to my event!\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"EventA\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"descr\":\"Come to my event!\",\n\t\"private\":1,\n\t\"date\":-5,\n\t\"title\":\"EventA\"\n}"
 		},
 		{
 			"id": "ec81c17f-9e31-851d-9901-9e2787f7af3f",
@@ -1072,12 +1072,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1496965240827,
+			"time": 1497291806599,
 			"name": "Create EventA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"desc\":\"End of BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"name\":\"End of BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of BBQ\"\n}"
 		},
 		{
 			"id": "f72a63c5-e39c-dcab-612e-2de97c8e888e",
@@ -1088,10 +1088,10 @@
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstC\"\n     && jsonData[0].lastName === \"LastC\" && jsonData[0].status === \"Not going\";\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstC\"\n     && jsonData[0].lastName === \"LastC\" && jsonData[0].status === \"Not Going\";\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497024977915,
+			"time": 1497343727510,
 			"name": "Get RSVS for event owner",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
