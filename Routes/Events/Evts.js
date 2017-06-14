@@ -412,10 +412,13 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
          if (orgId === req.session.id ||
           vld.checkPrsOK(rows[0].prsId), cb)
-            cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
-             [req.params.id], 
-             function() {
-               cb();
+            cnn.chkQry('SELECT * FROM Reservation WHERE id = ?',
+             [req.params.rid], 
+             function(err, rows2) {
+               if (vld.check(rows2.length, Tags.notFound, null, cb)) {
+                  cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
+                   [req.params.rid], cb);
+               }
              });
       }
    }],
