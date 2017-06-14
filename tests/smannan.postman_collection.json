@@ -226,12 +226,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497289885077,
+			"time": 1497410729839,
 			"name": "Create event missing name",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"state\": \"CA\"\n}"
+			"rawModeData": "{\n\t\"date\": 14969623460000,\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"state\": \"CA\"\n}"
 		},
 		{
 			"id": "3d4091e6-6b04-2499-cf0b-5b9923e75531",
@@ -264,12 +264,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"private\"",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497335183542,
+			"time": 1497410754957,
 			"name": "Create event bad private",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"descr\":\"Come to my event!\",\n\t\"date\":1496962346,\n\t\"private\":10,\n\t\"title\":\"EventA\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"descr\":\"Come to my event!\",\n\t\"date\":1496962346000000,\n\t\"private\":10,\n\t\"title\":\"EventA\"\n}"
 		},
 		{
 			"id": "463abb0f-db67-a7e6-be9d-bbf356c10f21",
@@ -442,12 +442,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 7\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\"\n&& jsonData[1][\"params\"][0] === \"descr\"\n&& jsonData[2][\"params\"][0] === \"city\"\n&& jsonData[3][\"params\"][0] === \"state\"\n&& jsonData[4][\"params\"][0] === \"country\"\n&& jsonData[5][\"params\"][0] === \"addr\"\n&& jsonData[6][\"params\"][0] === \"zip\"",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497335203977,
+			"time": 1497411016189,
 			"name": "Exceed Char Limits",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"country\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"addr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"city\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"zip\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"descr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula e\"\n}"
+			"rawModeData": "{\n\t\"state\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"country\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"addr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"city\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"zip\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing\",\n\t\"descr\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus\",\n\t\"private\":1,\n\t\"date\":1496962346000000,\n\t\"title\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula e\"\n}"
 		},
 		{
 			"id": "6d946388-4654-d48f-5f9b-b0e2770a8f95",
@@ -480,12 +480,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"dupTitle\");",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497291953399,
+			"time": 1497411036787,
 			"name": "Create EventA Dupl",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of the year BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of the year BBQ\",\n\t\"private\":1,\n\t\"date\":1496962346000000,\n\t\"title\":\"End of BBQ\"\n}"
 		},
 		{
 			"id": "733aa21b-3ee7-c0d6-4ecb-2eeb0e023176",
@@ -556,12 +556,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"addr\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497290030919,
+			"time": 1497410744406,
 			"name": "Create event empty addr",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"descr\": \"A cool event!!!\",\n\t\"addr\": \"\"\n}"
+			"rawModeData": "{\n\t\"date\": 149696234600000,\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"descr\": \"A cool event!!!\",\n\t\"addr\": \"\"\n}"
 		},
 		{
 			"id": "8807af7b-040f-6804-db7b-0125ad086a92",
@@ -689,12 +689,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497295272456,
+			"time": 1497411045876,
 			"name": "Create EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\n\t\"addr\":\"1 Grand Ave\",\n\t\"date\":{{$timestamp}},\n\t\"title\":\"Puppy Party\"\n}"
+			"rawModeData": "{\n\t\n\t\"addr\":\"1 Grand Ave\",\n\t\"date\":1496962346000000,\n\t\"title\":\"Puppy Party\"\n}"
 		},
 		{
 			"id": "a6f59206-8051-0293-7554-dd427aec8f0a",
@@ -955,12 +955,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"addr\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497290007775,
+			"time": 1497410740822,
 			"name": "Create event missing addr",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"descr\": \"A cool event!!!\"\n}"
+			"rawModeData": "{\n\t\"date\": 149696234600000,\n\t\"title\": \"eventA\",\n\t\"country\": \"US\",\n\t\"state\": \"CA\",\n\t\"descr\": \"A cool event!!!\"\n}"
 		},
 		{
 			"id": "dd454501-552c-8550-c005-ec22b9301305",
@@ -1031,12 +1031,12 @@
 			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"missingField\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"title\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497289891037,
+			"time": 1497410734838,
 			"name": "Create event empty name",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"date\": 1496962346,\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"state\": \"CA\",\n\t\"name\": \"\"\n}"
+			"rawModeData": "{\n\t\"date\": 1496962346000000,\n\t\"addr\": \"1 Grand Ave Cal Poly SLO\",\n\t\"state\": \"CA\",\n\t\"name\": \"\"\n}"
 		},
 		{
 			"id": "e85dc0db-89cb-3e9e-2597-9c4886b6d682",
@@ -1092,12 +1092,12 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497291806599,
+			"time": 1497411038310,
 			"name": "Create EventA",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of BBQ\",\n\t\"private\":1,\n\t\"date\":{{$timestamp}},\n\t\"title\":\"End of BBQ\"\n}"
+			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave\",\n\t\"city\":\"SLO\",\n\t\"zip\":\"93405\",\n\t\"descr\":\"End of BBQ\",\n\t\"private\":1,\n\t\"date\":1496962346000000,\n\t\"title\":\"End of BBQ\"\n}"
 		},
 		{
 			"id": "f72a63c5-e39c-dcab-612e-2de97c8e888e",
