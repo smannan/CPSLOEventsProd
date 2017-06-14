@@ -43,8 +43,11 @@ router.get('/', function (req, res) {
 
    if (loc) {
       query += ' and zip = ? '
-      params.push(loc)
+      params.push('"' + loc + '"')
    }
+
+   console.log(params)
+   query += ' order by date asc;'
 
    req.cnn.chkQry(query, params,
    function(err, evts) {
