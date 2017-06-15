@@ -40,18 +40,19 @@
             Your Events
          </md-nav-item>
 
-         <md-nav-item  md-nav-sref="home" name="home" ng-if="!!user" ng-disable=1>
-            {{user.firstName + " " + user.lastName}}
-         </md-nav-item>
-
          <!-- Right justify Logout button --> 
          <span flex></span>
-         <md-nav-item md-nav-sref="logout" name="logout" ng-if="!!user">
-            <li ng-if="!!user">
+          
+         <md-button ng-if="!!user" ng-disabled="true" style="color:#E91E63">
+            {{user.firstName + " " + user.lastName}}
+         </md-button>
+
+         <md-button ng-if="!!user">
+            <li>
                <a ui-sref="logout" ng-click="logout()" 
                ng-controller='logoutController'>Logout</a>
             </li>
-         </md-nav-item>
+         </md-button>
       </md-nav-bar>
       <ui-view/>
    </div>
