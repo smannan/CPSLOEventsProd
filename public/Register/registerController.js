@@ -17,19 +17,23 @@ app.controller('registerController',
          "Login automatically?", "Login", ["Yes", "No"]);
       })
       .then(function(btn) {
-         if (btn === "Yes") {
+         console.log(btn);
+         if (btn) {
             login.login($scope.user)
             .then(function(user) {
                $scope.$parent.user = user;
                $state.go('home');
             })
          }
-         else { 
+         else {
             $state.go('login');
          }
       })
       .catch(function(err) {
-         $scope.errors = err.data;
+         if (err && err.data)
+            $scope.errors = err.data;
+         
+         $state.go('login');
       });
    };
 
