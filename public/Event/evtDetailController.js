@@ -1,9 +1,9 @@
 app.controller("evtDetailController", 
  ['$scope', '$stateParams', '$state', '$http', 'notifyDlg',
  function($scope, $stateParams, $state, $http, nDlg) {
-   var evtId = 1/*$stateParams.evtId*/;
+   var evtId = $stateParams.evtId;
   
-   /*$http.get('/Evts/' + evtId + '/')
+   $http.get('/Evts/' + evtId + '/')
    .then(function(response) {
       $scope.events = response.data;
    })
@@ -31,5 +31,5 @@ app.controller("evtDetailController",
             }
          })
       }
-   };*/
+   };
 }]);
