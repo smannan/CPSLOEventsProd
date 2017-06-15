@@ -8,18 +8,20 @@
    <h4 class="md-dense" style="font-style: italic">
        {{events[0].date | date:'medium'}} @ {{events[0].addr}} {{events[0].zip}}
    </h4>
+   <!--
    <h2 class="md-dense" style="font-weight:200">
        Event Description
    </h2>
+   -->
    
-   <p>{{events[0].descr}} Event description would go here.</p>
+   <p>{{events[0].descr}}</p>
 
    <md-divider ng-if="events[0].descr"></md-divider>
    
    <div layout="row" layout-align="center center">
-   <md-button class="md-primary md-raised" ng-click="createEvt()">Going</md-button>
-      <md-button class="md-secondary md-raised" ng-click="createEvt()">Maybe</md-button>
-      <md-button class="md-primary md-raised md-warn" ng-click="createEvt()">Not Going</md-button>
+      <md-button ng-init="g = 'Going'" ng-disabled="checkRsv(g)" class="md-primary md-raised" ng-click="changeMyRsv(g)">{{g}}</md-button>
+      <md-button ng-init="m = 'Maybe'" ng-disabled="checkRsv(m)" class="md-secondary md-raised" ng-click="changeMyRsv(m)">{{m}}</md-button>
+      <md-button ng-init="n = 'Not Going'" ng-disabled="checkRsv(n)" class="md-primary md-raised md-warn" ng-click="changeMyRsv(n)">{{n}}</md-button>
    </div>
 </md-content>
 
@@ -32,13 +34,13 @@
 
 <md-content>
    <md-list class="md-dense" flex>
-      <md-list-item class="md-3-line" ng-repeat="rsvs in reservations" 
+      <md-list-item class="md-3-line" ng-repeat="rsv in rsvs" 
                     style="padding-left:5px">
             <div class="md-list-item-text" layout="row" 
                  layout-align="left center">
-               {{rsvs.firstName}} {{rsvs.lastName}} 
+               {{rsv.firstName}} {{rsv.lastName}} 
                <md-chips>
-                  <md-chip>{{rsvs.status}}</md-chip>
+                  <md-chip>{{rsv.status}}</md-chip>
                </md-chips>
             </div>
          <md-divider></md-divider>
