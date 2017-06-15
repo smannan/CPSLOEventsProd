@@ -296,7 +296,7 @@ router.get('/:id/Rsvs', function(req, res) {
    function(existingRsv, fields, cb) {
       /* If the event is private and the user is invited
       */
-      if (evt.private === 1 && existingRsv.length > 0
+      if ((evt.private === 1 && existingRsv.length > 0)
        || (evt.private === 0 || evt.orgId === prsId)) {
          cnn.chkQry(query, evtId, cb)
       }
