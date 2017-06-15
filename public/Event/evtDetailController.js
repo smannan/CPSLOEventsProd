@@ -3,26 +3,24 @@ app.controller("evtDetailController",
  function($rs, $scope, $stateParams, $state, $http, nDlg) {
    var evtId = $stateParams.evtId;
    var pid = $rs.user.id;
-   var myrsv = null;
+   $scope.myrsv = null;
 
    // Get event information
    $http.get('/Evts/' + evtId)
    .then(function(response) {
       $scope.events = response.data;
       console.log($scope.events);
+      return $http.get('/Evts/' + evtId + '/Rsvs');
    })
-   .catch(function(err) {
-      $scope.events = null;
-   });
-    
-   // Get all reservations for this event 
-   $http.get('/Evts/' + evtId + '/Rsvs')
    .then(function(response) {
       $scope.rsvs = response.data;
       console.log($scope.rsvs);
+      return getMyRsv();
    })
    .catch(function(err) {
+      $scope.events = null;
       $scope.rsvs = null;
+      $scope.myrsv = null;
    });
 
    var getMyRsv = function () {
@@ -30,23 +28,25 @@ app.controller("evtDetailController",
       .then(function(response) {
          response.data.forEach(function(rsvtemp) {
             if (rsvtemp.evtId === parseInt(evtId))
-               myrsv = rsvtemp;
+               $scope.myrsv = rsvtemp;
          });
+         console.log("myrsv is " + $scope.myrsv ? " valid " : " null " );
+         if ($scope.myrsv)
+            console.log($scope.myrsv);
       });
    };
-   getMyRsv();
 
    $scope.checkRsv = function(s) {
-      return myrsv ? myrsv.status === s : false;
+      return $scope.myrsv ? $scope.myrsv.status === s : false;
    };
 
    $scope.changeMyRsv = function(s) {
       (function() {
-         if (!myrsv) {
+         if (!$scope.myrsv) {
             return $http.post('/Evts/' + evtId + '/Rsvs', 
              {prsId: pid, evtId: evtId, status:s});
          } else {
-            var rid = myrsv.id;
+            var rid = $scope.myrsv.id;
             return $http.put('/Prss/' + pid + '/Rsvs/' + rid, {status: s});
          }
       })()

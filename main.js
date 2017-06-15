@@ -30,6 +30,14 @@ app.use(Session.router);
 // |req| and continue processing,
 // otherwise respond immediately with 401 and noLogin error tag.
 app.use(function(req, res, next) {
+   console.log();
+   console.log(req.method);
+   console.log(req.path);
+   if (req.query)
+      console.log(req.query);
+   if (req.body)
+      console.log(req.body);
+   
    if (req.session || (req.method === 'POST' &&
     (req.path === '/Prss' || req.path === '/Ssns') || req.path === '/DB')) {
       req.validator = new Validator(req, res);
