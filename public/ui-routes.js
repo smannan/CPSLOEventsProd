@@ -29,13 +29,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Reservation/rsvsOverview.template.html',
          controller: 'rsvsOverviewController',
          resolve: {
-            /*rsvs: ['$q', '$http', '$stateParams', 
+            rsvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
                return $http.get("Prss/:prsId/Rsvs")
                .then(function(response) {
                   return response.data;
                });
-            }]*/
+            }]
          },
       })
       .state('evtPrsOverview', {
