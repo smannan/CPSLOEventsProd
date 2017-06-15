@@ -1,3 +1,4 @@
+
 <html lang="en" >
 <head>
    <title>CP SLO Events</title>
@@ -39,10 +40,17 @@
             Your Events
          </md-nav-item>
 
+         <md-nav-item  md-nav-sref="home" name="home" ng-if="!!user" ng-disable=1>
+            {{user.firstName + " " + user.lastName}}
+         </md-nav-item>
+
          <!-- Right justify Logout button --> 
          <span flex></span>
          <md-nav-item md-nav-sref="logout" name="logout" ng-if="!!user">
-            Logout
+            <li ng-if="!!user">
+               <a ui-sref="logout" ng-click="logout()" 
+               ng-controller='logoutController'>Logout</a>
+            </li>
          </md-nav-item>
       </md-nav-bar>
       <ui-view/>

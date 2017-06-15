@@ -14,10 +14,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
          templateUrl: 'Login/login.template.html',
          controller: 'loginController',
       })
-      // Fix logout
       .state('logout', {
          url: '/login',
-         template: '',
+         templateUrl: 'Home/home.template.html',
          controller: 'logoutController',
       })
       .state('register', {

@@ -1,14 +1,21 @@
-app.controller('logoutController', 
- ['$rootScope', '$scope', '$state', 'login', 'notifyDlg', 
- function($rootScope, $scope, $state, login, nDlg) {
-    $scope.logout = function() {
-      console.log("Trying to logout user...");
-      
+app.controller('logoutController',
+ ['$scope', '$state', '$rootScope', 'login',
+ function($scope, $state, $rootScope, login) {
+
+   $scope.logout = function() {
+      console.log('logging out user')
       login.logout()
-      .then(function() {
+      .then(function(user) {
          $rootScope.user = null;
-         $rootScope.cookie = null;
          $state.go('home');
+      })
+      /*.catch(function() {
+         nDlg.show($scope, "Error in logging out", "Error");
+      });*/
+      .catch(function(err) {
+         if (err && err.data) {
+            $scope.errors = err.data;
+         }
       });
    };
 }]);
