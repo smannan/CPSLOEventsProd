@@ -7,7 +7,7 @@ app.controller('registerController',
       return {abbrev: state};
     });   
     
-   $scope.user = {}; 
+   $scope.user= {}; 
    $scope.errors = [];
 
    $scope.registerUser = function() {

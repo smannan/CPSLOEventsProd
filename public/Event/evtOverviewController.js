@@ -1,58 +1,14 @@
 app.controller('evtOverviewController',
- ['$scope', '$state', '$http', '$uibModal', 'notifyDlg', 'evts',
- function($scope, $state, $http, $uibM, nDlg, evts) {
+ ['$scope', '$state', '$http', '$uibModal', '$mdDialog', 'mdDlg', 'evts',
+ function($scope, $state, $http, $uibM, $mdDialog, mdDlg, evts) {
+    $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ' + 
+     'ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD ' + 
+     'TN TX UT VT VA WA WV WI WY').split(' ').map(function(state) {
+      return {abbrev: state};
+    });   
+    
    $scope.evts = evts;
-    var imagePath = 'Icons/MaterialIcon.png';
-    
-    // Hard coded events
-    $scope.dumbEvts = [
-      {
-         face: imagePath, 
-         evtName: "Event 1",
-         organizer: 'adm@11.com',
-         time: '3:08PM',
-         date: 'June 14, 2017',
-         location: 'Cal Poly',
-         evtDesc: "This is some random description for this event.",
-      },
-      {
-         face: imagePath, 
-         evtName: "Event 2",
-         organizer: 'adm@11.com',
-         time: '3:08PM',
-         date: 'June 14, 2017',
-         location: 'Cal Poly',
-         evtDesc: "This is some random description for this event.",
-      },
-      {
-         face: imagePath, 
-         evtName: "Event 3",
-         organizer: 'adm@11.com',
-         time: '3:08PM',
-         date: 'June 14, 2017',
-         location: 'Cal Poly',
-         evtDesc: "This is some random description for this event.",
-      },
-      {
-         face: imagePath, 
-         evtName: "Event 4",
-         organizer: 'adm@11.com',
-         time: '3:08PM',
-         date: 'June 14, 2017',
-         location: 'Cal Poly',
-         evtDesc: "This is some random description for this event.",
-      },
-      {
-         face: imagePath, 
-         evtName: "Event 5",
-         organizer: 'adm@11.com',
-         time: '3:08PM',
-         date: 'June 14, 2017',
-         location: 'Cal Poly',
-         evtDesc: "This is some random description for this event.",
-      }
-    ]; 
-    
+
    displayError = function(err) {
      if (err.data[0].tag === "dupTitle") {
          nDlg.show($scope, "Event with this title already " + 
@@ -62,7 +18,7 @@ app.controller('evtOverviewController',
 
    $scope.newEvt = function() {
       $scope.dlgTitle = "New Event";
-      $uibM.open({
+      nDlg.show({
          templateUrl: 'Event/editCnvDlg.template.html',
          scope: $scope
       }).result
@@ -82,10 +38,13 @@ app.controller('evtOverviewController',
 
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
-
+      
       $scope.dlgTitle = "Edit Event Title";
-      $uibM.open({
+      $mdDialog.show({
+         controller: DialogController,
          templateUrl: 'Event/editCnvDlg.template.html',
+         parent: angular.element(document.body),
+         clickOutsideToClose:true,
          scope: $scope
       }).result
       .then(function(newTitle) {
@@ -105,10 +64,10 @@ app.controller('evtOverviewController',
    $scope.delEvt = function($index) {
       var evtId = $scope.evts[$index].id;
 
-      nDlg.show($scope, "Delete this event?", "Delete Event",
+      mdDlg.login($scope, "Delete this event?", "Delete Event",
        ["Yes", "No"])
       .then(function(btn) {
-         if (btn === "Yes") {
+         if (btn) {
             return $http.delete("/Evts/" + evtId, {title:
             $scope.evts[$index].title});
          }
@@ -163,5 +122,18 @@ app.controller('evtOverviewController',
       .then(function() {
       });
    };
-      
+    
+   function DialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+         $mdDialog.hide();
+      };
+
+      $scope.cancel = function() {
+         $mdDialog.cancel();
+      };
+
+      $scope.answer = function(answer) {
+         $mdDialog.submit(answer);
+      };
+   }; 
 }]);
