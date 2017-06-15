@@ -1,6 +1,6 @@
 app.controller('evtOverviewController',
- ['$scope', '$state', '$http', '$uibModal', '$mdDialog', 'mdDlg', 'evts',
- function($scope, $state, $http, $uibM, $mdDialog, mdDlg, evts) {
+ ['$scope', '$state', '$http', '$uibModal', '$mdDialog', 'evts',
+ function($scope, $state, $http, $uibM, $mdDialog, evts) {
     $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ' + 
      'ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD ' + 
      'TN TX UT VT VA WA WV WI WY').split(' ').map(function(state) {
@@ -9,7 +9,7 @@ app.controller('evtOverviewController',
    $scope.evts = evts;
 
    displayError = function(err) {
-     if (err.data[0].tag === "dupTitle") {
+     if (err && err.data && err.data[0].tag === "dupTitle") {
          nDlg.show($scope, "Event with this title already " + 
             "exists!", "Error");
       }
@@ -17,10 +17,14 @@ app.controller('evtOverviewController',
 
    $scope.newEvt = function() {
       $scope.dlgTitle = "New Event";
-      nDlg.show({
-         templateUrl: 'Event/editCnvDlg.template.html',
-         scope: $scope
-      }).result
+      
+      $mdDialog.show({
+         controller: DialogController,
+         templateUrl: 'Event/editEvtDlg.template.html',
+         clickOutsideToClose:true,
+         scope: $scope,
+         preserveScope: true
+      })
       .then(function(newTitle) {
          return $http.post("/Evts", {title: newTitle});
       })
@@ -39,14 +43,15 @@ app.controller('evtOverviewController',
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
       
-      $scope.dlgTitle = "Edit Event Title";
+      $scope.dlgTitle = "Edit Event";
       $mdDialog.show({
          controller: DialogController,
-         templateUrl: 'Event/editCnvDlg.template.html',
+         templateUrl: 'Event/editEvtDlg.template.html',
          parent: angular.element(document.body),
          clickOutsideToClose:true,
-         scope: $scope
-      }).result
+         scope: $scope,
+         preserveScope: true
+      })
       .then(function(newTitle) {
          return $http.put("/Evts/" + evtId, {title: newTitle});
       })
@@ -135,10 +140,6 @@ app.controller('evtOverviewController',
    };
 
    function DialogController($scope, $mdDialog) {
-      $scope.hide = function() {
-         $mdDialog.hide();
-      };
-
       $scope.cancel = function() {
          $mdDialog.cancel();
       };
