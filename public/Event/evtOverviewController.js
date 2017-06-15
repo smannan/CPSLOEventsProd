@@ -1,4 +1,5 @@
 app.controller('evtOverviewController',
+<<<<<<< HEAD
  ['$scope', '$state', '$http', '$uibModal', '$mdDialog', 'mdDlg', 'evts',
  function($scope, $state, $http, $uibM, $mdDialog, mdDlg, evts) {
     $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ' + 
@@ -6,6 +7,13 @@ app.controller('evtOverviewController',
      'TN TX UT VT VA WA WV WI WY').split(' ').map(function(state) {
       return {abbrev: state};
     });   
+=======
+ ['$scope', '$state', '$http', '$mdDialog', '$location', 'notifyDlg', 'evts',
+ function($scope, $state, $http, $mdDialog, $location, nDlg, evts) {
+   
+   $scope.evts = evts;
+   var imagePath = 'Icons/MaterialIcon.png'; 
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
     
    $scope.evts = evts;
 
@@ -17,12 +25,21 @@ app.controller('evtOverviewController',
    };
 
    $scope.newEvt = function() {
+<<<<<<< HEAD
       $scope.dlgTitle = "New Event";
       nDlg.show({
          templateUrl: 'Event/editCnvDlg.template.html',
          scope: $scope
       }).result
       .then(function(newTitle) {
+=======
+      $mdDialog.show({
+         scope:$scope,
+         templateUrl:'editCnvDlg.template.html',
+         clickOutsideToClose: true
+      })
+      .then(function() {
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
          return $http.post("/Evts", {title: newTitle});
       })
       .then(function() {
@@ -36,6 +53,7 @@ app.controller('evtOverviewController',
       });
    };
 
+   
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
       
@@ -81,47 +99,59 @@ app.controller('evtOverviewController',
    };
     
    // Helper function for filterEvt
-   makeQueryParams = function() {
-      var getString = "/Evts";
-      var startDate = $scope.filter.startDate;
-      var endDate = $scope.filter.startDate;
+   $scope.filterEvt = function() {
+
+      filterQuery = "/Evts"
+      var startDate = (new Date($scope.filter.startDate)).getTime();
+      var endDate = (new Date($scope.filter.endDate)).getTime();
       var zip = $scope.filter.zip;
       var email = $scope.filter.email;
-      var prs; 
       
       // Create endpoint with correct query parameters
       if (startDate) {
-         getString.concat("?start=" + startDate + "&");
+         filterQuery = filterQuery.concat("?start=" + startDate + "&");
       }
       if (endDate) {
-         getString.concat("?end=" + startDate + "&");
+         if (!startDate) {
+            filterQuery = filterQuery.concat("?");
+         }
+         filterQuery = filterQuery.concat("end=" + endDate + "&");
       }
       if (zip) {
-         getString.concat("?loc=" + zip + "&");
-      }
-      if (email) {
-         prs = $http.get("/Prss?email=" + email);
-         getString.concat("?owner=" + prs.id);
+         if (!endDate && !startDate) {
+            filterQuery = filterQuery.concat("?");
+         }
+         filterQuery = filterQuery.concat("loc=" + zip + "&");
       }
       
-      // Remove last & of getString
-      if (getString.charAt(getString.length - 1) === "&")
-         getString.slice(0, -1);
-         
-      return getString;
-   };
-    
-   $scope.filterEvt = function($index) {
-      // Endpoint that gets events with query parameters
-      var getString = makeQueryParams();
-      
-      return $http.get(getString)
-      .then(function(filtered) {
-         $scope.evts = filtered.data;
+      $http.get("/Prss?email=" + email)
+      .then(function(response) {
+         id = response.data[0].id;
+         own = "owner=" + id;
+         return (own)
       })
-      .then(function() {
-      });
+      .then(function(owner) {
+         if (email) {
+            if (!endDate && !startDate && !zip) {
+               filterQuery = filterQuery.concat("?");
+            }
+            filterQuery = filterQuery.concat(owner + "&");
+         }
+         return (filterQuery)
+      })
+      .then(function(query) {
+         // Remove last & of getString
+         if (query.charAt(query.length - 1) === "&") {
+            query = query.slice(0, -1);
+         }
+
+         return $http.get(query)
+         .then(function(response) {
+            $scope.evts = response.data;
+         })
+      })
    };
+<<<<<<< HEAD
     
    function DialogController($scope, $mdDialog) {
       $scope.hide = function() {
@@ -136,4 +166,6 @@ app.controller('evtOverviewController',
          $mdDialog.submit(answer);
       };
    }; 
+=======
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
 }]);

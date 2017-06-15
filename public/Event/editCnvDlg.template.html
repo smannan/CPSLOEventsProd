@@ -81,6 +81,10 @@
 
 <!--<div class="modal-header">
    <h3 class="modal-title">{{dlgTitle}}</h3>
+=======
+<div class="modal-header">
+   <h3 class="modal-title">New Event</h3>
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
 </div>
 <div class = "modal-body">
    <form>
@@ -129,7 +133,7 @@
       
       <div class="checkbox">
         <label>
-           <input type="checkbox" ng-model="event.private">
+           <input type="checkbox" ng-model="private">
             Make this event private?
         </label>
      </div>
@@ -139,7 +143,7 @@
 <div class="modal-footer">
    <button type="button" class="btn btn-primary" 
     ng-disabled="!title || !addr || !filter.date"
-    ng-click="$close(title)">OK</button>
+    ng-click="$close(1)">OK</button>
    <button type="button" class="btn btn-warning" 
     ng-click="$dismiss()">Cancel</button>
 </div>-->
