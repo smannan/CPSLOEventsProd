@@ -67,7 +67,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
          }
       })
       .state('evtDetail', {
-         url:'/evtDetail/',
+         url:'/evts/:evtId',
          templateUrl: 'Event/evtDetail.template.html',
          controller: 'evtDetailController',
       });

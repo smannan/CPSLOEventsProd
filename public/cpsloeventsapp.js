@@ -28,31 +28,25 @@ app.filter('tagError', ['errMap'/*, 'errLangCode'*/,
    };
 }]);
 
-app.directive('cnvSummary', [function() {
+app.directive('evtSummary', [function() {
    return {
       restrict: 'E',
       scope: {
-         cnv: "=toSummarize",
+         evt: "=toSummarize",
          editCnv: '&',
          delCnv: '&',
          checkUsr: '='
       },
-      template: '<a href="#" ui-sref="cnvDetail({cnvId:{{cnv.id}}})"> ' +
-       '{{cnv.title}} {{cnv.lastMessage | date : "medium"}}</a> ' +
-       '<button type="button" class="btn btn-default pull-right" ' +
-       'ng-show="checkUsr" ng-click="delCnv()"> ' +
-       '<span class="glyphicon glyphicon-trash"></span></button> ' +
-       '<button type="button" class="btn btn-default pull-right" ' +
-       'ng-show="checkUsr" ng-click="editCnv()"> ' +
-       '<span class="glyphicon glyphicon-edit"></span></button>'
+      template: '<a href="#" ui-sref="evtDetail({evtId: {{evt.id}} })"> ' +
+       '{{evt.title}} {{evt.lastMessage | date : "medium"}}</a> '
    };
 }]);
 
-app.directive('cnvDetail', [function() {
+app.directive('evtDetail', [function() {
    return {
       restrict: 'E',
       scope: {
-         msg: '='
+         evt: '='
       },
       template: '<div style="background-color:rgba(33, 150, 243, .5);">' + 
       '{{msg.whenMade | date : "medium"}} by ' + 

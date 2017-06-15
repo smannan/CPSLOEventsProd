@@ -1,20 +1,50 @@
-<h1 style="margin-left:7px; font-family:'Roboto', san-serif;">EVENT TITLE: {{evtTitle}}</h1>
-<md-content flex layout-padding>
-   <md-divider></md-divider>
-   <h3 style="font-style: italic">
-      DATE, TIME @ LOCATION
-   </h3>
-   <md-divider></md-divider>
-   
-   <p>Event description would go here. Lorem ipsum dolor sit amet, ne quod novum mei. Sea omnium invenire mediocrem at, in lobortis conclusionemque nam. Ne deleniti appetere reprimique pro, inani labitur disputationi te sed. At vix sale omnesque, id pro labitur reformidans accommodare, cum labores honestatis eu. Nec quem lucilius in, eam praesent reformidans no. Sed laudem aliquam ne.</p>
+<md-toolbar layout="row" class="md-accent md-hue-3">
+<div class="md-toolbar-tools">
+   <span>{{events[0].title}}</span>
+</div>
+</md-toolbar>
 
-   <md-divider></md-divider>
+<md-content flex layout-padding>
+   <h4 class="md-dense" style="font-style: italic">
+       {{events[0].date | date:'medium'}} @ {{events[0].addr}} {{events[0].zip}}
+   </h4>
+   <h2 class="md-dense" style="font-weight:200">
+       Event Description
+   </h2>
    
-   <span>
+   <p>{{events[0].descr}} Event description would go here.</p>
+
+   <md-divider ng-if="events[0].descr"></md-divider>
+   
+   <div layout="row" layout-align="center center">
    <md-button class="md-primary md-raised" ng-click="createEvt()">Going</md-button>
       <md-button class="md-secondary md-raised" ng-click="createEvt()">Maybe</md-button>
       <md-button class="md-primary md-raised md-warn" ng-click="createEvt()">Not Going</md-button>
-   </span>
+   </div>
+</md-content>
+
+<!-- List reservations -->
+<md-toolbar layout="row" class="md-primary">
+<div class="md-toolbar-tools">
+   <span>Reservations</span>
+</div>
+</md-toolbar>
+
+<md-content>
+   <md-list class="md-dense" flex>
+      <md-list-item class="md-3-line" ng-repeat="rsvs in reservations" 
+                    style="padding-left:5px">
+            <div class="md-list-item-text" layout="row" 
+                 layout-align="left center">
+               {{rsvs.firstName}} {{rsvs.lastName}} 
+               <md-chips>
+                  <md-chip>{{rsvs.status}}</md-chip>
+               </md-chips>
+            </div>
+         <md-divider></md-divider>
+      </md-list-item>   
+      <md-divider></md-divider>
+    </md-list>
 </md-content>
 
 <!--<h2>{{evtTitle}}</h2>

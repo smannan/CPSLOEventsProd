@@ -3,12 +3,22 @@ app.controller("evtDetailController",
  function($scope, $stateParams, $state, $http, nDlg) {
    var evtId = $stateParams.evtId;
   
-   $http.get('/Evts/' + evtId + '/')
+   // Get event information
+   $http.get('/Evts/' + evtId)
    .then(function(response) {
       $scope.events = response.data;
    })
    .catch(function(err) {
-      $scope.messages = null;
+      $scope.events = null;
+   });
+    
+   // Get all reservations for this event 
+   $http.get('/Evts/' + evtId + '/Rsvs')
+   .then(function(response) {
+      $scope.reservations = response.data;
+   })
+   .catch(function(err) {
+      $scope.rsvs = null;
    });
    
    $scope.createEvent = function() {
