@@ -44,7 +44,7 @@ app.controller("evtDetailController",
       (function() {
          if (!myrsv) {
             return $http.post('/Evts/' + evtId + '/Rsvs', 
-             {prsId: pid, evtId: evtId});
+             {prsId: pid, evtId: evtId, status:s});
          } else {
             var rid = myrsv.id;
             return $http.put('/Prss/' + pid + '/Rsvs/' + rid, {status: s});
