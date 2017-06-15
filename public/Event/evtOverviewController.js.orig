@@ -1,4 +1,5 @@
 app.controller('evtOverviewController',
+<<<<<<< HEAD
  ['$scope', '$state', '$http', '$uibModal', '$mdDialog', 'mdDlg', 'evts',
  function($scope, $state, $http, $uibM, $mdDialog, mdDlg, evts) {
     $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ' + 
@@ -6,6 +7,14 @@ app.controller('evtOverviewController',
      'TN TX UT VT VA WA WV WI WY').split(' ').map(function(state) {
       return {abbrev: state};
     });   
+=======
+ ['$scope', '$state', '$http', '$mdDialog', '$location', 'notifyDlg', 'evts',
+ function($scope, $state, $http, $mdDialog, $location, nDlg, evts) {
+   
+   $scope.evts = evts;
+   var imagePath = 'Icons/MaterialIcon.png'; 
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
+    
    $scope.evts = evts;
 
    displayError = function(err) {
@@ -16,12 +25,21 @@ app.controller('evtOverviewController',
    };
 
    $scope.newEvt = function() {
+<<<<<<< HEAD
       $scope.dlgTitle = "New Event";
       nDlg.show({
          templateUrl: 'Event/editCnvDlg.template.html',
          scope: $scope
       }).result
       .then(function(newTitle) {
+=======
+      $mdDialog.show({
+         scope:$scope,
+         templateUrl:'editCnvDlg.template.html',
+         clickOutsideToClose: true
+      })
+      .then(function() {
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
          return $http.post("/Evts", {title: newTitle});
       })
       .then(function() {
@@ -133,7 +151,8 @@ app.controller('evtOverviewController',
          })
       })
    };
-
+<<<<<<< HEAD
+    
    function DialogController($scope, $mdDialog) {
       $scope.hide = function() {
          $mdDialog.hide();
@@ -147,4 +166,6 @@ app.controller('evtOverviewController',
          $mdDialog.submit(answer);
       };
    }; 
+=======
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
 }]);
