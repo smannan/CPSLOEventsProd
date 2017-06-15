@@ -50,9 +50,8 @@
                </h3>
                <p>{{evt.descr}}</p>
                <md-divider></md-divider>
-      </md-list-item>   
-               </div>
-         <span>
+            </div>
+            <span flex></span>
             <md-button class="md-icon-button md-primary" inline aria-label="Edit"
                        ng-click="editEvt($index)" 
                        ng-show="evt.orgId === user.id">
@@ -64,7 +63,7 @@
                        ng-show="evt.orgId === user.id">
                <md-icon md-svg-icon="Icons/delete.svg"></md-icon>
             </md-button>
-         </span>
+      </md-list-item>
     </md-list>
 </md-content>
 
