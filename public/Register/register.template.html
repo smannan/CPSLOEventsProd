@@ -79,21 +79,10 @@
             <input ng-model="user.country">
          </md-input-container>
          
-         <md-input-container class="md-block">
-           <md-checkbox name="tos" ng-model="termsAccepted" required>
-             I accept the terms of service.
-           </md-checkbox>
-           <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
-             <div ng-message="required">
-               You must accept the terms of service before you can proceed.
-             </div>
-           </div>
-         </md-input-container>
-         
          <md-button type="submit" class="md-primary md-raised" 
             ng-click="registerUser()"
             ng-disabled="!user.email || !user.lastName || !user.password || 
-                         !confPass || user.password !== confPass || !termsAccepted">
+                         !confPass || user.password !== confPass">
             Register
          </md-button>
       </form>
