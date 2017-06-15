@@ -72,6 +72,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
          url:'/evts/:evtId',
          templateUrl: 'Event/evtDetail.template.html',
          controller: 'evtDetailController',
-      });
+      })
    }
 ]);

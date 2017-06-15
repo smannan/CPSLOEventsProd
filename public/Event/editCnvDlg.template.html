@@ -1,5 +1,90 @@
-<div class="modal-header">
+<md-dialog aria-label="Edit Event" style="width:1000px">
+   <form ng-cloak>
+      <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Event</h2>
+      </div>
+      </md-toolbar>
+
+      <br/>
+      
+      <md-dialog-content class="md-dialog-content">
+      <md-input-container class="md-block">
+      <label>Title</label>
+        <input type="text" class="form-control" 
+          ng-model="evt.title" required>
+      </md-input-container>   
+
+      <md-input-container class="md-block">
+        <label>City</label>
+        <input type="text" class="form-control" 
+          ng-model="evt.city">
+      </md-input-container> 
+
+      <md-input-container class="md-block">
+         <label>State</label>
+         <md-select ng-model="evt.state">
+           <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+             {{state.abbrev}}
+           </md-option>
+         </md-select>
+      </md-input-container>
+
+      <br/>
+         
+      <md-input-container class="md-block">
+        <label>Zip</label>
+        <input type="text" class="form-control" 
+         ng-model="evt.zip" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+      </md-input-container> 
+
+      <md-input-container class="md-block">
+        <label>Address</label>
+        <input type="text" class="form-control" 
+         ng-model="evt.addr" required="">
+      </md-input-container> 
+
+      <md-input-container class="md-block">
+        <label>Description</label>
+        <input type="text" class="form-control" 
+          ng-model="evt.descr">
+      </md-input-container> 
+
+      <md-input-container>
+         <label>Start Date</label>
+         <md-datepicker 
+            ng-model="evt.startDate" md-placeholder="MM/DD/YYYY" required>
+         </md-datepicker>
+      </md-input-container>
+     
+     <md-input-container class="md-block">
+        <div layout="row" layout-align="left center">
+         <md-checkbox name="tos" ng-model="evt.private">
+            Make this event private?
+         </md-checkbox>
+        </div>
+     </md-input-container>
+        
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button class="md-warn md-raised" ng-click="cancel()">
+       Cancel
+      </md-button>
+      <md-button class="md-primary md-raised" click="submit('useful')"
+      ng-disabled="!evt.title || !evt.addr || !evt.startDate">
+        Edit
+      </md-button>
+    </md-dialog-actions>
+   </md-dialog-content>
+  </form>
+</md-dialog>
+
+<!--<div class="modal-header">
    <h3 class="modal-title">{{dlgTitle}}</h3>
+=======
+<div class="modal-header">
+   <h3 class="modal-title">New Event</h3>
+>>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
 </div>
 <div class = "modal-body">
    <form>
@@ -23,7 +108,7 @@
       </md-input-container> 
 
       <md-input-container class="md-block">
-        <label>Zipcode</label>
+        <label>Zip</label>
         <input type="text" class="form-control" 
           placeholder="Zipcode" ng-model="zipcode">
       </md-input-container> 
@@ -48,7 +133,7 @@
       
       <div class="checkbox">
         <label>
-           <input type="checkbox" ng-model="event.private">
+           <input type="checkbox" ng-model="private">
             Make this event private?
         </label>
      </div>
@@ -58,7 +143,7 @@
 <div class="modal-footer">
    <button type="button" class="btn btn-primary" 
     ng-disabled="!title || !addr || !filter.date"
-    ng-click="$close(title)">OK</button>
+    ng-click="$close(1)">OK</button>
    <button type="button" class="btn btn-warning" 
     ng-click="$dismiss()">Cancel</button>
-</div>
+</div>-->
