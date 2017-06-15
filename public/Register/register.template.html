@@ -2,17 +2,10 @@
    <md-content layout-padding>
     <div>
       <form name="userForm">
-         <div class="panel panel-danger" ng-show="errors.length">
-            <h2 class="panel-heading">Please fix these problems</h2>
-            <ul>
-               <li ng-repeat="err in errors">{{err | tagError}}</li>
-            </ul>
-         </div>
-
-         <md-input-container class="md-block">
+         <md-input-container type="email" class="md-block">
             <label>Email</label>
-            <input type="email" ng-model="user.email" required>
-         </md-input-container>       
+            <input ng-model="user.email" required>
+         </md-input-container>         
 
          <md-input-container class="md-block">
             <label>First Name</label>
@@ -74,8 +67,8 @@
             <input ng-model="user.country">
          </md-input-container>
          
-        <!-- <md-input-container class="md-block">
-           <md-checkbox name="tos" ng-model="project.tos" required>
+         <md-input-container class="md-block">
+           <md-checkbox name="tos" ng-model="termsAccepted" required>
              I accept the terms of service.
            </md-checkbox>
            <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
@@ -83,12 +76,12 @@
                You must accept the terms of service before you can proceed.
              </div>
            </div>
-         </md-input-container>-->
+         </md-input-container>
          
          <md-button type="submit" class="md-primary md-raised" 
             ng-click="registerUser()"
             ng-disabled="!user.email || !user.lastName || !user.password || 
-                         !confPass || user.password !== confPass">
+                         !confPass || user.password !== confPass || !termsAccepted">
             Register
          </md-button>
       </form>
