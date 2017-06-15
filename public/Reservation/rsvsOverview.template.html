@@ -8,24 +8,26 @@
 <md-content>
    <md-list flex>
       <md-divider></md-divider>
-         <md-list-item class="md-3-line" ng-repeat="item in evts" ui-sref="evtDetail">
+         <md-list-item class="md-3-line" ng-repeat="item in rsvs" ui-sref="evtDetail({evtId:{{item.evtId}}})">
             <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
                <div class="md-list-item-text" layout="column">
                   <span flex></span>
-                  <h3 style="font-weight: bold">{{item.evtName}}</h3>
+                  <h3 style="font-weight: bold">{{item.title}}</h3>
                   <h3 style="font-style: italic">
-                     {{item.date}}, {{item.time}} @ {{item.location}}
+                     {{item.date | date:'medium'}}
                   </h3>
-                  <p>{{item.evtDesc}}</p>
+                  <p>{{item.descr}}</p>
                   <md-divider></md-divider>
          </md-list-item>   
                </div>
          <span>
+            <!--
             <md-button class="md-icon-button md-primary" aria-label="Edit">
                <md-icon md-svg-icon="Icons/edit.svg"></md-icon>
             </md-button>
-            
-            <md-button class="md-icon-button md-primary" aria-label="Edit">
+            -->
+            <md-button class="md-icon-button md-primary" aria-label="Edit"
+                        ng-click="delRsv($index)">
                <md-icon md-svg-icon="Icons/delete.svg"></md-icon>
             </md-button>
          </span>

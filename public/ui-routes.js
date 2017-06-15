@@ -34,6 +34,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
                console.log($stateParams);
                return $http.get("Prss/"+$stateParams.prsId+"/Rsvs")
                .then(function(response) {
+                  console.log(response.data);
                   return response.data;
                });
             }]
