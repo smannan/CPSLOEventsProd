@@ -31,7 +31,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
          resolve: {
             rsvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Prss/:prsId/Rsvs")
+               console.log($stateParams);
+               return $http.get("Prss/"+$stateParams.prsId+"/Rsvs")
                .then(function(response) {
                   return response.data;
                });
@@ -39,7 +40,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
          },
       })
       .state('evtPrsOverview', {
-         url: '/myEvts/:prsId', //TODO: Query param needs to go after myEvts
+         url: '/myEvts/:prsId',
          templateUrl: 'Event/evtOverview.template.html',
          controller: 'evtOverviewController',
          resolve: {
