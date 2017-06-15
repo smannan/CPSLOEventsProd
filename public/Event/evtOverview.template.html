@@ -1,52 +1,51 @@
 <h1 style="margin-left:7px; font-family:'Roboto', san-serif;">Events</h1>
 
-<md-button class="md-primary md-raised" ng-click="newEvt()">New Event</md-button>
+<md-button class="md-primary md-raised" 
+           ng-click="newEvt()">New Event</md-button>
 <md-divider></md-divider>
-<span flex>      
-   <md-datepicker ng-model="ctrl.myDate" md-placeholder="Start date"></md-datepicker>
-   <md-datepicker ng-model="ctrl.myDate" md-placeholder="End date"></md-datepicker>
+
+<!-- Filter options -->
+<div>    
+   <md-datepicker 
+      ng-model="filter.startDate" 
+      md-placeholder="Start date">
+   </md-datepicker>
+   <md-datepicker 
+      ng-model="filter.endDate" 
+      md-placeholder="End date">
+   </md-datepicker>
    
    <md-input-container class="md-inline">
       <label>Zip Code</label>
-      <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+      <input name="zipCode" ng-model="filter.zip"
          ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-
-      <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-         <div ng-message="required" class="my-message">
-            You must supply a postal code.
-         </div>
-         <div ng-message="pattern" class="my-message">
-          That doesn't look like a valid postal code.
-         </div>
-         <div ng-message="md-maxlength" class="my-message">
-            Don't use the long version silly...we don't need to be that specific...
-         </div>
-      </div>
    </md-input-container>
 
    <md-input-container>
       <label>Organizer Email</label>
-         <input ng-model="user.email">
+         <input type="email" ng-model="filter.email">
    </md-input-container>
 
-   <md-button class="md-primary md-raised" 
-   ng-click="newEvt()">Filter</md-button>
-</span>
+   <md-button class="md-primary md-raised" ng-click="filterEvt()" 
+              ng-disabled="!filter.startDate && !filter.endDate && 
+                           !filter.zip && !filter.email">Filter</md-button>
+</div>
 
+<!-- List events -->
 <md-content>
    <md-list flex>
       <md-divider></md-divider>
-         <md-list-item class="md-3-line" ng-repeat="item in evts" ui-sref="evtDetail">
-            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
-               <div class="md-list-item-text" layout="column">
-                  <span flex></span>
-                  <h3 style="font-weight: bold">{{item.title}}</h3>
-                  <h3 style="font-style: italic">
-                     {{item.date | date:'medium'}} @ {{item.zip}}
-                  </h3>
-                  <p>{{item.descr}}</p>
-                  <md-divider></md-divider>
-         </md-list-item>   
+      <md-list-item class="md-3-line" ng-repeat="item in evts" ui-sref="evtDetail">
+         <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
+            <div class="md-list-item-text" layout="column">
+               <span flex></span>
+               <h3 style="font-weight: bold">{{item.title}}</h3>
+               <h3 style="font-style: italic">
+                  {{item.date | date:'medium'}} @ {{item.zip}}
+               </h3>
+               <p>{{item.descr}}</p>
+               <md-divider></md-divider>
+      </md-list-item>   
                </div>
          <span>
             <md-button class="md-icon-button md-primary" aria-label="Edit">

@@ -15,7 +15,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
          controller: 'loginController',
       })
       .state('logout', {
-         url: '/logout',
+         url: '/login',
          templateUrl: 'Home/home.template.html',
          controller: 'logoutController',
       })
