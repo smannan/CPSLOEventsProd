@@ -2,7 +2,7 @@
    <form ng-cloak>
       <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Edit Event</h2>
+        <h2>{{dlgTitle}}</h2>
       </div>
       </md-toolbar>
 
@@ -70,7 +70,7 @@
       <md-button class="md-warn md-raised" ng-click="cancel()">
        Cancel
       </md-button>
-      <md-button class="md-primary md-raised" click="submit('useful')"
+      <md-button class="md-primary md-raised" click="submit()"
       ng-disabled="!evt.title || !evt.addr || !evt.startDate">
         Edit
       </md-button>
@@ -81,10 +81,6 @@
 
 <!--<div class="modal-header">
    <h3 class="modal-title">{{dlgTitle}}</h3>
-=======
-<div class="modal-header">
-   <h3 class="modal-title">New Event</h3>
->>>>>>> e64b94631c7c3e0071f26be61c7e6862b048c5fb
 </div>
 <div class = "modal-body">
    <form>

@@ -1,6 +1,6 @@
 app.controller('loginController', 
- ['$rootScope', '$scope', '$state', 'login', 'notifyDlg', 
- function($rootScope, $scope, $state, login, nDlg) {
+ ['$rootScope', '$scope', '$state', 'login', 'mdDlg', 
+ function($rootScope, $scope, $state, login, mdDlg) {
     $scope.user = {email: "UserA@domainA", password: "passwordA"};
     
     $scope.login = function() {
@@ -12,8 +12,8 @@ app.controller('loginController',
          $state.go('home');
       })
       .catch(function() {
-         nDlg.show($scope, "That name/password is not in our records.", 
-          "Error");
+         mdDlg.login($scope, "That name/password is not in our records.", 
+          "Error", ["Ok"]);
       });
    };
 }]);
