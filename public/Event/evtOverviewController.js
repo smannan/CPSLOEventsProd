@@ -159,6 +159,8 @@ app.controller('evtOverviewController',
       return $http.get(getString)
       .then(function(filtered) {
          $scope.evts = filtered.data;
+      })
+      .then(function() {
       });
    };
       

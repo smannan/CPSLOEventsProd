@@ -35,24 +35,29 @@
 <md-content>
    <md-list flex>
       <md-divider></md-divider>
-      <md-list-item class="md-3-line" ng-repeat="item in evts" ui-sref="evtDetail">
-         <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
+      <md-list-item class="md-3-line" ng-repeat="evt in evts" 
+                    ui-sref="evtDetail">
+         <img ng-src="{{evt.face}}?{{$index}}" class="md-avatar" alt="{{evt.who}}"/>
             <div class="md-list-item-text" layout="column">
                <span flex></span>
-               <h3 style="font-weight: bold">{{item.title}}</h3>
+               <h3 style="font-weight: bold">{{evt.title}}</h3>
                <h3 style="font-style: italic">
-                  {{item.date | date:'medium'}} @ {{item.zip}}
+                  {{evt.date | date:'medium'}} @ {{evt.addr}} {{evt.zip}}
                </h3>
-               <p>{{item.descr}}</p>
+               <p>{{evt.descr}}</p>
                <md-divider></md-divider>
       </md-list-item>   
                </div>
          <span>
-            <md-button class="md-icon-button md-primary" aria-label="Edit">
+            <md-button class="md-icon-button md-primary" aria-label="Edit"
+                       ng-click="editEvt($index)" 
+                       ng-show="evt.orgId === user.id">
                <md-icon md-svg-icon="Icons/edit.svg"></md-icon>
             </md-button>
             
-            <md-button class="md-icon-button md-primary" aria-label="Edit">
+            <md-button class="md-icon-button md-primary" aria-label="Edit"
+                       ng-click="delEvt($index)"
+                       ng-show="evt.orgId === user.id">
                <md-icon md-svg-icon="Icons/delete.svg"></md-icon>
             </md-button>
          </span>
