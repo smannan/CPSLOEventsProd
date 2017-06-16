@@ -7,7 +7,7 @@ app.controller('evtOverviewController',
       return {abbrev: state};
     });   
    $scope.evts = evts;
-   $scope.evt = {orgId: $scope.user.prsId};
+   $scope.evt = {};
 
    displayError = function(err) {
      if (err && err.data && err.data[0].tag === "dupTitle") {
@@ -27,6 +27,11 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function() {
+         console.log("POSTING");
+         for (var i in $scope.evt)
+            console.log(i + " " + $scope.evt[i]);
+         
+         $scope.evt.date = new Date($scope.evt.date).getTime(); 
          return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
