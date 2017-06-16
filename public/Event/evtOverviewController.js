@@ -41,16 +41,17 @@ app.controller('evtOverviewController',
          hours = ((new Date($scope.evt.time)).getHours())
          min = ((new Date($scope.evt.time)).getMinutes())
          date = new Date(year, month, day, hours, min)
-         
-         $scope.evt.date = date.getTime()
-         delete $scope.evt.time
-         
+
+         $scope.evt.date = date.getTime();
+         delete $scope.evt.time;
+
          return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
          return $http.get("/Evts");
       })
       .then(function(response) {
+         $scope.evt = {};
          $scope.evts = response.data;
       })
       .catch(function(err) {
@@ -74,21 +75,27 @@ app.controller('evtOverviewController',
       })
       .then(function(newTitle) {
          if ($scope.evt.date) {
-            day = ((new Date($scope.evt.date)).getUTCDate())
-            month = ((new Date($scope.evt.date)).getUTCMonth())
-            year = ((new Date($scope.evt.date)).getUTCFullYear())
-            hours = ((new Date($scope.evt.time)).getHours())
-            min = ((new Date($scope.evt.time)).getMinutes())
-            date = new Date(year, month, day, hours, min)
+            day = ((new Date($scope.evt.date)).getUTCDate());
+            month = ((new Date($scope.evt.date)).getUTCMonth());
+            year = ((new  Date($scope.evt.date)).getUTCFullYear());
+            hours = ((new Date($scope.evt.time)).getHours());
+            min = ((new Date($scope.evt.time)).getMinutes());
+            date = new Date(year, month, day, hours, min);
             
-            $scope.evt.date = date.getTime()
-            delete $scope.evt.time
+            $scope.evt.date = date.getTime();
+            delete $scope.evt.time;
             //$scope.evt.date = new Date($scope.evt.date).getTime();
          }
          
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function(response) {
+         // Remove info from input fields
+         for (var i in $scope.evt) {
+            console.log(i);
+            delete $scope.evt[i];
+         }
+         
          return $http.get("/Evts");
       })
       .then(function(response) {

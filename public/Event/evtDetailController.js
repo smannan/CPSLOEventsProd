@@ -100,6 +100,12 @@ app.controller("evtDetailController",
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {
+         // Remove info from input fields
+         for (var i in $scope.evt) {
+            console.log(i);
+            delete $scope.evt[i];
+         }
+         
          return $http.get("/Evts");
       })
       .then(function(response) {
