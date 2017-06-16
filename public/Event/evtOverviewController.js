@@ -18,7 +18,6 @@ app.controller('evtOverviewController',
 
    $scope.newEvt = function() {
       $scope.dlgTitle = "New Event";
-      
       $mdDialog.show({
          controller: DialogController,
          templateUrl: 'Event/editEvtDlg.template.html',
@@ -28,22 +27,24 @@ app.controller('evtOverviewController',
       })
       .then(function() {
 
-         day = ((new Date($scope.evt.date)).getUTCDate())
-         month = ((new Date($scope.evt.date)).getUTCMonth())
-         year = ((new Date($scope.evt.date)).getUTCFullYear())
-         hours = ((new Date($scope.evt.time)).getHours())
-         min = ((new Date($scope.evt.time)).getMinutes())
-         date = new Date(year, month, day, hours, min)
+         var day = $scope.date2.getUTCDate()
+         var month = $scope.date2.getUTCMonth()
+         var year = $scope.date2.getUTCFullYear()
+         var hours = $scope.time.getHours()
+         var min = $scope.time.getMinutes()
+         var date = new Date(year, month, day, hours, min)
          
          $scope.evt.date = date.getTime()
-         delete $scope.evt.time
-         
          return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
-         return $http.get("/Evts");
+         var url = "/Evts";
+         if ($state.params && $state.params.prsId)
+            url += "?owner=" + $state.params.prsId;
+         return $http.get(url);
       })
       .then(function(response) {
+         $scope.evt = {};
          $scope.evts = response.data;
       })
       .catch(function(err) {
@@ -56,7 +57,7 @@ app.controller('evtOverviewController',
 
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
-      
+
       $scope.dlgTitle = "Edit Event";
       $mdDialog.show({
          controller: DialogController,
@@ -67,23 +68,30 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function(newTitle) {
-         if ($scope.evt.date) {
-            day = ((new Date($scope.evt.date)).getUTCDate())
-            month = ((new Date($scope.evt.date)).getUTCMonth())
-            year = ((new Date($scope.evt.date)).getUTCFullYear())
-            hours = ((new Date($scope.evt.time)).getHours())
-            min = ((new Date($scope.evt.time)).getMinutes())
-            date = new Date(year, month, day, hours, min)
+         if ($scope.date2) {
+            var day = $scope.date2.getUTCDate()
+            var month = $scope.date2.getUTCMonth()
+            var year = $scope.date2.getUTCFullYear()
+            var hours = $scope.time.getHours()
+            var min = $scope.time.getMinutes()
+            var date = new Date(year, month, day, hours, min)
             
             $scope.evt.date = date.getTime()
-            delete $scope.evt.time
-            
          }
          console.log($scope.evt)
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function(response) {
-         return $http.get("/Evts");
+         var url = "/Evts";
+         if ($state.params && $state.params.prsId) 
+            url += "?owner=" + $state.params.prsId;
+         // Remove info from input fields
+         for (var i in $scope.evt) {
+            console.log(i);
+            delete $scope.evt[i];
+         }
+         
+         return $http.get(url);
       })
       .then(function(response) {
          $scope.evts = response.data;
@@ -168,5 +176,17 @@ app.controller('evtOverviewController',
       $scope.submit = function() {
          $mdDialog.hide();
       };
-   }; 
+   };
+    
+   $scope.resetFilter = function() {
+      // Remove inform from filter input fields
+      for (var i in $scope.filter) {
+         delete $scope.filter[i];
+      }
+      
+      $http.get('Evts')
+      .then(function(response) {
+         $scope.evts = response.data;
+      })
+   };
 }]);
