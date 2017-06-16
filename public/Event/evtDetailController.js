@@ -1,6 +1,6 @@
 app.controller("evtDetailController", 
- ['$rootScope', '$scope', '$stateParams', '$state', '$http', 'notifyDlg',
- function($rs, $scope, $stateParams, $state, $http, nDlg) {
+ ['$rootScope', '$scope', '$stateParams', '$state', '$http', 'notifyDlg', '$mdDialog',
+ function($rs, $scope, $stateParams, $state, $http, nDlg, $mdDialog) {
    var evtId = $stateParams.evtId;
    var pid = $rs.user.id;
    $scope.myrsv = null;
@@ -63,4 +63,42 @@ app.controller("evtDetailController",
          }
       })
    };
+
+   $scope.editEvt = function(evt) {
+      console.log('EDITING EVENT')
+      var evtId = evt.id;
+      
+      $scope.dlgTitle = "Edit Event";
+      $mdDialog.show({
+         controller: DialogController,
+         templateUrl: 'Event/editEvtDlg.template.html',
+         parent: angular.element(document.body),
+         clickOutsideToClose:true,
+         scope: $scope,
+         preserveScope: true
+      })
+      .then(function(newTitle) {
+         console.log('HERE')
+         return $http.put("/Evts/" + evtId, {title: newTitle});
+      })
+      .then(function() {
+         return $http.get("/Evts");
+      })
+      .then(function(response) {
+         $scope.evts = response.data;
+      })
+      .catch(function(err) {
+         displayError(err);
+      });
+   };
+
+   function DialogController($scope, $mdDialog) {
+      $scope.cancel = function() {
+         $mdDialog.cancel();
+      };
+
+      $scope.answer = function(answer) {
+         $mdDialog.submit(answer);
+      };
+   }; 
 }]);

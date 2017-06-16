@@ -1,6 +1,13 @@
 <md-toolbar layout="row" class="md-accent md-hue-3">
 <div class="md-toolbar-tools">
    <span>{{events[0].title}}</span>
+
+   <md-button class="md-icon-button md-primary" inline aria-label="Edit"
+    ng-click="editEvt(events[0])" 
+    ng-show="events[0].orgId === user.id">
+    <md-icon md-svg-icon="Icons/edit.svg"></md-icon>
+  </md-button>
+
 </div>
 </md-toolbar>
 
