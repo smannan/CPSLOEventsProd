@@ -181,5 +181,17 @@ app.controller('evtOverviewController',
       $scope.submit = function() {
          $mdDialog.hide();
       };
-   }; 
+   };
+    
+   $scope.resetFilter = function() {
+      // Remove inform from filter input fields
+      for (var i in $scope.filter) {
+         delete $scope.filter[i];
+      }
+      
+      $http.get('Evts')
+      .then(function(response) {
+         $scope.evts = response.data;
+      })
+   };
 }]);
