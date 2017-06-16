@@ -93,75 +93,10 @@
        Cancel
       </md-button>
       <md-button class="md-primary md-raised" ng-click="submit(evt.title)"
-      ng-disabled="(!evt.title || !evt.addr || !evt.date) && '{{dlgTitle}}' === 'New Event'">
+      ng-disabled="(!evt.title || !evt.addr || !evt.date || !evt.time) && '{{dlgTitle}}' === 'New Event'">
         Submit
       </md-button>
     </md-dialog-actions>
    </md-dialog-content>
   </form>
 </md-dialog>
-
-<!--<div class="modal-header">
-   <h3 class="modal-title">{{dlgTitle}}</h3>
-</div>
-<div class = "modal-body">
-   <form>
-
-      <md-input-container class="md-block">
-        <label>Event Title</label>
-        <input type="text" class="form-control" 
-          placeholder="Title" ng-model="title" required="">
-      </md-input-container>   
-
-      <md-input-container class="md-block">
-        <label>City</label>
-        <input type="text" class="form-control" 
-          placeholder="City" ng-model="city">
-      </md-input-container> 
-
-      <md-input-container class="md-block">
-        <label>State</label>
-        <input type="text" class="form-control" 
-          placeholder="State" ng-model="state">
-      </md-input-container> 
-
-      <md-input-container class="md-block">
-        <label>Zip</label>
-        <input type="text" class="form-control" 
-          placeholder="Zipcode" ng-model="zipcode">
-      </md-input-container> 
-
-      <md-input-container class="md-block">
-        <label>Address</label>
-        <input type="text" class="form-control" 
-          placeholder="Address" ng-model="addr" required="">
-      </md-input-container> 
-
-      <md-input-container class="md-block">
-        <label>Description</label>
-        <input type="text" class="form-control" 
-          placeholder="Description" ng-model="descr">
-      </md-input-container> 
-
-      <md-datepicker 
-        ng-model="filter.date" 
-        md-placeholder="Start date"
-        required>
-      </md-datepicker>
-      
-      <div class="checkbox">
-        <label>
-           <input type="checkbox" ng-model="private">
-            Make this event private?
-        </label>
-     </div>
-
-   </form>
-</div>
-<div class="modal-footer">
-   <button type="button" class="btn btn-primary" 
-    ng-disabled="!title || !addr || !filter.date"
-    ng-click="$close(1)">OK</button>
-   <button type="button" class="btn btn-warning" 
-    ng-click="$dismiss()">Cancel</button>
-</div>-->
