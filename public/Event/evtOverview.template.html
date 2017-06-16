@@ -1,3 +1,10 @@
+<div class="panel panel-danger" ng-show="errors.length">
+  <h2 class="panel-heading">Please fix these problems</h2>
+  <ul>
+     <li ng-repeat="err in errors">{{err | tagError}}</li>
+  </ul>
+</div>
+
 <md-toolbar class="md-hue-2">
    <div class="md-toolbar-tools">
       <span>Events</span>

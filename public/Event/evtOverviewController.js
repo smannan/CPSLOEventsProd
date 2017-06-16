@@ -54,7 +54,9 @@ app.controller('evtOverviewController',
          $scope.evts = response.data;
       })
       .catch(function(err) {
-         displayError(err);
+         if (err && err.data) {
+            $scope.errors = err.data;
+         }
       });
    };
 
@@ -86,14 +88,16 @@ app.controller('evtOverviewController',
          
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
-      .then(function() {
+      .then(function(response) {
          return $http.get("/Evts");
       })
       .then(function(response) {
          $scope.evts = response.data;
       })
       .catch(function(err) {
-         displayError(err);
+         if (err && err.data) {
+            $scope.errors = err.data;
+         }
       });
    };
 

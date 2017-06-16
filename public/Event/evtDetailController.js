@@ -106,7 +106,9 @@ app.controller("evtDetailController",
          $scope.events = response.data;
       })
       .catch(function(err) {
-         displayError(err);
+         if (err && err.data) {
+            $scope.errors = err.data;
+         }
       });
    };
 
