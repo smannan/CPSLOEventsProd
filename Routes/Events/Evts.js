@@ -194,10 +194,16 @@ router.put('/:id', function(req, res) {
    }, 
    function(rows, fields, cb) {
       var now = new Date().getTime(); 
+      console.log(body.date);
+      console.log(now);
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
        vld.checkPrsOK(rows[0].orgId, cb) &&
        vld.check(!body.date || body.date > now, Tags.badValue, 
        ['date'], cb)) {
+         if (body.date) {
+            body.date = new Date(body.date);
+            console.log(body.date);
+         }
          if (body.title) {
             cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
              [req.params.id, body.title], 
@@ -211,7 +217,6 @@ router.put('/:id', function(req, res) {
       }
    },
    function(cb) {
-      console.log(cb);
       if(vld.check(true))
          cnn.chkQry('UPDATE Event SET ? WHERE id = ' + req.params.id,
           body, function() {
