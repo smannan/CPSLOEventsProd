@@ -70,13 +70,14 @@
       </md-input-container>
          
       <md-input-container ng-show="'{{dlgTitle}}' === 'Edit Event'">
-         <label>Start Date</label>
+         <label>End Date</label>
          <md-datepicker 
             ng-model="evt.date" md-placeholder="MM/DD/YYYY">
          </md-datepicker>
       </md-input-container>
 
-     <div uib-timepicker ng-model="evt.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></div>
+     <div uib-timepicker ng-model="evt.time" ng-change="changed()" 
+     hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></div>
      
      <md-input-container class="md-block">
         <div layout="row" layout-align="left center">

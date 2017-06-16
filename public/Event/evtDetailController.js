@@ -75,7 +75,6 @@ app.controller("evtDetailController",
    };
 
    $scope.editEvt = function(evt) {
-      console.log('EDITING EVENT')
       var evtId = evt.id;
       
       $scope.dlgTitle = "Edit Event";
@@ -88,7 +87,16 @@ app.controller("evtDetailController",
          preserveScope: true
       })
       .then(function() {
-         console.log('HERE')
+         day = ((new Date($scope.evt.date)).getUTCDate())
+         month = ((new Date($scope.evt.date)).getUTCMonth())
+         year = ((new Date($scope.evt.date)).getUTCFullYear())
+         hours = ((new Date($scope.evt.time)).getHours())
+         min = ((new Date($scope.evt.time)).getMinutes())
+         date = new Date(year, month, day, hours, min)
+         
+         $scope.evt.date = date.getTime()
+         delete $scope.evt.time
+
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {

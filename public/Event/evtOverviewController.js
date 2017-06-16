@@ -27,13 +27,23 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function() {
-         console.log("TIME: " + $scope.evt.time);
+         //console.log("TIME: " + $scope.evt.time);
          
-         $scope.evt.time = new Date($scope.evt.time).getTime();
-         $scope.evt.date = new Date($scope.evt.date).getTime();
+         //$scope.evt.time = new Date($scope.evt.time).getTime();
+         //$scope.evt.date = new Date($scope.evt.date).getTime();
          //$scope.evt.date += $scope.evt.time;
          
-         delete $scope.evt.time;
+         //delete $scope.evt.time;
+
+         day = ((new Date($scope.evt.date)).getUTCDate())
+         month = ((new Date($scope.evt.date)).getUTCMonth())
+         year = ((new Date($scope.evt.date)).getUTCFullYear())
+         hours = ((new Date($scope.evt.time)).getHours())
+         min = ((new Date($scope.evt.time)).getMinutes())
+         date = new Date(year, month, day, hours, min)
+         
+         $scope.evt.date = date.getTime()
+         delete $scope.evt.time
          
          return $http.post("/Evts", $scope.evt);
       })
@@ -62,7 +72,16 @@ app.controller('evtOverviewController',
       })
       .then(function(newTitle) {
          if ($scope.evt.date) {
-            $scope.evt.date = new Date($scope.evt.date).getTime();
+            day = ((new Date($scope.evt.date)).getUTCDate())
+            month = ((new Date($scope.evt.date)).getUTCMonth())
+            year = ((new Date($scope.evt.date)).getUTCFullYear())
+            hours = ((new Date($scope.evt.time)).getHours())
+            min = ((new Date($scope.evt.time)).getMinutes())
+            date = new Date(year, month, day, hours, min)
+            
+            $scope.evt.date = date.getTime()
+            delete $scope.evt.time
+            //$scope.evt.date = new Date($scope.evt.date).getTime();
          }
          
          return $http.put("/Evts/" + evtId, $scope.evt);
