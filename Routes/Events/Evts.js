@@ -86,7 +86,7 @@ router.post('/', function(req, res) {
 
         vld.chain(body.title.length < 80, Tags.badValue, ['title'])
 
-       .chain(body.date >= 0 && body.date >= 
+       .chain(body.date >= 0 && body.date >
         (new Date().getTime()), Tags.badValue, ['date'])
 
        .chain(!body.descr || body.descr.length < 500, Tags.badValue, ['descr'])
@@ -191,22 +191,21 @@ router.put('/:id', function(req, res) {
    }, 
    function(rows, fields, cb) {
       var now = new Date().getTime(); 
-      console.log(body.date);
-      console.log(now);
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
        vld.checkPrsOK(rows[0].orgId, cb) &&
        vld.check(!body.date || body.date > now, Tags.badValue, 
        ['date'], cb)) {
          if (body.date) {
             body.date = new Date(body.date);
-            console.log(body.date);
          }
          if (body.title) {
-            cnn.chkQry('SELECT * from Event WHERE id = ? && title = ?',
+            cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
              [req.params.id, body.title], 
              function (err, rows) {
-               vld.check(!rows.length, Tags.dupTitle, null)
-               cb();
+               if (vld.check(!rows.length, Tags.dupTitle, null, cb)) {
+                  cb();
+               }
+
              });
          } else {
             cb();

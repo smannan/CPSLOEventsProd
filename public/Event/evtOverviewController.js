@@ -87,7 +87,6 @@ app.controller('evtOverviewController',
             url += "?owner=" + $state.params.prsId;
          // Remove info from input fields
          for (var i in $scope.evt) {
-            console.log(i);
             delete $scope.evt[i];
          }
          
