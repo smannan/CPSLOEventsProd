@@ -25,8 +25,8 @@ app.controller('evtOverviewController',
          scope: $scope,
          preserveScope: true
       })
-      .then(function(newTitle) {
-         return $http.post("/Evts", {title: newTitle});
+      .then(function() {
+         return $http.post("/Evts", {evt});
       })
       .then(function() {
          return $http.get("/Evts");

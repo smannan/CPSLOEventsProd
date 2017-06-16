@@ -1,6 +1,6 @@
 app.controller('rsvsOverviewController',
- ['$rootScope', '$scope', '$state', '$http', 'notifyDlg', 'rsvs',
- function($rs, $scope, $state, $http, nDlg, rsvs) {
+ ['$rootScope', '$scope', '$state', '$http', 'mdDlg', 'rsvs',
+ function($rs, $scope, $state, $http, mdDlg, rsvs) {
    $scope.rsvs = rsvs;
    var impagePath = 'Icons/MaterialIcon.png';
 
@@ -36,20 +36,18 @@ app.controller('rsvsOverviewController',
       var eid = $scope.rsvs[$index].evtId;
       var pid = $rs.user.id;
 
-      nDlg.show($scope, "Delete this Reservation?", "Delete Reservation", 
+      mdDlg.login($scope, "Delete this Reservation?", "Delete Reservation", 
        ["Yes", "No"])
       .then(function(btn) {
-         if (btn !== "Yes") {
-            return;
+         if (btn) {
+            return $http.delete("Evts/"+eid+"/Rsvs/"+rid)
+            .then(function() {
+               return $http.get("/Prss/"+pid+"/Rsvs/");
+            })
+            .then(function(response) {
+               $scope.rsvs = response.data;
+            });
          }
-         return $http.delete("Evts/"+eid+"/Rsvs/"+rid)
-         .then(function() {
-            return $http.get("/Prss/"+pid+"/Rsvs/");
-         })
-         .then(function(response) {
-            $scope.rsvs = response.data;
-         });
-         
       });
       
 
