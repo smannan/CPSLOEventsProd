@@ -31,7 +31,7 @@ app.controller('rsvsOverviewController',
    }
 
    $scope.delRsv = function($index) {
-      console.log($rs);
+      //console.log($rs);
       var rid = $scope.rsvs[$index].id;
       var eid = $scope.rsvs[$index].evtId;
       var pid = $rs.user.id;

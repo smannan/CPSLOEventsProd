@@ -17,7 +17,7 @@ app.controller('registerController',
          "Login automatically?", "Login", ["Yes", "No"]);
       })
       .then(function(btn) {
-         console.log(btn);
+         //console.log(btn);
          if (btn) {
             login.login($scope.user)
             .then(function(user) {

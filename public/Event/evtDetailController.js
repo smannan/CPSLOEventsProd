@@ -17,19 +17,19 @@ app.controller("evtDetailController",
    $http.get('/Evts/' + evtId)
    .then(function(response) {
       $scope.events = response.data;
-      console.log($scope.events);
+      //console.log($scope.events);
       return $http.get('/Evts/' + evtId + '/Rsvs');
    })
    .then(function(response) {
       $scope.rsvs = response.data;
-      console.log($scope.rsvs);
+      //console.log($scope.rsvs);
       return getMyRsv();
    })
    .catch(function(err) {
       $scope.events = null;
       $scope.rsvs = null;
       $scope.myrsv = null;
-      console.log(err);
+      //console.log(err);
    });
 
    var getMyRsv = function () {
@@ -40,7 +40,7 @@ app.controller("evtDetailController",
             if (rsvtemp.evtId === parseInt(evtId))
                $scope.myrsv = rsvtemp;
          });
-         console.log("myrsv is " + $scope.myrsv ? " valid " : " null " );
+         //console.log("myrsv is " + $scope.myrsv ? " valid " : " null " );
          if ($scope.myrsv)
             console.log($scope.myrsv);
       });

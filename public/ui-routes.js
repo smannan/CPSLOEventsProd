@@ -31,10 +31,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
          resolve: {
             rsvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               console.log($stateParams);
+               //console.log($stateParams);
                return $http.get("Prss/"+$stateParams.prsId+"/Rsvs")
                .then(function(response) {
-                  console.log(response.data);
+                  //console.log(response.data);
                   return response.data;
                });
             }]

@@ -4,7 +4,7 @@ app.controller('loginController',
     $scope.user = {email: "UserA@domainA", password: "passwordA"};
     
     $scope.login = function() {
-      console.log("Trying to login user " + $scope.user.email);
+      //console.log("Trying to login user " + $scope.user.email);
       
       login.login($scope.user)
       .then(function(user) {

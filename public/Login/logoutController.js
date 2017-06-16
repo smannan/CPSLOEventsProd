@@ -3,7 +3,7 @@ app.controller('logoutController',
  function($scope, $state, $rootScope, login) {
 
    $scope.logout = function() {
-      console.log('logging out user')
+      //console.log('logging out user')
       login.logout()
       .then(function(user) {
          $rootScope.user = null;
