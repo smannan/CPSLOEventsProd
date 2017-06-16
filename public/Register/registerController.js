@@ -29,11 +29,14 @@ app.controller('registerController',
             $state.go('login');
          }
       })
+
       .catch(function(err) {
-         if (err && err.data)
+         if (err && err.data) {
             $scope.errors = err.data;
-         
-         $state.go('login');
+         }
+         else {
+            $state.go('login');
+         }
       });
    };
 
