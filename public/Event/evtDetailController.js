@@ -76,7 +76,6 @@ app.controller("evtDetailController",
 
    $scope.editEvt = function(evt) {
       var evtId = evt.id;
-      
       $scope.dlgTitle = "Edit Event";
       $mdDialog.show({
          controller: DialogController,
@@ -87,20 +86,21 @@ app.controller("evtDetailController",
          preserveScope: true
       })
       .then(function() {
-         day = ((new Date($scope.evt.date)).getUTCDate())
-         month = ((new Date($scope.evt.date)).getUTCMonth())
-         year = ((new Date($scope.evt.date)).getUTCFullYear())
-         hours = ((new Date($scope.evt.time)).getHours())
-         min = ((new Date($scope.evt.time)).getMinutes())
-         date = new Date(year, month, day, hours, min)
+         console.log($scope.date2);
+         var day = $scope.date2.getUTCDate();
+         var month = $scope.date2.getUTCMonth();
+         var year = $scope.date2.getUTCFullYear();
+         var hours = $scope.time.getHours();
+         var min = $scope.time.getMinutes();
+         var date = new Date(year, month, day, hours, min);
          
-         $scope.evt.date = date.getTime()
-         delete $scope.evt.time
+         $scope.evt.date = date.getTime();
+         console.log($scope.evt);
 
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {
-         return $http.get("/Evts");
+         return $http.get("/Evts/" + evtId);
       })
       .then(function(response) {
          $scope.events = response.data;

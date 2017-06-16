@@ -65,18 +65,18 @@
       <md-input-container ng-show="'{{dlgTitle}}' === 'New Event'">
          <label>Start Date</label>
          <md-datepicker 
-            ng-model="evt.date" md-placeholder="MM/DD/YYYY" required>
+            ng-model="date2" md-placeholder="MM/DD/YYYY" required>
          </md-datepicker>
       </md-input-container>
          
       <md-input-container ng-show="'{{dlgTitle}}' === 'Edit Event'">
          <label>End Date</label>
          <md-datepicker 
-            ng-model="evt.date" md-placeholder="MM/DD/YYYY">
+            ng-model="date2" md-placeholder="MM/DD/YYYY">
          </md-datepicker>
       </md-input-container>
 
-     <div uib-timepicker ng-model="evt.time" ng-change="changed()" 
+     <div uib-timepicker ng-model="time" ng-change="changed()" 
      hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></div>
      
      <md-input-container class="md-block">
