@@ -1,6 +1,6 @@
 app.controller("evtDetailController", 
- ['$rootScope', '$scope', '$stateParams', '$state', '$http', 'notifyDlg', '$mdDialog',
- function($rs, $scope, $stateParams, $state, $http, nDlg, $mdDialog) {
+ ['$rootScope', '$scope', '$stateParams', '$state', '$http', 'notifyDlg', '$mdDialog', 'mdDlg',
+ function($rs, $scope, $stateParams, $state, $http, nDlg, $mdDialog, mdDlg) {
    var evtId = $stateParams.evtId;
    var pid = $rs.user.id;
    $scope.myrsv = null;
@@ -116,11 +116,21 @@ app.controller("evtDetailController",
          return $http.get('/Prss?email=' + $scope.email);
       })
       .then(function(response) {
-         var prsId = response.data[0].id;
-         return $http.post('/Evts/' + evtId + '/Rsvs', {"prsId": prsId, "status": "Not Going"});
+         if (!response.data.length)
+            mdDlg.login($scope, "User with the email " + $scope.email +
+             " was not found!", "Invalid Email", ["Okay", null]);
+         else {
+            var prsId = response.data[0].id;
+            return $http.post('/Evts/' + evtId + '/Rsvs', {"prsId": prsId, "status": "Not Going"});
+         }
+      })
+      .then(function() {
+         return $http.get('/Evts/' + evtId + '/Rsvs');
+      })
+      .then(function(response) {
+         $scope.events = response.data;
       })
       .catch(function(err) {
-         console.log("err: " + err.data[0].tag);
          displayError(err);
       });
    };
