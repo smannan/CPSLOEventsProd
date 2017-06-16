@@ -85,9 +85,6 @@ router.post('/', function(req, res) {
         'date','descr','private','zip']).check(true,null,null,cb) &&
 
         vld.chain(body.title.length < 80, Tags.badValue, ['title'])
-       .chain(!body.private ||
-        (body.private === 0 || body.private === 1), 
-        Tags.badValue, ['private'])
 
        .chain(body.date >= 0 && body.date >= 
         (new Date().getTime()), Tags.badValue, ['date'])
@@ -195,10 +192,11 @@ router.put('/:id', function(req, res) {
    function(rows, fields, cb) {
       var now = new Date().getTime(); 
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
-       vld.checkPrsOK(rows[0].orgId, cb) &&
-       vld.check(body.date > now, Tags.badValue, ['date'], cb)) {
+       vld.checkPrsOK(rows[0].orgId, cb) && 
+       vld.check(body.date >= now, Tags.badValue, ['date'], cb)) {
+
          if (body.title) {
-            cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
+            cnn.chkQry('SELECT * from Event WHERE id = ? && title = ?',
              [req.params.id, body.title], 
              function (err, rows) {
                vld.check(!rows.length, Tags.dupTitle, null)
@@ -210,19 +208,25 @@ router.put('/:id', function(req, res) {
       }
    },
    function(cb) {
-      console.log(cb);
-      if(vld.check(true))
+      if(vld.check(true), null, null , cb) {
+         if (body.date) {
+            body.date = new Date(body.date)
+         }
+
+         console.log(body)
          cnn.chkQry('UPDATE Event SET ? WHERE id = ' + req.params.id,
-          body, function() {
+          [body], function() {
             cb();
           });
+      }
       else {
          cb();
       }
    }],
    function(err) {
-      if (!err)
+      if (!err) {
          res.status(200).end()
+      }
       cnn.release();
    });
 
