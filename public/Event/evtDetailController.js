@@ -128,7 +128,8 @@ app.controller("evtDetailController",
          return $http.get('/Evts/' + evtId + '/Rsvs');
       })
       .then(function(response) {
-         $scope.events = response.data;
+         $scope.rsvs = response.data;
+         return getMyRsv();
       })
       .catch(function(err) {
          displayError(err);
