@@ -202,11 +202,19 @@ router.put('/:id', function(req, res) {
             console.log(body.date);
          }
          if (body.title) {
-            cnn.chkQry('SELECT * from Event WHERE id = ? && title = ?',
+            cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
              [req.params.id, body.title], 
              function (err, rows) {
-               vld.check(!rows.length, Tags.dupTitle, null)
-               cb();
+               console.log("HEY!");
+               console.log(err);
+               console.log(rows);
+               if (vld.check(!rows.length, Tags.dupTitle, null, cb)) {
+                  console.log("YOU!");
+                  cb();
+               } else {
+                  console.log("ME");
+               }
+
              });
          } else {
             cb();
