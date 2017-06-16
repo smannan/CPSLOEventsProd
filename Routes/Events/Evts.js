@@ -186,8 +186,6 @@ router.put('/:id', function(req, res) {
       delete body.descr;
    if (!body.zip)
       delete body.zip;
-   if (body.date)
-      body.date = new Date(body.date);
 
    async.waterfall([
    function(cb) {
@@ -195,10 +193,7 @@ router.put('/:id', function(req, res) {
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
-      var now = new Date(); 
-      console.log(body.date);
-      console.log(now);
-      console.log(body.date > now);
+      var now = new Date().getTime(); 
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
        vld.checkPrsOK(rows[0].orgId, cb) &&
        vld.check(body.date > now, Tags.badValue, ['date'], cb)) {
