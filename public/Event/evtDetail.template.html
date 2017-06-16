@@ -42,7 +42,7 @@
 <div class="md-toolbar-tools">
    <span>Reservations</span>
    <span flex></span>
-   <md-button ng-click="inviteOthers()" class="md-secondary md-raised">Invite</md-button>
+   <md-button ng-click="inviteOthers()" class="md-secondary md-raised" ng-if="events[0].orgId === user.id">Invite</md-button>
 </div>
 </md-toolbar>
 
