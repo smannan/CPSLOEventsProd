@@ -122,43 +122,35 @@ app.controller('evtOverviewController',
     
    // Helper function for filterEvt
    $scope.filterEvt = function() {
-
-      filterQuery = "/Evts"
+      var filterQuery = "/Evts?"
       var startDate = (new Date($scope.filter.startDate)).getTime();
       var endDate = (new Date($scope.filter.endDate)).getTime();
       var zip = $scope.filter.zip;
       var email = $scope.filter.email;
-      
+
       // Create endpoint with correct query parameters
       if (startDate) {
-         filterQuery = filterQuery.concat("?start=" + startDate + "&");
+         filterQuery = filterQuery.concat("start=" + startDate + "&");
       }
       if (endDate) {
-         if (!startDate) {
-            filterQuery = filterQuery.concat("?");
-         }
          filterQuery = filterQuery.concat("end=" + endDate + "&");
       }
       if (zip) {
-         if (!endDate && !startDate) {
-            filterQuery = filterQuery.concat("?");
-         }
          filterQuery = filterQuery.concat("loc=" + zip + "&");
       }
       
       $http.get("/Prss?email=" + email)
       .then(function(response) {
-         id = response.data[0].id;
-         own = "owner=" + id;
-         return (own)
+      	var id = -1;
+      	if (email && response.data.length) {
+         	id = response.data[0].id;
+      	}
+         if (email)
+         	return "owner=" + id;
+         return "";
       })
       .then(function(owner) {
-         if (email) {
-            if (!endDate && !startDate && !zip) {
-               filterQuery = filterQuery.concat("?");
-            }
-            filterQuery = filterQuery.concat(owner + "&");
-         }
+         filterQuery = filterQuery.concat(owner);
          return (filterQuery)
       })
       .then(function(query) {
