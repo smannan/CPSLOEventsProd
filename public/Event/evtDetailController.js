@@ -21,11 +21,13 @@ app.controller("evtDetailController",
       $scope.events = null;
       $scope.rsvs = null;
       $scope.myrsv = null;
+      console.log(err);
    });
 
    var getMyRsv = function () {
       return $http.get('/Prss/' + pid + '/Rsvs')
       .then(function(response) {
+         $scope.myrsv = null;
          response.data.forEach(function(rsvtemp) {
             if (rsvtemp.evtId === parseInt(evtId))
                $scope.myrsv = rsvtemp;
@@ -63,4 +65,24 @@ app.controller("evtDetailController",
          }
       })
    };
+
+   $scope.delRsv = function($index) {
+      var rsv = $scope.rsvs[$index];
+      return $http.delete('/Evts/' + evtId + '/Rsvs/' + rsv.id)
+      .then( function() {
+         return $http.get('/Evts/' + evtId + '/Rsvs');
+      })
+      .then(function (response) {
+        $scope.rsvs = response.data;
+        return getMyRsv();
+      })
+      .catch(function(err) {
+         if (err.data[0].tag) {
+            nDlg.show($scope, "Error: " + err.data[0].tag, "Error");
+         }
+      });
+      //console.log($index);
+
+   }
 }]);
+

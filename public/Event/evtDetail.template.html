@@ -42,6 +42,14 @@
                <md-chips>
                   <md-chip>{{rsv.status}}</md-chip>
                </md-chips>
+               <span flex>
+                  
+               </span>
+               <md-button class="md-icon-button md-primary" aria-label="Delete"
+                           ng-click="delRsv($index)"
+                           ng-if="events[0].orgId === user.id">
+                  <md-icon md-svg-icon="Icons/delete.svg"></md-icon>
+               </md-button>
             </div>
          <md-divider></md-divider>
       </md-list-item>   
