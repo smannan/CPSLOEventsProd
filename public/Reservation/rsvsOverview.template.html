@@ -20,16 +20,21 @@
                   <md-divider></md-divider>
          </md-list-item>   
                </div>
-         <span>
-            <!--
-            <md-button class="md-icon-button md-primary" aria-label="Edit">
-               <md-icon md-svg-icon="Icons/edit.svg"></md-icon>
-            </md-button>
-            -->
+            <span flex> 
+            </span>
+
+            <md-button ng-init="g = 'Going'" ng-disabled="checkRsv($index, g)" 
+                        class="md-primary md-raised" 
+                        ng-click="changeMyRsv($index, g)">{{g}}</md-button>
+            <md-button ng-init="m = 'Maybe'" ng-disabled="checkRsv($index, m)" 
+                        class="md-secondary-button md-raised" 
+                        ng-click="changeMyRsv($index, m)">{{m}}</md-button>
+            <md-button ng-init="n = 'Not Going'" ng-disabled="checkRsv($index, n)" 
+                        class="md-primary md-raised md-warn" 
+                        ng-click="changeMyRsv($index, n)">{{n}}</md-button>
             <md-button class="md-icon-button md-primary" aria-label="Edit"
                         ng-click="delRsv($index)">
                <md-icon md-svg-icon="Icons/delete.svg"></md-icon>
             </md-button>
-         </span>
     </md-list>
 </md-content>
