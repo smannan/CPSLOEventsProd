@@ -27,10 +27,6 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function() {
-         console.log("POSTING");
-         for (var i in $scope.evt)
-            console.log(i + " " + $scope.evt[i]);
-         
          $scope.evt.date = new Date($scope.evt.date).getTime(); 
          return $http.post("/Evts", $scope.evt);
       })
@@ -55,10 +51,10 @@ app.controller('evtOverviewController',
          parent: angular.element(document.body),
          clickOutsideToClose:true,
          scope: $scope,
-         preserveScope: true
+         preserveScope:true
       })
       .then(function(newTitle) {
-         return $http.put("/Evts/" + evtId, {title: newTitle});
+         return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {
          return $http.get("/Evts");

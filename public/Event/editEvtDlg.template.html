@@ -9,11 +9,17 @@
       <br/>
       
       <md-dialog-content class="md-dialog-content">
-      <md-input-container class="md-block">
+      <md-input-container class="md-block" ng-show="'{{dlgTitle}}' === 'New Event'">
       <label>Title</label>
         <input type="text" class="form-control" 
           ng-model="evt.title" required>
-      </md-input-container>   
+      </md-input-container>
+         
+      <md-input-container class="md-block" ng-show="'{{dlgTitle}}'  === 'Edit Event'">
+      <label>Title</label>
+        <input type="text" class="form-control" 
+          ng-model="evt.title">
+      </md-input-container> 
 
       <md-input-container class="md-block">
         <label>Description</label>
@@ -21,10 +27,16 @@
                   ng-model="evt.descr"></textarea>
       </md-input-container> 
          
-      <md-input-container class="md-block">
+      <md-input-container class="md-block" ng-show="'{{dlgTitle}}' === 'New Event'">
         <label>Address</label>
         <input type="text" class="form-control" 
                   ng-model="evt.addr" required>
+      </md-input-container>
+         
+      <md-input-container class="md-block" ng-show="'{{dlgTitle}}' === 'Edit Event'">
+        <label>Address</label>
+        <input type="text" class="form-control" 
+                  ng-model="evt.addr">
       </md-input-container> 
          
       <md-input-container class="md-block">
@@ -50,10 +62,17 @@
          ng-model="evt.zip" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
       </md-input-container>
 
-      <md-input-container>
+      <md-input-container ng-show="'{{dlgTitle}}' === 'New Event'">
          <label>Start Date</label>
          <md-datepicker 
             ng-model="evt.date" md-placeholder="MM/DD/YYYY" required>
+         </md-datepicker>
+      </md-input-container>
+         
+      <md-input-container ng-show="'{{dlgTitle}}' === 'Edit Event'">
+         <label>Start Date</label>
+         <md-datepicker 
+            ng-model="evt.date" md-placeholder="MM/DD/YYYY">
          </md-datepicker>
       </md-input-container>
      
@@ -71,7 +90,7 @@
        Cancel
       </md-button>
       <md-button class="md-primary md-raised" ng-click="submit(evt.title)"
-      ng-disabled="!evt.title || !evt.addr || !evt.date">
+      ng-disabled="(!evt.title || !evt.addr || !evt.date) && '{{dlgTitle}}' === 'New Event'">
         Submit
       </md-button>
     </md-dialog-actions>

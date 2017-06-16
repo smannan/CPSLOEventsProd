@@ -4,6 +4,8 @@ app.controller("evtDetailController",
    var evtId = $stateParams.evtId;
    var pid = $rs.user.id;
    $scope.myrsv = null;
+    
+   $scope.evt = {};
 
    // Get event information
    $http.get('/Evts/' + evtId)
@@ -79,15 +81,15 @@ app.controller("evtDetailController",
          scope: $scope,
          preserveScope: true
       })
-      .then(function(newTitle) {
+      .then(function() {
          console.log('HERE')
-         return $http.put("/Evts/" + evtId, {title: newTitle});
+         return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {
          return $http.get("/Evts");
       })
       .then(function(response) {
-         $scope.evts = response.data;
+         $scope.events = response.data;
       })
       .catch(function(err) {
          displayError(err);
@@ -118,8 +120,7 @@ app.controller("evtDetailController",
       };
 
       $scope.submit = function() {
-         console.log("email: " + $scope.email);
-         $mdDialog.submit($scope.email);
+         $mdDialog.hide();
       };
    };
  
