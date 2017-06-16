@@ -93,7 +93,7 @@
        Cancel
       </md-button>
       <md-button class="md-primary md-raised" ng-click="submit(evt.title)"
-      ng-disabled="(!evt.title || !evt.addr || !evt.date) && '{{dlgTitle}}' === 'New Event'">
+      ng-disabled="(!evt.title || !evt.addr || !date2 || !time ) && '{{dlgTitle}}' === 'New Event'">
         Submit
       </md-button>
     </md-dialog-actions>

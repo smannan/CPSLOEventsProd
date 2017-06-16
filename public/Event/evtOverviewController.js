@@ -27,20 +27,22 @@ app.controller('evtOverviewController',
       })
       .then(function() {
 
-         var day = ((new Date($scope.evt.date)).getUTCDate())
-         var month = ((new Date($scope.evt.date)).getUTCMonth())
-         var year = ((new Date($scope.evt.date)).getUTCFullYear())
-         var hours = ((new Date($scope.evt.time)).getHours())
-         var min = ((new Date($scope.evt.time)).getMinutes())
+         var day = $scope.date2.getUTCDate()
+         var month = $scope.date2.getUTCMonth()
+         var year = $scope.date2.getUTCFullYear()
+         var hours = $scope.time.getHours()
+         var min = $scope.time.getMinutes()
          var date = new Date(year, month, day, hours, min)
          
          $scope.evt.date = date.getTime()
-         delete $scope.evt.time
          
          return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
-         return $http.get("/Evts");
+         var url = "/Evts";
+         if ($state.params && $state.params.prsId)
+            url += "?owner=" + $state.params.prsId;
+         return $http.get(url);
       })
       .then(function(response) {
          $scope.evts = response.data;
@@ -82,7 +84,7 @@ app.controller('evtOverviewController',
       .then(function(response) {
          var url = "/Evts";
          if ($state.params && $state.params.prsId) 
-            url += "?owner="+ + $state.params.prsId;
+            url += "?owner=" + $state.params.prsId;
          return $http.get(url);
       })
       .then(function(response) {
