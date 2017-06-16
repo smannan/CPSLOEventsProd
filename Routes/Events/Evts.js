@@ -196,7 +196,8 @@ router.put('/:id', function(req, res) {
       var now = new Date().getTime(); 
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
        vld.checkPrsOK(rows[0].orgId, cb) &&
-       vld.check(body.date > now, Tags.badValue, ['date'], cb)) {
+       vld.check(!body.date || body.date > now, Tags.badValue, 
+       ['date'], cb)) {
          if (body.title) {
             cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
              [req.params.id, body.title], 
