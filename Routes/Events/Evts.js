@@ -195,9 +195,13 @@ router.put('/:id', function(req, res) {
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
-
+      var now = new Date(); 
+      console.log(body.date);
+      console.log(now);
+      console.log(body.date > now);
       if (vld.check(rows.length, Tags.notFound, null, cb) &&
-       vld.checkPrsOK(rows[0].orgId, cb)) {
+       vld.checkPrsOK(rows[0].orgId, cb) &&
+       vld.check(body.date > now, Tags.badValue, ['date'], cb)) {
          if (body.title) {
             cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
              [req.params.id, body.title], 
