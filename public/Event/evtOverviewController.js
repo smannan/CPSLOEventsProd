@@ -35,7 +35,6 @@ app.controller('evtOverviewController',
          var date = new Date(year, month, day, hours, min)
          
          $scope.evt.date = date.getTime()
-         
          return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
@@ -45,6 +44,7 @@ app.controller('evtOverviewController',
          return $http.get(url);
       })
       .then(function(response) {
+         $scope.evt = {};
          $scope.evts = response.data;
       })
       .catch(function(err) {
@@ -85,6 +85,12 @@ app.controller('evtOverviewController',
          var url = "/Evts";
          if ($state.params && $state.params.prsId) 
             url += "?owner=" + $state.params.prsId;
+         // Remove info from input fields
+         for (var i in $scope.evt) {
+            console.log(i);
+            delete $scope.evt[i];
+         }
+         
          return $http.get(url);
       })
       .then(function(response) {
@@ -170,5 +176,17 @@ app.controller('evtOverviewController',
       $scope.submit = function() {
          $mdDialog.hide();
       };
-   }; 
+   };
+    
+   $scope.resetFilter = function() {
+      // Remove inform from filter input fields
+      for (var i in $scope.filter) {
+         delete $scope.filter[i];
+      }
+      
+      $http.get('Evts')
+      .then(function(response) {
+         $scope.evts = response.data;
+      })
+   };
 }]);

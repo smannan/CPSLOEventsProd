@@ -41,8 +41,6 @@ app.controller("evtDetailController",
                $scope.myrsv = rsvtemp;
          });
          //console.log("myrsv is " + $scope.myrsv ? " valid " : " null " );
-         if ($scope.myrsv)
-            console.log($scope.myrsv);
       });
    };
 
@@ -86,20 +84,24 @@ app.controller("evtDetailController",
          preserveScope: true
       })
       .then(function() {
-         console.log($scope.date2);
-         var day = $scope.date2.getUTCDate();
-         var month = $scope.date2.getUTCMonth();
-         var year = $scope.date2.getUTCFullYear();
-         var hours = $scope.time.getHours();
-         var min = $scope.time.getMinutes();
-         var date = new Date(year, month, day, hours, min);
+         if ($scope.date2) {
+            var day = $scope.date2.getUTCDate();
+            var month = $scope.date2.getUTCMonth();
+            var year = $scope.date2.getUTCFullYear();
+            var hours = $scope.time.getHours();
+            var min = $scope.time.getMinutes();
+            var date = new Date(year, month, day, hours, min);
          
-         $scope.evt.date = date.getTime();
-         console.log($scope.evt);
-
+            $scope.evt.date = date.getTime();
+         }
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {
+         // Remove info from input fields
+         for (var i in $scope.evt) {
+            delete $scope.evt[i];
+         }
+         
          return $http.get("/Evts/" + evtId);
       })
       .then(function(response) {
@@ -138,6 +140,7 @@ app.controller("evtDetailController",
          return $http.get('/Evts/' + evtId + '/Rsvs');
       })
       .then(function(response) {
+         delete $scope.email;
          $scope.rsvs = response.data;
          return getMyRsv();
       })
@@ -149,6 +152,7 @@ app.controller("evtDetailController",
    function DialogController($scope, $mdDialog) {
       $scope.cancel = function() {
          $mdDialog.cancel();
+         delete $scope.email;
       };
 
       $scope.submit = function() {
