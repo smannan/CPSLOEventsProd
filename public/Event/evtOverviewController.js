@@ -11,7 +11,7 @@ app.controller('evtOverviewController',
 
    displayError = function(err) {
      if (err && err.data && err.data[0].tag === "dupTitle") {
-         nDlg.show($scope, "Event with this title already " + 
+         mdDlg.login($scope, "Event with this title already " + 
             "exists!", "Error");
       }
    };
@@ -27,11 +27,11 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function() {
-         console.log($scope.evt.time);
+         console.log("TIME: " + $scope.evt.time);
          
          $scope.evt.time = new Date($scope.evt.time).getTime();
          $scope.evt.date = new Date($scope.evt.date).getTime();
-         $scope.evt.date += $scope.evt.time;
+         //$scope.evt.date += $scope.evt.time;
          
          delete $scope.evt.time;
          
