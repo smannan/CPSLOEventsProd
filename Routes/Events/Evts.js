@@ -214,12 +214,13 @@ router.put('/:id', function(req, res) {
       }
    },
    function(cb) {
-      if(vld.check(true))
+      if(vld.check(true)) {
          cnn.chkQry('UPDATE Event SET ? WHERE id = ' + req.params.id,
           [body], function() {
             cb();
           });
       }
+      
       else {
          cb();
       }
