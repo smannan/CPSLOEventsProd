@@ -25,10 +25,7 @@ router.get('/:cookie', function(req, res, next) {
    var cookie = req.params.cookie;
    var vld = req.validator;
    var ssn = ssnUtil.sessions[cookie];
-
-   console.log(cookie);
-   console.log(ssn);
-
+   
    if (vld.check(ssn, Tags.notFound)) {
       if (ssn && vld.checkPrsOK(ssn.id)) {
          res.status(200).json({cookie: cookie, prsId: ssn.id,

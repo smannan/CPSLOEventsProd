@@ -171,7 +171,6 @@ router.put('/:id/Rsvs/:rsvId', function(req, res) {
    	 	 [rsvId, prsId], cb);
    },
    function(rsvs, fields, cb) { // update indicated reservations
-      console.log(rsvs);
       if (vld.check(rsvs.length, Tags.notFound, null, cb) &&
        vld.check(body.status === "Going" || body.status === "Maybe" ||
        body.status === "Not Going", Tags.badValue, ["status"], cb))
