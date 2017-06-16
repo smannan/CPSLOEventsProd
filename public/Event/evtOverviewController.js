@@ -7,6 +7,7 @@ app.controller('evtOverviewController',
       return {abbrev: state};
     });   
    $scope.evts = evts;
+   $scope.evt = {orgId: $scope.user.prsId};
 
    displayError = function(err) {
      if (err && err.data && err.data[0].tag === "dupTitle") {
@@ -23,10 +24,10 @@ app.controller('evtOverviewController',
          templateUrl: 'Event/editEvtDlg.template.html',
          clickOutsideToClose:true,
          scope: $scope,
-         preserveScope: true
+         preserveScope:true
       })
       .then(function() {
-         return $http.post("/Evts", {evt});
+         return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
          return $http.get("/Evts");
@@ -39,7 +40,6 @@ app.controller('evtOverviewController',
       });
    };
 
-   
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
       
@@ -144,8 +144,8 @@ app.controller('evtOverviewController',
          $mdDialog.cancel();
       };
 
-      $scope.answer = function(answer) {
-         $mdDialog.submit(answer);
+      $scope.submit = function() {
+         $mdDialog.hide();
       };
    }; 
 }]);
