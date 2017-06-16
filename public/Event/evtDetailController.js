@@ -7,6 +7,12 @@ app.controller("evtDetailController",
     
    $scope.evt = {};
 
+   displayError = function(err) {
+     if (err && err.data && err.data[0].tag === "notFound") {
+         nDlg.show($scope, "User does not exist!", "Error");
+      }
+   };
+
    // Get event information
    $http.get('/Evts/' + evtId)
    .then(function(response) {
@@ -107,9 +113,14 @@ app.controller("evtDetailController",
          preserveScope:true
       })
       .then(function() {
-         console.log("working somewhat"); //$http.post("/Evts", $scope.evt);
+         return $http.get('/Prss?email=' + $scope.email);
+      })
+      .then(function(response) {
+         var prsId = response.data[0].id;
+         return $http.post('/Evts/' + evtId + '/Rsvs', {"prsId": prsId, "status": "Not Going"});
       })
       .catch(function(err) {
+         console.log("err: " + err.data[0].tag);
          displayError(err);
       });
    };

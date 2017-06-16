@@ -337,11 +337,11 @@ router.post('/:id/Rsvs', function(req, res) {
    function(cb) {
       cnn.chkQry('select * from Reservation where ' +
        ' prsId = ? and evtId = ?', 
-       [req.session.id, id], cb);
+       [body.prsId, id], cb);
    },
 
    function(existingRsv, fields, cb) {
-      console.log(existingRsv)
+      console.log("existing: " + existingRsv[0]);
 
       /* Make sure body has a non-empty person id 
        * And status is either Going, Maybe, or Not Going
