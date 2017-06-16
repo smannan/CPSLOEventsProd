@@ -144,6 +144,7 @@ app.controller("evtDetailController",
          return $http.get('/Evts/' + evtId + '/Rsvs');
       })
       .then(function(response) {
+         delete $scope.email;
          $scope.rsvs = response.data;
          return getMyRsv();
       })
@@ -155,6 +156,7 @@ app.controller("evtDetailController",
    function DialogController($scope, $mdDialog) {
       $scope.cancel = function() {
          $mdDialog.cancel();
+         delete $scope.email;
       };
 
       $scope.submit = function() {
