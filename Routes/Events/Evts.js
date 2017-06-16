@@ -270,7 +270,7 @@ router.get('/:id/Rsvs', function(req, res) {
    var body = req.body;
    var cnn = req.cnn;
 
-   var query = 'select distinct firstName, lastName, status from ' +
+   var query = 'select distinct Reservation.id as id, firstName, lastName, status from ' +
    'Event join Reservation join Person where Reservation.prsId ' +
    '= Person.id and evtId = ? order by firstName, lastName asc';
 
