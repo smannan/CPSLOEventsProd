@@ -302,12 +302,14 @@ router.get('/:id/Rsvs', function(req, res) {
       }
 
       else {
+         console.log("private? " + evt.private);
+         console.log("existinglen? " + existingRsv.length);
          cnn.chkQry('SELECT NULL', [], cb)
       }
    },
 
    function(evts, fields, cb) {
-      console.log(evts)
+      //console.log(evts)
 
       if (evts.length === 0 || ('NULL' in evts[0])) {
          res.json([]).end();
