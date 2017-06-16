@@ -16,6 +16,18 @@
       </md-input-container>   
 
       <md-input-container class="md-block">
+        <label>Description</label>
+        <textarea type="text" class="form-control" 
+                  ng-model="evt.descr"></textarea>
+      </md-input-container> 
+         
+      <md-input-container class="md-block">
+        <label>Address</label>
+        <input type="text" class="form-control" 
+                  ng-model="evt.addr" required>
+      </md-input-container> 
+         
+      <md-input-container class="md-block">
         <label>City</label>
         <input type="text" class="form-control" 
           ng-model="evt.city">
@@ -36,24 +48,12 @@
         <label>Zip</label>
         <input type="text" class="form-control" 
          ng-model="evt.zip" ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-      </md-input-container> 
-
-      <md-input-container class="md-block">
-        <label>Address</label>
-        <input type="text" class="form-control" 
-         ng-model="evt.addr" required="">
-      </md-input-container> 
-
-      <md-input-container class="md-block">
-        <label>Description</label>
-        <input type="text" class="form-control" 
-          ng-model="evt.descr">
-      </md-input-container> 
+      </md-input-container>
 
       <md-input-container>
          <label>Start Date</label>
          <md-datepicker 
-            ng-model="evt.startDate" md-placeholder="MM/DD/YYYY" required>
+            ng-model="evt.date" md-placeholder="MM/DD/YYYY" required>
          </md-datepicker>
       </md-input-container>
      
@@ -71,7 +71,7 @@
        Cancel
       </md-button>
       <md-button class="md-primary md-raised" ng-click="submit(evt.title)"
-      ng-disabled="!evt.title || !evt.addr || !evt.startDate">
+      ng-disabled="!evt.title || !evt.addr || !evt.date">
         Submit
       </md-button>
     </md-dialog-actions>
