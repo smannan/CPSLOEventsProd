@@ -86,7 +86,7 @@ router.post('/', function(req, res) {
 
         vld.chain(body.title.length < 80, Tags.badValue, ['title'])
 
-       .chain(body.date >= 0 && body.date >= 
+       .chain(body.date >= 0 && body.date >
         (new Date().getTime()), Tags.badValue, ['date'])
 
        .chain(!body.descr || body.descr.length < 500, Tags.badValue, ['descr'])
