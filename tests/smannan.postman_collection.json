@@ -22,7 +22,6 @@
 				"cde495be-2643-a9a2-79cf-5a4acfccfa5c",
 				"857769d5-9a50-a4ca-7922-3d294cfa6fb9",
 				"733aa21b-3ee7-c0d6-4ecb-2eeb0e023176",
-				"41478186-66c5-ffdf-d340-481606e7f48c",
 				"ec6243b1-e7f1-627c-47c4-4876c30df81a",
 				"6d26be27-d006-00d2-c70e-a10c29db16e2",
 				"ec81c17f-9e31-851d-9901-9e2787f7af3f",
@@ -253,25 +252,6 @@
 			"rawModeData": "{\n\t\"personId\":\"1\"\n}"
 		},
 		{
-			"id": "41478186-66c5-ffdf-d340-481606e7f48c",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{url}}/Evts",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\ntests[\"Body matches string\"] = responseBody.has(\"badValue\");\nvar jsonData = JSON.parse(responseBody);\ntests[\"Number of tags\"] = jsonData.length === 1\n\ntests[\"Right Params\"] = jsonData[0][\"params\"][0] === \"private\"",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497410754957,
-			"name": "Create event bad private",
-			"description": "\n",
-			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
-			"responses": [],
-			"rawModeData": "{\n\t\"state\":\"CA\",\n\t\"country\":\"US\",\n\t\"addr\":\"1 Grand Ave Cal Poly SLO\",\n\t\"descr\":\"Come to my event!\",\n\t\"date\":1496962346000000,\n\t\"private\":10,\n\t\"title\":\"EventA\"\n}"
-		},
-		{
 			"id": "463abb0f-db67-a7e6-be9d-bbf356c10f21",
 			"headers": "Content-Type: application/json\n",
 			"url": "{{url}}/Prss",
@@ -392,16 +372,26 @@
 		{
 			"id": "66bff9d6-9b01-993f-8b1c-21d7df944eca",
 			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Evts/2/Rsvs",
+			"queryParams": [],
 			"preRequestScript": "",
 			"pathVariables": {},
+			"pathVariableData": [],
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstA\"\n     && jsonData[0].lastName === \"LastA\" && jsonData[0].status === \"Maybe\";\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].firstName === \"FirstC\"\n     && jsonData[1].lastName === \"LastC\" && jsonData[1].status === \"Going\";\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"Two Response\"] = jsonData.length === 2;\n\nif (tests[\"Two Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstA\"\n     && jsonData[0].lastName === \"LastA\" && jsonData[0].status === \"Maybe\"\n     && jsonData[0].id === 4;\n     \n    tests[\"Correct Resp 2\"] = jsonData[1].firstName === \"FirstC\"\n     && jsonData[1].lastName === \"LastC\" && jsonData[1].status === \"Going\"\n     && jsonData[1].id === 3;\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497346721221,
+			"time": 1497574539124,
 			"name": "Get RSVS for public event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -680,21 +670,31 @@
 		{
 			"id": "a32ebda4-a28b-5845-2ed0-428abaa57439",
 			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Evts",
+			"queryParams": [],
 			"preRequestScript": "",
 			"pathVariables": {},
+			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497411644362,
+			"time": 1497575228373,
 			"name": "Create EventB",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
 			"responses": [],
-			"rawModeData": "{\n\t\n\t\"addr\":\"1 Grand Ave\",\n\t\"date\":149696234600000,\n\t\"title\":\"Puppy Party\"\n}"
+			"rawModeData": "{\n\t\n\t\"addr\":\"1 Grand Ave\",\n\t\"date\":149696234600000,\n\t\"title\":\"Puppy Party2\"\n}"
 		},
 		{
 			"id": "a6f59206-8051-0293-7554-dd427aec8f0a",
@@ -870,16 +870,26 @@
 		{
 			"id": "c5dba104-31ec-410c-6e36-d69db4c15ca5",
 			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Evts/1/Rsvs",
+			"queryParams": [],
 			"preRequestScript": "",
 			"pathVariables": {},
+			"pathVariableData": [],
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstB\"\n     && jsonData[0].lastName === \"LastB\" && jsonData[0].status === \"Not Going\";\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstB\"\n     && jsonData[0].lastName === \"LastB\" && jsonData[0].status === \"Not Going\"\n     && jsonData[0].id === 1;\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497401761056,
+			"time": 1497574656265,
 			"name": "Get RSVS for private event",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
@@ -1102,16 +1112,26 @@
 		{
 			"id": "f72a63c5-e39c-dcab-612e-2de97c8e888e",
 			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "{{url}}/Evts/3/Rsvs",
+			"queryParams": [],
 			"preRequestScript": "",
 			"pathVariables": {},
+			"pathVariableData": [],
 			"method": "GET",
 			"data": [],
 			"dataMode": "raw",
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstC\"\n     && jsonData[0].lastName === \"LastC\" && jsonData[0].status === \"Not Going\";\n}",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\ntests[\"One Response\"] = jsonData.length === 1;\n\nif (tests[\"One Response\"]) {\n    tests[\"Correct Resp 1\"] = jsonData[0].firstName === \"FirstC\"\n     && jsonData[0].lastName === \"LastC\" && jsonData[0].status === \"Not Going\"\n     && jsonData[0].id === 2;\n}",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1497343727510,
+			"time": 1497574698822,
 			"name": "Get RSVS for event owner",
 			"description": "\n",
 			"collectionId": "9f9518c3-80a5-74ba-cb8a-a50127490ac4",
