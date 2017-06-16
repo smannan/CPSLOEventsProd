@@ -94,13 +94,32 @@ app.controller("evtDetailController",
       });
    };
 
+   $scope.inviteOthers = function() {
+      $scope.dlgTitle = "New Reservation";
+      
+      $mdDialog.show({
+         controller: DialogController,
+         templateUrl: 'Event/newRsvDlg.template.html',
+         clickOutsideToClose:true,
+         scope: $scope,
+         preserveScope:true
+      })
+      .then(function() {
+         console.log("working somewhat"); //$http.post("/Evts", $scope.evt);
+      })
+      .catch(function(err) {
+         displayError(err);
+      });
+   };
+
    function DialogController($scope, $mdDialog) {
       $scope.cancel = function() {
          $mdDialog.cancel();
       };
 
-      $scope.answer = function(answer) {
-         $mdDialog.submit(answer);
+      $scope.submit = function() {
+         console.log("email: " + $scope.email);
+         $mdDialog.submit($scope.email);
       };
    };
  
