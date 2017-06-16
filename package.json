@@ -9,7 +9,8 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "mysql": "^2.11.1",
-    "angular-material": "~1.1.4"
+    "angular-material": "~1.1.4",
+    "angular-material-time-picker": "~1.0.6"
   },
   "devDependencies": {},
   "scripts": {

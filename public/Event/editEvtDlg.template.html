@@ -75,6 +75,8 @@
             ng-model="evt.date" md-placeholder="MM/DD/YYYY">
          </md-datepicker>
       </md-input-container>
+
+     <div uib-timepicker ng-model="evt.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
      
      <md-input-container class="md-block">
         <div layout="row" layout-align="left center">

@@ -27,7 +27,14 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function() {
-         $scope.evt.date = new Date($scope.evt.date).getTime(); 
+         console.log($scope.evt.time);
+         
+         $scope.evt.time = new Date($scope.evt.time).getTime();
+         $scope.evt.date = new Date($scope.evt.date).getTime();
+         $scope.evt.date += $scope.evt.time;
+         
+         delete $scope.evt.time;
+         
          return $http.post("/Evts", $scope.evt);
       })
       .then(function() {
@@ -54,6 +61,10 @@ app.controller('evtOverviewController',
          preserveScope:true
       })
       .then(function(newTitle) {
+         if ($scope.evt.date) {
+            $scope.evt.date = new Date($scope.evt.date).getTime();
+         }
+         
          return $http.put("/Evts/" + evtId, $scope.evt);
       })
       .then(function() {

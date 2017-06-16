@@ -20,10 +20,10 @@ app.constant("errMap", {
    queryFailed: 'Query failed (server problem).'
 });
 
-app.filter('tagError', ['errMap'/*, 'errLangCode'*/, 
- function(errMap, /*errLangCode*/) {
+app.filter('tagError', ['errMap', 
+ function(errMap) {
    return function(err) {
-      return /*errLangCode.chosenCode + " " + */errMap[err.tag] + " " + 
+      return errMap[err.tag] + " " + 
        (err.params ? err.params[0] : "");
    };
 }]);
@@ -53,35 +53,4 @@ app.directive('evtDetail', [function() {
       '{{msg.email}}</div><br/>{{msg.content}}'
    };
 }]);
-/*
-app.service("errLangCode", [function() {
-   this.chosenCode = "[EN]";
-}]);
-
-app.controller("langDropController", ["$scope", "errLangCode",
- function($scope, errLangCode) {
-    var codes = { en: "[EN]", es: "[ES]"};
-    var englishArr = ["English", "Ingles"];
-    var spanishArr = ["Spanish", "Espanol"];
-    
-    // Helper function to change dropdown menu
-    modifyDrop = function(code, langArr, selected) {
-       errLangCode.chosenCode = code;
-       $scope.languages = langArr;
-       $scope.selectedLang = selected;
-    }
-    
-    // Default selection
-    modifyDrop(codes.en, ["English", "Spanish"], "English"); 
-   
-    $scope.changeLang = function(selectedLang) {
-       
-       if (englishArr.indexOf(selectedLang) > -1) {
-         modifyDrop(codes.en, ["English", "Spanish"], "English");
-       }
-       else if (spanishArr.indexOf(selectedLang) > -1) {
-         modifyDrop(codes.es, ["Ingles", "Espanol"], "Espanol");
-       }
-    }
-}]); */
 
