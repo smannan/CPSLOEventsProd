@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "async": "^2.0.0-rc.6",
+    "pg": "6.x",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
