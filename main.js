@@ -111,7 +111,7 @@ app.use(function(req, res, next) {
 });
 
 var port = process.env.PORT || 1337;
-server.listen(port);
+app.listen(port);
 
 // //Use default port or supplied port from commandline arguments
 // //var port = 8080; // default port
