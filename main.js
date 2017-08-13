@@ -110,15 +110,20 @@ app.use(function(req, res, next) {
    req.cnn.release();
 });
 
-// Use default port or supplied port from commandline arguments
-var port = 8080; // default port
-for (var i = 2; i < process.argv.length; i++) {
-   if (process.argv[i] === '-p') {
-      port = parseInt(process.argv[i + 1]);
-      break;
-   }
-}
+var port = process.env.PORT || 1337;
+server.listen(port);
 
-app.listen(port, function () {
-   console.log('App Listening on port ' + port);
-});
+console.log("Server running at http://localhost:%d", port);
+
+// Use default port or supplied port from commandline arguments
+// var port = 8080; // default port
+// for (var i = 2; i < process.argv.length; i++) {
+//    if (process.argv[i] === '-p') {
+//       port = parseInt(process.argv[i + 1]);
+//       break;
+//    }
+// }
+
+// app.listen(port, function () {
+//    console.log('App Listening on port ' + port);
+// });
