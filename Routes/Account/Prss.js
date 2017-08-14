@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
    };
 
    if (email)
-      req.cnn.chkQry('select id, email from Person where email like ?',
+      req.cnn.chkQry('select id, email from Person where email like $1',
        [email + '%'], handler);
    else {
       req.cnn.chkQry('select id, email from Person', handler);
@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-   
+
    var vld = req.validator;  // Shorthands
    var body = req.body;
    var cnn = req.cnn;
