@@ -3,6 +3,7 @@ var CnnPool = require('../CnnPool.js');
 var Tags = require('../Validator.js').Tags;
 var ssnUtil = require('../Session.js');
 var router = Express.Router({caseSensitive: true});
+var pg = require('pg');
 
 router.baseURL = '/Ssns';
 
@@ -11,17 +12,25 @@ router.post('/', function(req, res) {
    var cnn = req.cnn;
 
    console.log('LOGGING IN');
-   cnn.query('select * from Person where email = $1', [req.body.email],
-   function(err, result) {
-      console.log('LOGGING IN');
-      console.log(result.length);
-      if (req.validator.check(result.length &&
-       result[0].password === req.body.password, Tags.badLogin)) {
-         cookie = ssnUtil.makeSession(result[0], res);
-         res.location(router.baseURL + '/' + cookie).status(200).end();
-      }
-      cnn.release();
-   });
+   // cnn.query('select * from Person where email = $1', [req.body.email],
+   // function(err, result) {
+   //    console.log('LOGGING IN');
+   //    console.log(result.length);
+   //    if (req.validator.check(result.length &&
+   //     result[0].password === req.body.password, Tags.badLogin)) {
+   //       cookie = ssnUtil.makeSession(result[0], res);
+   //       res.location(router.baseURL + '/' + cookie).status(200).end();
+   //    }
+   //    cnn.release();
+   // });
+
+   pg.connect(process.env.DATABASE_URL, function(err, client, done)) {
+      client.query('select * from Person where email = $1', [req.body.email],
+         function(err, result) {
+            cookie = ssnUtil.makeSession(result[0], res);
+            res.location(router.baseURL + '/' + cookie).status(200).end();
+      })
+   }
 });
 
 router.get('/:cookie', function(req, res, next) {
