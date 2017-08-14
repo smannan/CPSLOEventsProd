@@ -1,11 +1,15 @@
 var mysql = require('mysql');
+const pg = require('pg');
+const connectionString = process.env.DATABASE_URL;
 
 // Constructor for DB connection pool
 var CnnPool = function() {
-   var poolCfg = require('./connection.json');
+   //var poolCfg = require('./connection.json');
+   this.pool = new Pool({connectionString: connectionString});
 
-   poolCfg.connectionLimit = CnnPool.PoolSize;
-   this.pool = mysql.createPool(poolCfg);
+   //poolCfg.connectionLimit = CnnPool.PoolSize;
+   //this.pool = mysql.createPool(poolCfg);
+   //this.pool = pg.createPool(poolCfg);
 };
 
 CnnPool.PoolSize = 1;
@@ -18,7 +22,8 @@ CnnPool.prototype.getConnection = function(cb) {
 // Router function for use in auto-creating CnnPool for a request
 CnnPool.router = function(req, res, next) {
    console.log("Getting connection");
-   CnnPool.singleton.getConnection(function(err, cnn) {
+   //CnnPool.singleton.getConnection(function(err, cnn) {
+   pg.connect(connectionString, (err, cnn, done) => {
       if (err)
          res.status(500).json('Failed to get connection' + err);
       else {

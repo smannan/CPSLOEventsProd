@@ -40,11 +40,14 @@ router.post('/', function(req, res) {
    async.waterfall([
    function(cb) { // Check properties and search for Email duplicates
       if (vld.hasFields(body, ["email", "lastName", "password"], cb)) {
-         cnn.chkQry('select * from Person where email = ?', body.email, cb);
+         console.log("Getting existing persons");
+         //cnn.chkQry('select * from Person where email = ?', body.email, cb);
+         cnn.chkQry('select * from Person where email = $1', [body.email], cb);
       }
    },
    function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
       if (vld.check(!existingPrss.length, Tags.dupEmail, null, cb)) {
+         console.log("Inserting person");
          cnn.chkQry('insert into Person set ?', body, cb);
       }
    },
