@@ -25,6 +25,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+   
    var vld = req.validator;  // Shorthands
    var body = req.body;
    var cnn = req.cnn;
