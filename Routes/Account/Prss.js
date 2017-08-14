@@ -3,6 +3,7 @@ var Tags = require('../Validator.js').Tags;
 var router = Express.Router({caseSensitive: true});
 var async = require('async');
 var mysql = require('mysql');
+var pg = require('pg');
 
 router.baseURL = '/Prss';
 
