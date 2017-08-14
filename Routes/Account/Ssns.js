@@ -24,13 +24,13 @@ router.post('/', function(req, res) {
    //    cnn.release();
    // });
 
-   pg.connect(process.env.DATABASE_URL, function(err, client, done)) {
+   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query('select * from Person where email = $1', [req.body.email],
          function(err, result) {
             cookie = ssnUtil.makeSession(result[0], res);
             res.location(router.baseURL + '/' + cookie).status(200).end();
       })
-   }
+   })
 });
 
 router.get('/:cookie', function(req, res, next) {
