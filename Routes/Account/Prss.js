@@ -67,8 +67,9 @@ router.get('/:id', function(req, res) {
    if (vld.checkPrsOK(req.params.id)) {
       console.log(req.params);
       req.cnn.chkQry('select id, firstName, lastName, email, city, state,' +
-       ' zip, country from Person where id = ?', [req.params.id],
+       ' zip, country from Person where id = $1', [req.params.id],
       function(err, prsArr) {
+         console.log('GOT PERSON');
          console.log(prsArr);
          if (vld.check(prsArr && prsArr.rows && prsArr.rows.length, Tags.notFound)) {
             res.json(prsArr.rows);
