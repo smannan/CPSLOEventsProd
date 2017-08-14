@@ -1,14 +1,15 @@
 var mysql = require('mysql');
 const pg = require('pg');
+var Pool = require('pg-pool')
 const connectionString = process.env.DATABASE_URL;
 
 // Constructor for DB connection pool
 var CnnPool = function() {
-   //var poolCfg = require('./connection.json');
-   this.pool = new Pool({connectionString: connectionString});
+   var poolCfg = require('./connection.json');
+   //this.pool = new Pool({connectionString: connectionString});
 
-   //poolCfg.connectionLimit = CnnPool.PoolSize;
-   //this.pool = mysql.createPool(poolCfg);
+   poolCfg.connectionLimit = CnnPool.PoolSize;
+   this.pool = mysql.createPool(poolCfg);
    //this.pool = pg.createPool(poolCfg);
 };
 
