@@ -27,9 +27,9 @@ router.post('/', function(req, res) {
    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query('select * from Person where email = $1', [req.body.email],
          function(err, result) {
-            console.log(result.length);
-            console.log(result[0]);
-            cookie = ssnUtil.makeSession(result[0], res);
+            console.log(result.rows.length);
+            console.log(result.rows[0]);
+            cookie = ssnUtil.makeSession(result.rows[0], res);
             res.location(router.baseURL + '/' + cookie).status(200).end();
       })
    })
