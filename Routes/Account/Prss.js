@@ -65,11 +65,13 @@ router.get('/:id', function(req, res) {
    var vld = req.validator;
 
    if (vld.checkPrsOK(req.params.id)) {
+      console.log(req.params);
       req.cnn.chkQry('select id, firstName, lastName, email, city, state,' +
        ' zip, country from Person where id = ?', [req.params.id],
       function(err, prsArr) {
-         if (vld.check(prsArr.length, Tags.notFound)) {
-            res.json(prsArr);
+         console.log(prsArr);
+         if (vld.check(prsArr && prsArr.rows && prsArr.rows.length, Tags.notFound)) {
+            res.json(prsArr.rows);
          }
          else
             res.end();
