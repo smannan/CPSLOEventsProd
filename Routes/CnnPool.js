@@ -32,7 +32,9 @@ CnnPool.router = function(req, res, next) {
          cnn.chkQry = function(qry, prms, cb) {
             // Run real qry, checking for error
             console.log('RUNNING QUERY');
+            console.log('QUERY');
             console.log(qry);
+            console.log('PARAMS');
             console.log(prms);
             this.query(qry, prms, function(err, qRes, fields) {
                if (err) {

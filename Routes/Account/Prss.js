@@ -46,12 +46,12 @@ router.post('/', function(req, res) {
          cnn.chkQry('select * from Person where email = $1', [body.email], cb);
       }
    },
-   function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
-      if (vld.check(!existingPrss.rows.length, Tags.dupEmail, null, cb)) {
-         console.log("Inserting person");
-         cnn.chkQry('insert into Person set $1', [body], cb);
-      }
-   },
+   // function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
+   //    if (vld.check(!existingPrss.rows.length, Tags.dupEmail, null, cb)) {
+   //       console.log("Inserting person");
+   //       cnn.chkQry('insert into Person set $1', [body], cb);
+   //    }
+   // },
    function(result, fields, cb) { // Return location of inserted Person
       res.location(router.baseURL + '/' + result.insertId).end();
       cb();
