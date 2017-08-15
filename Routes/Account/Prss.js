@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 
    var handler = function(err, prsArr) {
       res.json(prsArr);
-      req.cnn.release();
+      req.cnn.end();
    };
 
    if (email)
@@ -62,7 +62,7 @@ router.post('/', function(req, res) {
       cb();
    }],
    function() {
-      cnn.release();
+      cnn.end();
    });
 });
 
@@ -81,11 +81,11 @@ router.get('/:id', function(req, res) {
          }
          else
             res.end();
-         req.cnn.release();
+         req.cnn.end();
       });
    }
    else {
-      req.cnn.release();
+      req.cnn.end();
    }
 });
 
@@ -118,7 +118,7 @@ router.put('/:id', function(req, res) {
       cb();
    }],
    function(err) {
-      cnn.release();
+      cnn.end();
    });
 });
 
@@ -132,10 +132,10 @@ router.delete('/:id', function(req, res) {
             res.status(200).end();
          else
             res.status(400).end();
-         req.cnn.release();
+         req.cnn.end();
       });
    else {
-      req.cnn.release();
+      req.cnn.end();
    }
 });
 
@@ -161,7 +161,7 @@ router.get('/:id/Rsvs', function(req, res) {
       cb();
    }],
    function(err){
-      cnn.release();
+      cnn.end();
    });
 });
 
@@ -192,7 +192,7 @@ router.put('/:id/Rsvs/:rsvId', function(req, res) {
    function(err) {
    	if (!err)
          res.status(200).end();
-      cnn.release();
+      cnn.end();
    });
 });
 
