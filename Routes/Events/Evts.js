@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
    var id = req.session.id;
 
    var query = 'select distinct e.id, title, orgId,' +
-    ' unix_timestamp(date) * 1000 as date, city, state,' +
+    ' (extract(epoch from date)) as date, city, state,' +
     ' country, addr, private, descr, zip' +
 	 ' from Event e left join Reservation r on e.id = r.evtId' +
 	 ' where (e.private = 0 or e.orgId = ? or r.prsId = ?)';
@@ -33,12 +33,12 @@ router.get('/', function (req, res) {
    }
 
    if (start) {
-      query += ' and unix_timestamp(date)*1000 >= ? ';
+      query += ' and (extract(epoch from date)) >= ? ';
       params.push(parseInt(start));
    }
 
    if (end) {
-      query += ' and unix_timestamp(date)*1000 <= ? ';
+      query += ' and (extract(epoch from date)) <= ? ';
       params.push(parseInt(end));
    }
 
@@ -107,7 +107,14 @@ router.post('/', function(req, res) {
             body.private = 1;
          }
          console.log(body);
-         cnn.chkQry("insert into Event set ?", body, cb);
+         //cnn.chkQry("insert into Event set ?", body, cb);
+         cnn.chkQry("insert into Event " + 
+          "(title, orgId, private, city, state, zip, " +
+          "country, addr, date, descr) values " + 
+          "($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", 
+          [body.title,body.orgId,body.private,body.city,
+          body.state,body.zip,body.country,body.addr,
+          body.date,body.descr], cb);
       }
    },
 
@@ -132,7 +139,7 @@ router.get('/:id', function(req, res) {
    async.waterfall([
    function(cb) {
       cnn.chkQry('SELECT id, title, orgId, city, state, zip, ' +
-       'country, addr, unix_timestamp(date) as date, descr, private '+
+       'country, addr, (extract(epoch from date)) as date, descr, private '+
        'FROM Event WHERE id = ?',
         [req.params.id], cb);
    }, 
