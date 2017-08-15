@@ -44,14 +44,6 @@ CnnPool.router = function(req, res, next) {
                console.log(qRes);
                cb(err, qRes, fields);
             });
-
-            // this.query(qry, prms, function(err, result) {
-            //    if (err)
-            //       res.status(500).json('Failed query ' + qry);
-            //    console.log(result.rows.length);
-            //    console.log(result.rows);
-            //    cb(err, result.rows);
-            // });
          };
          req.cnn = cnn;
          next();
