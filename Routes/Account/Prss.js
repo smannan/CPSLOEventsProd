@@ -49,7 +49,12 @@ router.post('/', function(req, res) {
    function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
       if (vld.check(!existingPrss.rows.length, Tags.dupEmail, null, cb)) {
          console.log("Inserting person");
-         cnn.chkQry('insert into Person set $1', [body], cb);
+         //cnn.chkQry('insert into Person set $1', [body], cb);
+         cnn.chkQry('insert into Person ' + 
+            '(firstName, lastName, email, password, city, state, zip, country)' +
+            'values ($1, $2, $3, $4, $5, $6, $7, $8);',
+            [body.firstName,body.lastName,body.email,body.password,
+            body.city,body.state,body.zip,body.country], cb);
       }
    },
    function(result, fields, cb) { // Return location of inserted Person
