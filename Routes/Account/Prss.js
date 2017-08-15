@@ -49,7 +49,7 @@ router.post('/', function(req, res) {
    function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
       if (vld.check(!existingPrss.rows.length, Tags.dupEmail, null, cb)) {
          console.log("Inserting person");
-         cnn.chkQry('insert into Person set $1', body, cb);
+         cnn.chkQry('insert into Person set $1', [body], cb);
       }
    },
    function(result, fields, cb) { // Return location of inserted Person
