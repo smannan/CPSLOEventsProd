@@ -107,7 +107,7 @@ router.post('/', function(req, res) {
          body.orgId = req.session.id;
          body.date = new Date(body.date);
          if (body.private === null || body.private === "") {
-            body.private = 1;
+            body.private = true;
          }
          console.log(body);
          //cnn.chkQry("insert into Event set ?", body, cb);
@@ -147,9 +147,8 @@ router.get('/:id', function(req, res) {
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
-      if (vld.check(rows.length, Tags.notFound, null, cb)) {
-         rows[0].date *= 1000;
-         body = rows;
+      if (vld.check(rows[0].length, Tags.notFound, null, cb)) {
+         body = rows[0];
          priv = rows[0].private;
          if (priv && rows[0].orgId !== req.session.id) {
             cnn.chkQry('SELECT prsId, evtId FROM Reservation ' +
