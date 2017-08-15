@@ -289,6 +289,8 @@ router.get('/:id/Rsvs', function(req, res) {
    'Event join Reservation join Person where Reservation.prsId ' +
    '= Person.id and evtId = $1 order by firstName, lastName asc';
 
+   console.log('GETTING RSVS');
+
    async.waterfall([
    function(cb) {
       /* Make event exists */
@@ -299,8 +301,9 @@ router.get('/:id/Rsvs', function(req, res) {
    function(existingEvt, fields, cb) {
       /* Check if user is invited to evtId
       */
-      if (vld.check(existingEvt.length, Tags.notFound, null, cb)) {
-         evt = existingEvt[0]
+      if (vld.check(existingEvt.rows.length, Tags.notFound, null, cb)) {
+         evt = existingEvt.rows[0];
+         console.log(evt);
 
          cnn.chkQry('select distinct prsId from Reservation ' + 
           ' where prsId = $1 and evtId = $2', 
@@ -311,14 +314,15 @@ router.get('/:id/Rsvs', function(req, res) {
    function(existingRsv, fields, cb) {
       /* If the event is private and the user is invited
       */
-      if ((evt.private === 1 && existingRsv.length > 0)
+      console.log(existingRsv.rows);
+      if ((evt.private === 1 && existingRsv.rows.length > 0)
        || evt.private === 0 || evt.orgId === prsId) {
          cnn.chkQry(query, [evtId], cb)
       }
 
       else {
          console.log("private? " + evt.private);
-         console.log("existinglen? " + existingRsv.length);
+         console.log("existinglen? " + existingRsv.rows.length);
          cnn.chkQry('SELECT NULL', [], cb)
       }
    },
@@ -326,11 +330,11 @@ router.get('/:id/Rsvs', function(req, res) {
    function(evts, fields, cb) {
       //console.log(evts)
 
-      if (evts.length === 0 || ('NULL' in evts[0])) {
+      if (evts.row.length === 0 || ('NULL' in evts[0])) {
          res.json([]).end();
       }
       else {
-         res.json(evts).end();
+         res.json(evts.rows).end();
       }
       cb();
    }],
