@@ -74,8 +74,8 @@ router.post('/', function(req, res) {
        .chain(body.addr, Tags.missingField, ["addr"])
        .check(body.date, Tags.missingField, ["date"], cb)) {
 
-         cnn.chkQry('select * from Event where title = ?', 
-          body.title, cb);
+         cnn.chkQry('select * from Event where title = $1', 
+          [body.title], cb);
       }
    },
 
@@ -143,7 +143,7 @@ router.get('/:id', function(req, res) {
    function(cb) {
       cnn.chkQry('SELECT id, title, orgId, city, state, zip, ' +
        'country, addr, (extract(epoch from date)) as date, descr, private '+
-       'FROM Event WHERE id = ?',
+       'FROM Event WHERE id = $1',
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
@@ -153,7 +153,7 @@ router.get('/:id', function(req, res) {
          priv = rows[0].private;
          if (priv && rows[0].orgId !== req.session.id) {
             cnn.chkQry('SELECT prsId, evtId FROM Reservation ' +
-             'WHERE prsId = ? AND evtId = ?',
+             'WHERE prsId = $1 AND evtId = $2',
              [req.session.id, req.params.id], cb);
          } else {
             res.json(rows);
@@ -196,7 +196,7 @@ router.put('/:id', function(req, res) {
 
    async.waterfall([
    function(cb) {
-      cnn.chkQry('SELECT orgId FROM Event WHERE id = ?',
+      cnn.chkQry('SELECT orgId FROM Event WHERE id = $1',
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
@@ -209,7 +209,7 @@ router.put('/:id', function(req, res) {
             body.date = new Date(body.date);
          }
          if (body.title) {
-            cnn.chkQry('SELECT * from Event WHERE id <> ? && title = ?',
+            cnn.chkQry('SELECT * from Event WHERE id = $1 && title = $2',
              [req.params.id, body.title], 
              function (err, rows) {
                if (vld.check(!rows.length, Tags.dupTitle, null, cb)) {
@@ -249,13 +249,13 @@ router.delete('/:id', function(req, res) {
 
    async.waterfall([
    function(cb) {
-      cnn.chkQry('SELECT orgId FROM Event WHERE id = ?',
+      cnn.chkQry('SELECT orgId FROM Event WHERE id = $1',
        [req.params.id], cb);
    },
    function (rows, fields, cb) {
       if (vld.check(rows.length, Tags.notFound, null) &&
        vld.checkPrsOK(rows[0].orgId)) {
-         cnn.chkQry('DELETE FROM Reservation WHERE evtId = ?',
+         cnn.chkQry('DELETE FROM Reservation WHERE evtId = $1',
           [req.params.id], cb);
       } else {
          cnn.release();
@@ -263,7 +263,7 @@ router.delete('/:id', function(req, res) {
       }
    },
    function(rows, fields, cb) {
-      cnn.chkQry('DELETE FROM Event WHERE id = ?',
+      cnn.chkQry('DELETE FROM Event WHERE id = $1',
          [req.params.id], cb);
    }
    ],
@@ -286,12 +286,12 @@ router.get('/:id/Rsvs', function(req, res) {
 
    var query = 'select distinct Reservation.id as id, firstName, lastName, status from ' +
    'Event join Reservation join Person where Reservation.prsId ' +
-   '= Person.id and evtId = ? order by firstName, lastName asc';
+   '= Person.id and evtId = $1 order by firstName, lastName asc';
 
    async.waterfall([
    function(cb) {
       /* Make event exists */
-      cnn.chkQry('select * from Event where id = ?', 
+      cnn.chkQry('select * from Event where id = $1', 
        [evtId], cb);
    },
 
@@ -302,7 +302,7 @@ router.get('/:id/Rsvs', function(req, res) {
          evt = existingEvt[0]
 
          cnn.chkQry('select distinct prsId from Reservation ' + 
-          ' where prsId = ? and evtId = ?', 
+          ' where prsId = $1 and evtId = $2', 
           [prsId, evtId], cb);
       }
    },
@@ -312,7 +312,7 @@ router.get('/:id/Rsvs', function(req, res) {
       */
       if ((evt.private === 1 && existingRsv.length > 0)
        || evt.private === 0 || evt.orgId === prsId) {
-         cnn.chkQry(query, evtId, cb)
+         cnn.chkQry(query, [evtId], cb)
       }
 
       else {
@@ -350,7 +350,7 @@ router.post('/:id/Rsvs', function(req, res) {
    async.waterfall([
    function(cb) {
       cnn.chkQry('select * from Reservation where ' +
-       ' prsId = ? and evtId = ?', 
+       ' prsId = $1 and evtId = $2', 
        [body.prsId, id], cb);
    },
 
@@ -367,8 +367,8 @@ router.post('/:id/Rsvs', function(req, res) {
        Tags.badValue, ["status"])
        .check(body.prsId, Tags.missingField, ["prsId"], cb)) {
 
-         cnn.chkQry('select * from Event where id = ?', 
-          id, cb);
+         cnn.chkQry('select * from Event where id = $1', 
+          [id], cb);
       }
    },
 
@@ -383,8 +383,8 @@ router.post('/:id/Rsvs', function(req, res) {
 
          body.evtId = existingEvt[0].id;
 
-         cnn.chkQry('select * from Person where id = ?', 
-          body.prsId, cb);
+         cnn.chkQry('select * from Person where id = $1', 
+          [body.prsId], cb);
       }
    },
 
@@ -398,7 +398,7 @@ router.post('/:id/Rsvs', function(req, res) {
          }
 
          console.log(body);
-         cnn.chkQry("insert into Reservation set ?", body, cb);
+         cnn.chkQry("insert into Reservation set $1", [body], cb);
       }
    },
 
@@ -424,13 +424,13 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
 
    async.waterfall([
    function(cb) {
-      cnn.chkQry('SELECT orgId FROM Event WHERE id = ?',
+      cnn.chkQry('SELECT orgId FROM Event WHERE id = $1',
        [req.params.id], cb);
    },
    function(rows, fields, cb) {
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
          orgId = rows[0].orgId;
-         cnn.chkQry('SELECT prsId FROM Reservation WHERE id = ?',
+         cnn.chkQry('SELECT prsId FROM Reservation WHERE id = $1',
           [req.params.rid], cb);
       }
    }, 
@@ -438,11 +438,11 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
       if (vld.check(rows.length, Tags.notFound, null, cb)) {
          if (orgId === req.session.id ||
           vld.checkPrsOK(rows[0].prsId), cb)
-            cnn.chkQry('SELECT * FROM Reservation WHERE id = ?',
+            cnn.chkQry('SELECT * FROM Reservation WHERE id = $1',
              [req.params.rid], 
              function(err, rows2) {
                if (vld.check(rows2.length, Tags.notFound, null, cb)) {
-                  cnn.chkQry('DELETE FROM Reservation WHERE id = ?',
+                  cnn.chkQry('DELETE FROM Reservation WHERE id = $1',
                    [req.params.rid], cb);
                }
              });
