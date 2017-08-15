@@ -47,13 +47,14 @@ router.get('/', function (req, res) {
       params.push(loc);
    }
 
-   console.log(params);
    query += ' order by date asc;';
 
+   console.log(query);
+   console.log(params);
    req.cnn.chkQry(query, params,
    function(err, evts) {
       if (!err) {
-         res.json(evts);
+         res.json(evts.rows);
       }
       req.cnn.release();
    });
