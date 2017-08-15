@@ -6,6 +6,7 @@ var mysql = require('mysql');
 var CnnPool = require('../CnnPool.js');
 var Tags = require('../Validator.js').Tags;
 var ssnUtil = require('../Session.js');
+var pg = require('pg');
 
 router.baseURL = '/Evts';
 
@@ -20,7 +21,7 @@ router.get('/', function (req, res) {
     ' (extract(epoch from date)) as date, city, state,' +
     ' country, addr, private, descr, zip' +
 	 ' from Event e left join Reservation r on e.id = r.evtId' +
-	 ' where (e.private = false or e.orgId = ? or r.prsId = ?)';
+	 ' where (e.private = false or e.orgId = $1 or r.prsId = $2)';
    var params = [id, id];
 
    /* limited to Event organized by
@@ -28,22 +29,22 @@ router.get('/', function (req, res) {
     * is given.
    */
    if (owner) {
-      query += ' and orgId = ?';
+      query += ' and orgId = $3';
       params.push(parseInt(owner));
    }
 
    if (start) {
-      query += ' and (extract(epoch from date)) >= ? ';
+      query += ' and (extract(epoch from date)) >= $4 ';
       params.push(parseInt(start));
    }
 
    if (end) {
-      query += ' and (extract(epoch from date)) <= ? ';
+      query += ' and (extract(epoch from date)) <= $5 ';
       params.push(parseInt(end));
    }
 
    if (loc) {
-      query += ' and zip = ? ';
+      query += ' and zip = $6 ';
       params.push(loc);
    }
 
@@ -51,6 +52,7 @@ router.get('/', function (req, res) {
 
    console.log(query);
    console.log(params);
+
    req.cnn.chkQry(query, params,
    function(err, evts) {
       if (!err) {
