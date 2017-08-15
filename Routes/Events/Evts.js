@@ -330,7 +330,7 @@ router.get('/:id/Rsvs', function(req, res) {
    function(evts, fields, cb) {
       //console.log(evts)
 
-      if (evts.row.length === 0 || ('NULL' in evts[0])) {
+      if (evts.rows.length === 0 || ('NULL' in evts[0])) {
          res.json([]).end();
       }
       else {
