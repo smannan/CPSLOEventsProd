@@ -145,19 +145,19 @@ router.get('/:id/Rsvs', function(req, res) {
 	var prsId = req.params.id;
 	var query = 'select r.id, p.firstName, p.lastName, r.status, r.evtId,' +
 	 ' e.title, e.date from Reservation r join Event e on r.evtId = e.id' +
-	 ' join Person p on r.prsId = p.id where p.id = ?';
+	 ' join Person p on r.prsId = p.id where p.id = $1';
 
    async.waterfall([
    function(cb) {  // Check for existence of person
    	if (vld.checkPrsOK(prsId, cb))
-      	cnn.chkQry('select * from Person where id = ?', [prsId], cb);
+      	cnn.chkQry('select * from Person where id = $1', [prsId], cb);
    },
    function(prss, fields, cb) { // Get indicated reservations
-      if (vld.check(prss.length, Tags.notFound, null, cb))
+      if (vld.check(prss.rows.length, Tags.notFound, null, cb))
          cnn.chkQry(query, [prsId], cb);
    },
    function(rsvs, fields, cb) { // Return retrieved reservations
-      res.json(rsvs);
+      res.json(rsvs.rows);
       cb();
    }],
    function(err){
