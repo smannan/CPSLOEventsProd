@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
     ' (extract(epoch from date)) as date, city, state,' +
     ' country, addr, private, descr, zip' +
 	 ' from Event e left join Reservation r on e.id = r.evtId' +
-	 ' where (e.private = 0 or e.orgId = ? or r.prsId = ?)';
+	 ' where (e.private = false or e.orgId = ? or r.prsId = ?)';
    var params = [id, id];
 
    /* limited to Event organized by
