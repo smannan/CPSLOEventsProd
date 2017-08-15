@@ -360,13 +360,13 @@ router.post('/:id/Rsvs', function(req, res) {
    },
 
    function(existingRsv, fields, cb) {
-      console.log("existing: " + existingRsv[0]);
+      console.log("existing: " + existingRsv.rows[0]);
 
       /* Make sure body has a non-empty person id 
        * And status is either Going, Maybe, or Not Going
        * Event they are RSVP'ing to must exist
       */
-      if (vld.check(!existingRsv.length, Tags.dupRsv, null, cb) &&
+      if (vld.check(!existingRsv.rows.length, Tags.dupRsv, null, cb) &&
        vld.chain(!body.status || (body.status==="Going" ||
        body.status==="Maybe" || body.status==="Not Going"), 
        Tags.badValue, ["status"])
@@ -381,12 +381,12 @@ router.post('/:id/Rsvs', function(req, res) {
       /* Make sure event exists
        * and AU is event organizer OR event is public
       */
-      if (vld.check(existingEvt.length, Tags.notFound, null, cb)
-       && vld.check(existingEvt[0].private === 0 || 
-       existingEvt[0].orgId === req.session.id, Tags.noPermission,
+      if (vld.check(existingEvt.rows.length, Tags.notFound, null, cb)
+       && vld.check(existingEvt.rows[0].private === 0 || 
+       existingEvt.rows[0].orgId === req.session.id, Tags.noPermission,
        null, cb)) {
 
-         body.evtId = existingEvt[0].id;
+         body.evtId = existingEvt.rows[0].id;
 
          cnn.chkQry('select * from Person where id = $1', 
           [body.prsId], cb);
@@ -396,14 +396,15 @@ router.post('/:id/Rsvs', function(req, res) {
    function(existingPrs, fields, cb) {
       /* Make sure person in question exists
       */
-      if (vld.check(existingPrs.length, Tags.notFound, null, cb)) {
+      if (vld.check(existingPrs.rows.length, Tags.notFound, null, cb)) {
 
          if (!body.status) {
             body.status = "Not Going";
          }
 
          console.log(body);
-         cnn.chkQry("insert into Reservation set $1", [body], cb);
+         cnn.chkQry("insert into Reservation (prsId, evtId, status)" +
+          " values($1,$2,$3)", [body.prsId,body.evtId,body.status], cb);
       }
    },
 
