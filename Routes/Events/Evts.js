@@ -147,7 +147,7 @@ router.get('/:id', function(req, res) {
         [req.params.id], cb);
    }, 
    function(rows, fields, cb) {
-      if (vld.check(rows[0]w.length, Tags.notFound, null, cb)) {
+      if (vld.check(rows[0].length, Tags.notFound, null, cb)) {
          body = rows[0];
          priv = rows[0].private;
          if (priv && rows[0].orgId !== req.session.id) {
