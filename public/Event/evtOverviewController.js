@@ -149,6 +149,8 @@ app.controller('evtOverviewController',
       $http.get("/Prss?email=" + email)
       .then(function(response) {
       	var id = -1;
+         console.log('response');
+         console.log(response);
       	if (email && response.data.length) {
          	id = response.data[0].id;
       	}
