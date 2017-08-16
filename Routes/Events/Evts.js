@@ -183,18 +183,18 @@ router.put('/:id', function(req, res) {
    var priv = 0;
    var body = req.body;
 
-   if (!body.title)
-      delete body.title;
-   if (!body.city)
-      delete body.city;
-   if (!body.state)
-      delete body.state;
-   if (!body.country)
-      delete body.country;
-   if (!body.descr)
-      delete body.descr;
-   if (!body.zip)
-      delete body.zip;
+   // if (!body.title)
+   //    delete body.title;
+   // if (!body.city)
+   //    delete body.city;
+   // if (!body.state)
+   //    delete body.state;
+   // if (!body.country)
+   //    delete body.country;
+   // if (!body.descr)
+   //    delete body.descr;
+   // if (!body.zip)
+   //    delete body.zip;
 
    async.waterfall([
    function(cb) {
@@ -226,8 +226,13 @@ router.put('/:id', function(req, res) {
    },
    function(cb) {
       if(vld.check(true)) {
-         cnn.chkQry('UPDATE Event SET $1 WHERE id = $2',
-          [body, req.params.id], function() {
+         cnn.chkQry('UPDATE Event SET title=($1),private=($2),' +
+         ' city=($3),state=($4),zip=($5),country=($6),addr=($7),' +
+         ' date=($8),descr=($9)' +
+         ' WHERE id = $10',
+          [body.title,body.private,body.city,body.state,
+          body.zip,body.country,body.addr,body.date,body.descr,
+          req.params.id], function() {
             cb();
           });
       }
