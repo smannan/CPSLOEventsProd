@@ -236,16 +236,17 @@ router.put('/:id', function(req, res) {
    },
    function(cb) {
       if(vld.check(true)) {
+         console.log('UPDATING EVENT');
          var params = [];
          var query = 'UPDATE Event SET ';
          var i = 1;
 
          for (var property in body) {
-             if (body.hasOwnProperty(property)) {
-                 params.push(body[property]);
-                 query += property + '=$(' + i + '),';
-                 i += 1;
-             }
+            if (body.hasOwnProperty(property)) {
+               params.push(body[property]);
+               query += property + '=$(' + i + '),';
+               i += 1;
+            }
          }
 
          query = query.substring(0, query.length-1);
