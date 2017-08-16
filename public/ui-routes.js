@@ -31,7 +31,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
          resolve: {
             rsvs: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Prss/"+$stateParams.prsid+"/Rsvs")
+               return $http.get("Prss/"+$stateParams.prsId+"/Rsvs")
                .then(function(response) {
                   return response.data;
                });
@@ -45,7 +45,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
          resolve: {
             evts: ['$q', '$http', '$stateParams', 
              function($q, $http, $stateParams) {
-               return $http.get("Evts?owner=" + $stateParams.prsid)
+               return $http.get("Evts?owner=" + $stateParams.prsId)
                .then(function(response) {
                   return response.data;
                });
