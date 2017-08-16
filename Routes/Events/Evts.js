@@ -438,26 +438,30 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
    var body;
    var orgId;
 
+   console.log('DELETING RSVS');
+   console.log(req.params);
+
    async.waterfall([
    function(cb) {
       cnn.chkQry('SELECT orgId FROM Event WHERE id = $1',
        [req.params.id], cb);
    },
    function(rows, fields, cb) {
-      if (vld.check(rows.length, Tags.notFound, null, cb)) {
-         orgId = rows[0].orgId;
+      if (vld.check(rows.rows.length, Tags.notFound, null, cb)) {
+         orgId = rows.rows[0].orgid;
+         console.log('organizer ' + orgId);
          cnn.chkQry('SELECT prsId FROM Reservation WHERE id = $1',
           [req.params.rid], cb);
       }
    }, 
    function(rows, fields, cb) {
-      if (vld.check(rows.length, Tags.notFound, null, cb)) {
+      if (vld.check(rows.rows.length, Tags.notFound, null, cb)) {
          if (orgId === req.session.id ||
-          vld.checkPrsOK(rows[0].prsId), cb)
+          vld.checkPrsOK(rows.rows[0].prsId), cb)
             cnn.chkQry('SELECT * FROM Reservation WHERE id = $1',
              [req.params.rid], 
              function(err, rows2) {
-               if (vld.check(rows2.length, Tags.notFound, null, cb)) {
+               if (vld.check(rows2.rows.length, Tags.notFound, null, cb)) {
                   cnn.chkQry('DELETE FROM Reservation WHERE id = $1',
                    [req.params.rid], cb);
                }
