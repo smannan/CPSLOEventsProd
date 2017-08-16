@@ -203,8 +203,8 @@ router.put('/:id', function(req, res) {
    }, 
    function(rows, fields, cb) {
       var now = new Date().getTime(); 
-      if (vld.check(rows.length, Tags.notFound, null, cb) &&
-       vld.checkPrsOK(rows[0].orgId, cb) &&
+      if (vld.check(rows.rows.length, Tags.notFound, null, cb) &&
+       vld.checkPrsOK(rows.rows[0].orgid, cb) &&
        vld.check(!body.date || body.date > now, Tags.badValue, 
        ['date'], cb)) {
          if (body.date) {
@@ -214,7 +214,7 @@ router.put('/:id', function(req, res) {
             cnn.chkQry('SELECT * from Event WHERE id = $1 && title = $2',
              [req.params.id, body.title], 
              function (err, rows) {
-               if (vld.check(!rows.length, Tags.dupTitle, null, cb)) {
+               if (vld.check(!rows.rows.length, Tags.dupTitle, null, cb)) {
                   cb();
                }
 
@@ -226,8 +226,8 @@ router.put('/:id', function(req, res) {
    },
    function(cb) {
       if(vld.check(true)) {
-         cnn.chkQry('UPDATE Event SET ? WHERE id = ' + req.params.id,
-          [body], function() {
+         cnn.chkQry('UPDATE Event SET $1 WHERE id = $2',
+          [body, req.params.id], function() {
             cb();
           });
       }
@@ -386,10 +386,6 @@ router.post('/:id/Rsvs', function(req, res) {
       /* Make sure event exists
        * and AU is event organizer OR event is public
       */
-      /*var firstRow = existingEvt.rows[0];
-      for(var columnName in firstRow) {
-         console.log('column "%s" has a value of "%j"', columnName, firstRow[columnName]);
-      }*/
 
       if (vld.check(existingEvt.rows.length, Tags.notFound, null, cb)
        && vld.check(existingEvt.rows[0].private === false || 
