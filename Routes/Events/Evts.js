@@ -385,9 +385,12 @@ router.post('/:id/Rsvs', function(req, res) {
       /* Make sure event exists
        * and AU is event organizer OR event is public
       */
-      console.log("existing: " + existingEvt.rows[0]);
+      console.log("private " + existingEvt.rows[0].private);
+      console.log("organizer " + existingEvt.rows[0].orgId);
+      console.log("AU " + req.session.id);
+
       if (vld.check(existingEvt.rows.length, Tags.notFound, null, cb)
-       && vld.check(existingEvt.rows[0].private === 0 || 
+       && vld.check(existingEvt.rows[0].private === false || 
        existingEvt.rows[0].orgId === req.session.id, Tags.noPermission,
        null, cb)) {
 
