@@ -17,7 +17,8 @@ CnnPool.PoolSize = 1;
 
 // Conventional getConnection, drawing from the pool
 CnnPool.prototype.getConnection = function(cb) {
-   this.pool.getConnection(cb);
+   //this.pool.getConnection(cb);
+   this.pool.connect(cb);
 };
 
 // Router function for use in auto-creating CnnPool for a request
