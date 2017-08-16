@@ -236,7 +236,6 @@ router.put('/:id', function(req, res) {
    },
    function(cb) {
       if(vld.check(true)) {
-         console.log('UPDATING EVENT');
          var params = [];
          var query = 'UPDATE Event SET ';
          var i = 1;
