@@ -142,7 +142,9 @@ app.controller('evtOverviewController',
       
       console.log(filterQuery);
       console.log($scope.filter);
-      
+      console.log(startDate);
+      console.log(endDate);
+
       $http.get("/Prss?email=" + email)
       .then(function(response) {
       	var id = -1;
