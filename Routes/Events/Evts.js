@@ -317,8 +317,8 @@ router.get('/:id/Rsvs', function(req, res) {
       /* If the event is private and the user is invited
       */
       console.log(existingRsv.rows);
-      if ((evt.private === 1 && existingRsv.rows.length > 0)
-       || evt.private === 0 || evt.orgId === prsId) {
+      if ((evt.private === true && existingRsv.rows.length > 0)
+       || evt.private === false || evt.orgid === prsId) {
          cnn.chkQry(query, [evtId], cb)
       }
 
@@ -385,10 +385,10 @@ router.post('/:id/Rsvs', function(req, res) {
       /* Make sure event exists
        * and AU is event organizer OR event is public
       */
-      var firstRow = existingEvt.rows[0];
+      /*var firstRow = existingEvt.rows[0];
       for(var columnName in firstRow) {
          console.log('column "%s" has a value of "%j"', columnName, firstRow[columnName]);
-      }
+      }*/
 
       if (vld.check(existingEvt.rows.length, Tags.notFound, null, cb)
        && vld.check(existingEvt.rows[0].private === false || 
