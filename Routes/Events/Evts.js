@@ -148,7 +148,7 @@ router.get('/:id', function(req, res) {
    }, 
    function(rows, fields, cb) {
       console.log('GETTING EVENTS FOR ID');
-      console.log(rows);
+      console.log(rows[0]);
       if (vld.check(rows.rows.length, Tags.notFound, null, cb)) {
          body = rows.rows[0];
          priv = rows.rows[0].private;
@@ -354,6 +354,8 @@ router.post('/:id/Rsvs', function(req, res) {
    var body = req.body;
    var cnn = req.cnn;
 
+   console.log('POSTNG RSVS');
+
    async.waterfall([
    function(cb) {
       cnn.chkQry('select * from Reservation where ' +
@@ -383,6 +385,7 @@ router.post('/:id/Rsvs', function(req, res) {
       /* Make sure event exists
        * and AU is event organizer OR event is public
       */
+      console.log("existing: " + existingEvt.rows[0]);
       if (vld.check(existingEvt.rows.length, Tags.notFound, null, cb)
        && vld.check(existingEvt.rows[0].private === 0 || 
        existingEvt.rows[0].orgId === req.session.id, Tags.noPermission,
