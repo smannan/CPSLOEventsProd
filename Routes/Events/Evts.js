@@ -152,7 +152,7 @@ router.get('/:id', function(req, res) {
       if (vld.check(rows.rows.length, Tags.notFound, null, cb)) {
          body = rows.rows[0];
          priv = rows.rows[0].private;
-         if (priv && rows.rows[0].orgId !== req.session.id) {
+         if (priv && rows.rows[0].orgid !== req.session.id) {
             cnn.chkQry('SELECT prsId, evtId FROM Reservation ' +
              'WHERE prsId = $1 AND evtId = $2',
              [req.session.id, req.params.id], cb);
@@ -317,12 +317,6 @@ router.get('/:id/Rsvs', function(req, res) {
    function(existingRsv, fields, cb) {
       /* If the event is private and the user is invited
       */
-      //console.log(existingRsv.rows[0]);
-      console.log('number of existing rsvs ' + existingRsv.rows.length);
-      var firstRow = evt;
-      for(var columnName in firstRow) {
-         console.log('column "%s" has a value of "%j"', columnName, firstRow[columnName]);
-      }
 
       if ((evt.private === true && existingRsv.rows.length > 0)
        || evt.private === false || evt.orgid === prsId) {
