@@ -112,7 +112,7 @@ router.post('/', function(req, res) {
          body.orgId = req.session.id;
          body.date = new Date(body.date);
          if (body.private === null || body.private === "") {
-            body.private = true;
+            body.private = false;
          }
          console.log(body);
          //cnn.chkQry("insert into Event set ?", body, cb);
@@ -188,18 +188,18 @@ router.put('/:id', function(req, res) {
    var priv = 0;
    var body = req.body;
 
-   // if (!body.title)
-   //    delete body.title;
-   // if (!body.city)
-   //    delete body.city;
-   // if (!body.state)
-   //    delete body.state;
-   // if (!body.country)
-   //    delete body.country;
-   // if (!body.descr)
-   //    delete body.descr;
-   // if (!body.zip)
-   //    delete body.zip;
+   if (!body.title)
+      delete body.title;
+   if (!body.city)
+      delete body.city;
+   if (!body.state)
+      delete body.state;
+   if (!body.country)
+      delete body.country;
+   if (!body.descr)
+      delete body.descr;
+   if (!body.zip)
+      delete body.zip;
 
    async.waterfall([
    function(cb) {
