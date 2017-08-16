@@ -140,6 +140,9 @@ app.controller('evtOverviewController',
          filterQuery = filterQuery.concat("loc=" + zip + "&");
       }
       
+      console.log(filterQuery);
+      console.log($scope.filter);
+      
       $http.get("/Prss?email=" + email)
       .then(function(response) {
       	var id = -1;
