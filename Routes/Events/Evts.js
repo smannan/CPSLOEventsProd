@@ -260,8 +260,8 @@ router.delete('/:id', function(req, res) {
        [req.params.id], cb);
    },
    function (rows, fields, cb) {
-      if (vld.check(rows.length, Tags.notFound, null) &&
-       vld.checkPrsOK(rows[0].orgId)) {
+      if (vld.check(rows.rows.length, Tags.notFound, null) &&
+       vld.checkPrsOK(rows.rows[0].orgid)) {
          cnn.chkQry('DELETE FROM Reservation WHERE evtId = $1',
           [req.params.id], cb);
       } else {
