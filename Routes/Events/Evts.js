@@ -44,7 +44,7 @@ router.get('/', function (req, res) {
    if (end) {
       query += ' and (extract(epoch from date)) * 1000 <= $' + i + ' ';
       i += 1;
-      params.push(parseInt(release));
+      params.push(parseInt(end));
    }
 
    if (loc) {
