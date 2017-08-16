@@ -249,6 +249,7 @@ router.put('/:id', function(req, res) {
          }
 
          query = query.substring(0, query.length-1);
+         query = query + ' where id = $' + i;
          // 'UPDATE Event SET title=($1),private=($2),' +
          // ' city=($3),state=($4),zip=($5),country=($6),addr=($7),' +
          // ' date=($8),descr=($9)' +
@@ -256,7 +257,7 @@ router.put('/:id', function(req, res) {
 
          console.log(query);
          console.log(params);
-         cnn.chkQry(query + ' where id = $' + i, params, function() {
+         cnn.chkQry(query, params, function() {
             cb();
           });
       }
