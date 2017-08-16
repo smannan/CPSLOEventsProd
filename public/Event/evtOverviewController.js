@@ -150,9 +150,9 @@ app.controller('evtOverviewController',
       .then(function(response) {
       	var id = -1;
          console.log('response');
-         console.log(response);
-      	if (email && response.data.length) {
-         	id = response.data[0].id;
+         console.log(response.data.rows[0]);
+      	if (email && response.data.row.length) {
+         	id = response.data.rows[0].id;
       	}
          if (email) {
          	return "owner=" + id;
