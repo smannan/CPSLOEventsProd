@@ -172,16 +172,16 @@ router.put('/:id/Rsvs/:rsvId', function(req, res) {
 	var prsId = req.params.id;
 	var rsvId = req.params.rsvId;
 	var body = req.body;
-	var query = 'update Reservation set status = ? where id = ?';
+	var query = 'update Reservation set status = $1 where id = $2';
 
 	async.waterfall([
    function(cb) {  // Check for existence of person
    	if (vld.checkPrsOK(prsId, cb))
-      	cnn.chkQry('select * from Person where id = ?', [prsId], cb);
+      	cnn.chkQry('select * from Person where id = $1', [prsId], cb);
    },
    function(prss, fields, cb) { // Check for existence of reservation
    	if (vld.check(prss.length, Tags.notFound, null, cb))
-   		cnn.chkQry('select * from Reservation where id = ? and prsId = ?', 
+   		cnn.chkQry('select * from Reservation where id = $1 and prsId = $2', 
    	 	 [rsvId, prsId], cb);
    },
    function(rsvs, fields, cb) { // update indicated reservations
