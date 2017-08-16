@@ -16,6 +16,7 @@ router.get('/', function (req, res) {
    var loc = req.query.loc;
    var owner = req.query.owner; 
    var id = req.session.id;
+   int i = 3;
 
    var query = 'select distinct e.id, title, orgId,' +
     ' (extract(epoch from date)) as date, city, state,' +
@@ -29,22 +30,26 @@ router.get('/', function (req, res) {
     * is given.
    */
    if (owner) {
-      query += ' and orgId = $3';
+      query += ' and orgId = $' + i;
+      i += 1;
       params.push(parseInt(owner));
    }
 
    if (start) {
-      query += ' and (extract(epoch from date)) >= $4 ';
+      query += ' and (extract(epoch from date)) >= $' + i + ' ';
+      i += 1;
       params.push(parseInt(start));
    }
 
    if (release) {
-      query += ' and (extract(epoch from date)) <= $5 ';
+      query += ' and (extract(epoch from date)) <= $' + i + ' ';
+      i += 1;
       params.push(parseInt(release));
    }
 
    if (loc) {
-      query += ' and zip = $6 ';
+      query += ' and zip = $' + i + ' ';
+      i += 1;
       params.push(loc);
    }
 
