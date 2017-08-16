@@ -12,7 +12,7 @@ router.baseURL = '/Evts';
 
 router.get('/', function (req, res) {
 	var start = req.query.start;
-   var end = req.query.end;
+   var release = req.query.release;
    var loc = req.query.loc;
    var owner = req.query.owner; 
    var id = req.session.id;
@@ -38,9 +38,9 @@ router.get('/', function (req, res) {
       params.push(parseInt(start));
    }
 
-   if (end) {
+   if (release) {
       query += ' and (extract(epoch from date)) <= $5 ';
-      params.push(parseInt(end));
+      params.push(parseInt(release));
    }
 
    if (loc) {
@@ -58,7 +58,7 @@ router.get('/', function (req, res) {
       if (!err) {
          res.json(evts.rows);
       }
-      req.cnn.end();
+      req.cnn.release();
    });
 });
 
@@ -126,9 +126,9 @@ router.post('/', function(req, res) {
       cb();
    }],
 
-   /* Finally, end the db connection */
+   /* Finally, release the db connection */
    function() {
-      cnn.end();
+      cnn.release();
    });
 });
 
@@ -158,7 +158,7 @@ router.get('/:id', function(req, res) {
              [req.session.id, req.params.id], cb);
          } else {
             res.json(rows.rows);
-            cnn.end();
+            cnn.release();
             return;
          }
       }
@@ -170,9 +170,10 @@ router.get('/:id', function(req, res) {
       }
    }],
    function(err) {
-      if (!err)
+      if (!err) {
          res.status(200).end();
-      cnn.end();
+      }
+      cnn.release();
    });
 });
 
@@ -239,7 +240,7 @@ router.put('/:id', function(req, res) {
       if (!err) {
          res.status(200).end()
       }
-      cnn.end();
+      cnn.release();
    });
 
 });
@@ -259,7 +260,7 @@ router.delete('/:id', function(req, res) {
          cnn.chkQry('DELETE FROM Reservation WHERE evtId = $1',
           [req.params.id], cb);
       } else {
-         cnn.end();
+         cnn.release();
          return;
       }
    },
@@ -269,9 +270,10 @@ router.delete('/:id', function(req, res) {
    }
    ],
    function(err) {
-      if (!err)
+      if (!err) {
          res.status(200).end();
-      cnn.end();
+      }
+      cnn.release();
    });
 
 });
@@ -339,9 +341,9 @@ router.get('/:id/Rsvs', function(req, res) {
       cb();
    }],
 
-   /* Finally, end the db connection */
+   /* Finally, release the db connection */
    function() {
-      cnn.end();
+      cnn.release();
    });
 
 });
@@ -413,9 +415,9 @@ router.post('/:id/Rsvs', function(req, res) {
       cb();
    }],
 
-   /* Finally, end the db connection */
+   /* Finally, release the db connection */
    function() {
-      cnn.end();
+      cnn.release();
    });
 
 });
@@ -455,9 +457,10 @@ router.delete('/:id/Rsvs/:rid', function(req, res) {
       }
    }],
    function(err) {
-      if (!err)
+      if (!err) {
          res.status(200).end()
-      cnn.end();
+      }
+      cnn.release();
    });
 });
 

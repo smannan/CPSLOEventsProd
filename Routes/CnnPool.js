@@ -14,6 +14,7 @@ var CnnPool = function() {
 };
 
 CnnPool.PoolSize = 1;
+pg.defaults.poolSize = 25;
 
 // Conventional getConnection, drawing from the pool
 CnnPool.prototype.getConnection = function(cb) {
@@ -26,7 +27,7 @@ CnnPool.router = function(req, res, next) {
    console.log("Getting connection");
    //CnnPool.singleton.getConnection(function(err, cnn) {
    //pg.connect(connectionString, (err, cnn, done) => {
-   this.pool.connect((err, client, done) => {
+   pg.connect((err, client, done) => {
       if (err) {
          res.status(500).json('Failed to get connection' + err);
       }

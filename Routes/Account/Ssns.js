@@ -21,7 +21,7 @@ router.post('/', function(req, res) {
          cookie = ssnUtil.makeSession(result.rows[0], res);
          res.location(router.baseURL + '/' + cookie).status(200).end();
       }
-      cnn.end();
+      cnn.release();
    });
 
    // pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
    //          console.log(result.rows.length);
    //          console.log(result.rows[0]);
    //          cookie = ssnUtil.makeSession(result.rows[0], res);
-   //          res.location(router.baseURL + '/' + cookie).status(200).end();
+   //          res.location(router.baseURL + '/' + cookie).status(200).release();
    //    })
    // })
 });
@@ -46,7 +46,7 @@ router.get('/:cookie', function(req, res, next) {
           loginTime: ssn.loginTime});
       }
    }
-   req.cnn.end();
+   req.cnn.release();
 });
 
 router.delete('/:cookie', function(req, res, next) {
@@ -55,7 +55,7 @@ router.delete('/:cookie', function(req, res, next) {
       ssnUtil.deleteSession(req.params.cookie);
       res.status(200).end();
    }
-   req.cnn.end();
+   req.cnn.release();
 });
 
 module.exports = router;

@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 
    var handler = function(err, prsArr) {
       res.json(prsArr);
-      req.cnn.end();
+      req.cnn.release();
    };
 
    if (email)
@@ -62,7 +62,7 @@ router.post('/', function(req, res) {
       cb();
    }],
    function() {
-      cnn.end();
+      cnn.release();
    });
 });
 
@@ -79,13 +79,14 @@ router.get('/:id', function(req, res) {
          if (vld.check(prsArr && prsArr.rows && prsArr.rows.length, Tags.notFound)) {
             res.json(prsArr.rows);
          }
-         else
+         else {
             res.end();
-         req.cnn.end();
+         }
+         req.cnn.release();
       });
    }
    else {
-      req.cnn.end();
+      req.cnn.release();
    }
 });
 
@@ -118,7 +119,7 @@ router.put('/:id', function(req, res) {
       cb();
    }],
    function(err) {
-      cnn.end();
+      cnn.release();
    });
 });
 
@@ -132,10 +133,10 @@ router.delete('/:id', function(req, res) {
             res.status(200).end();
          else
             res.status(400).end();
-         req.cnn.end();
+         req.cnn.release();
       });
    else {
-      req.cnn.end();
+      req.cnn.release();
    }
 });
 
@@ -161,7 +162,7 @@ router.get('/:id/Rsvs', function(req, res) {
       cb();
    }],
    function(err){
-      cnn.end();
+      cnn.release();
    });
 });
 
@@ -190,9 +191,10 @@ router.put('/:id/Rsvs/:rsvId', function(req, res) {
          cnn.chkQry(query, [body.status, rsvId], cb);
    }],
    function(err) {
-   	if (!err)
+   	if (!err) {
          res.status(200).end();
-      cnn.end();
+      }
+      cnn.release();
    });
 });
 
