@@ -144,6 +144,7 @@ app.controller('evtOverviewController',
       console.log($scope.filter);
       console.log(startDate);
       console.log(endDate);
+      console.log(email);
 
       $http.get("/Prss?email=" + email)
       .then(function(response) {
@@ -151,12 +152,14 @@ app.controller('evtOverviewController',
       	if (email && response.data.length) {
          	id = response.data[0].id;
       	}
-         if (email)
+         if (email) {
          	return "owner=" + id;
+         }
          return "";
       })
       .then(function(owner) {
          filterQuery = filterQuery.concat(owner);
+         console.log(filterQuery);
          return (filterQuery)
       })
       .then(function(query) {
