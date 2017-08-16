@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
    var loc = req.query.loc;
    var owner = req.query.owner; 
    var id = req.session.id;
-   int i = 3;
+   var i = 3;
 
    var query = 'select distinct e.id, title, orgId,' +
     ' (extract(epoch from date)) as date, city, state,' +
