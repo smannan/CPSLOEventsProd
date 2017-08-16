@@ -250,7 +250,7 @@ router.put('/:id', function(req, res) {
 
          query = query.substring(0, query.length-1);
          query = query + ' where id = $' + i;
-         params.push(req.params.id);
+         params.push(parseInt(req.params.id));
 
          cnn.chkQry(query, params, function() {
             cb();
