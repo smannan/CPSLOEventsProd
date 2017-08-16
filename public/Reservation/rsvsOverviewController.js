@@ -37,10 +37,10 @@ app.controller('rsvsOverviewController',
       console.log('index');
       console.log($index);
       console.log('event id');
-      console.log($scope.rsvs[$index].evtId);
+      console.log($scope.rsvs[$index].evtid);
 
       var rid = $scope.rsvs[$index].id;
-      var eid = $scope.rsvs[$index].evtId;
+      var eid = $scope.rsvs[$index].evtid;
       var pid = $rs.user.id;
 
       mdDlg.login($scope, "Delete this Reservation?", "Delete Reservation", 
