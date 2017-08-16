@@ -12,7 +12,7 @@ router.baseURL = '/Evts';
 
 router.get('/', function (req, res) {
 	var start = req.query.start;
-   var release = req.query.release;
+   var end = req.query.end;
    var loc = req.query.loc;
    var owner = req.query.owner; 
    var id = req.session.id;
@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
       params.push(parseInt(start));
    }
 
-   if (release) {
+   if (end) {
       query += ' and (extract(epoch from date)) * 1000 <= $' + i + ' ';
       i += 1;
       params.push(parseInt(release));
