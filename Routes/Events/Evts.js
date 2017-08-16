@@ -112,7 +112,7 @@ router.post('/', function(req, res) {
          body.orgId = req.session.id;
          body.date = new Date(body.date);
          if (body.private === null || body.private === "") {
-            body.private = false;
+            body.private = true;
          }
          console.log(body);
          //cnn.chkQry("insert into Event set ?", body, cb);
@@ -208,13 +208,16 @@ router.put('/:id', function(req, res) {
    }, 
    function(rows, fields, cb) {
       var now = new Date().getTime(); 
+
       if (vld.check(rows.rows.length, Tags.notFound, null, cb) &&
        vld.checkPrsOK(rows.rows[0].orgid, cb) &&
        vld.check(!body.date || body.date > now, Tags.badValue, 
        ['date'], cb)) {
+
          if (body.date) {
             body.date = new Date(body.date);
          }
+
          if (body.title) {
             cnn.chkQry('SELECT * from Event WHERE id = $1 && title = $2',
              [req.params.id, body.title], 
@@ -224,20 +227,36 @@ router.put('/:id', function(req, res) {
                }
 
              });
-         } else {
+         } 
+
+         else {
             cb();
          }
       }
    },
    function(cb) {
       if(vld.check(true)) {
-         cnn.chkQry('UPDATE Event SET title=($1),private=($2),' +
-         ' city=($3),state=($4),zip=($5),country=($6),addr=($7),' +
-         ' date=($8),descr=($9)' +
-         ' WHERE id = $10',
-          [body.title,body.private,body.city,body.state,
-          body.zip,body.country,body.addr,body.date,body.descr,
-          req.params.id], function() {
+         var params = [];
+         var query = 'UPDATE Event SET ';
+         var i = 1;
+
+         for (var property in body) {
+             if (body.hasOwnProperty(property)) {
+                 params.push(body[property]);
+                 query += property + '=$(' + i + '),';
+                 i += 1;
+             }
+         }
+
+         query = query.substring(0, query.length-1);
+         // 'UPDATE Event SET title=($1),private=($2),' +
+         // ' city=($3),state=($4),zip=($5),country=($6),addr=($7),' +
+         // ' date=($8),descr=($9)' +
+         // ' WHERE id = $10'
+
+         console.log(query);
+         console.log(params);
+         cnn.chkQry(query + ' where id = $' + i, params, function() {
             cb();
           });
       }

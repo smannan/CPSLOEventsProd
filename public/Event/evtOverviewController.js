@@ -57,6 +57,8 @@ app.controller('evtOverviewController',
 
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
+      $scope.prevEvt = $scope.evts[$index];
+      console.log($scope.prevEvt);
 
       $scope.dlgTitle = "Edit Event";
       $mdDialog.show({
