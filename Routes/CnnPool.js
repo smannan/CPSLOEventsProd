@@ -27,7 +27,7 @@ CnnPool.router = function(req, res, next) {
    console.log("Getting connection");
    //CnnPool.singleton.getConnection(function(err, cnn) {
    //pg.connect(connectionString, (err, cnn, done) => {
-   pg.connect((err, client, done) => {
+   pg.connect(connectionString, (err, cnn, done) => {
       if (err) {
          res.status(500).json('Failed to get connection' + err);
       }
