@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
    var i = 3;
 
    var query = 'select distinct e.id, title, orgId,' +
-    ' (extract(epoch from date)) as date, city, state,' +
+    ' (extract(epoch from date)) * 1000 as date, city, state,' +
     ' country, addr, private, descr, zip' +
 	 ' from Event e left join Reservation r on e.id = r.evtId' +
 	 ' where (e.private = false or e.orgId = $1 or r.prsId = $2)';
@@ -36,13 +36,13 @@ router.get('/', function (req, res) {
    }
 
    if (start) {
-      query += ' and (extract(epoch from date)) >= $' + i + ' ';
+      query += ' and (extract(epoch from date)) * 1000 >= $' + i + ' ';
       i += 1;
       params.push(parseInt(start));
    }
 
    if (release) {
-      query += ' and (extract(epoch from date)) <= $' + i + ' ';
+      query += ' and (extract(epoch from date)) * 1000 <= $' + i + ' ';
       i += 1;
       params.push(parseInt(release));
    }
@@ -147,7 +147,7 @@ router.get('/:id', function(req, res) {
    async.waterfall([
    function(cb) {
       cnn.chkQry('SELECT id, title, orgId, city, state, zip, ' +
-       'country, addr, (extract(epoch from date)) as date, descr, private '+
+       'country, addr, (extract(epoch from date)) * 1000 as date, descr, private '+
        'FROM Event WHERE id = $1',
         [req.params.id], cb);
    }, 
