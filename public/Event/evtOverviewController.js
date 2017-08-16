@@ -151,7 +151,7 @@ app.controller('evtOverviewController',
       	var id = -1;
          console.log('response');
          console.log(response.data.rows[0]);
-      	if (email && response.data.row.length) {
+      	if (email && response.data.rows.length) {
          	id = response.data.rows[0].id;
       	}
          if (email) {
