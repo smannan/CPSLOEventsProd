@@ -10,15 +10,17 @@ router.baseURL = '/Prss';
 /* Much nicer versions */
 router.get('/', function(req, res) {
    var email = req.query.email;
+   console.log(email);
 
    var handler = function(err, prsArr) {
       res.json(prsArr);
       req.cnn.release();
    };
 
-   if (email)
+   if (email) {
       req.cnn.chkQry('select id, email from Person where email like $1',
-       ["N'" + email + "'%"], handler);
+       [email + "%"], handler);
+   }
    else {
       req.cnn.chkQry('select id, email from Person', handler);
    }
