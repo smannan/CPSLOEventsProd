@@ -287,9 +287,10 @@ router.get('/:id/Rsvs', function(req, res) {
    var body = req.body;
    var cnn = req.cnn;
 
-   var query = 'select distinct Reservation.id as id, firstName, lastName, status from ' +
-   'Event join Reservation join Person where Reservation.prsId ' +
-   '= Person.id and evtId = $1 order by firstName, lastName asc';
+   var query = 'select distinct r.id as id, firstName, lastName, status from ' +
+   'Event e inner join Reservation r on e.id = r.evtId ' +
+   ' inner join Person p on p.id = r.prsId ' + 
+   ' where r.evtId = $1 order by firstName, lastName asc';
 
    console.log('GETTING RSVS');
 
@@ -316,9 +317,15 @@ router.get('/:id/Rsvs', function(req, res) {
    function(existingRsv, fields, cb) {
       /* If the event is private and the user is invited
       */
-      console.log(existingRsv.rows[0]);
+      //console.log(existingRsv.rows[0]);
+      console.log('number of existing rsvs ' + existingRsv.rows.length);
+      var firstRow = evt;
+      for(var columnName in firstRow) {
+         console.log('column "%s" has a value of "%j"', columnName, firstRow[columnName]);
+      }
+
       if ((evt.private === true && existingRsv.rows.length > 0)
-       || evt.private === false || evt.orgId === prsId) {
+       || evt.private === false || evt.orgid === prsId) {
          cnn.chkQry(query, [evtId], cb)
       }
 
