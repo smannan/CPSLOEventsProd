@@ -250,18 +250,16 @@ router.put('/:id', function(req, res) {
 
          query = query.substring(0, query.length-1);
          query = query + ' where id = $' + i;
-
-         console.log(query);
-         console.log(params);
+         params.push(req.params.id);
 
          cnn.chkQry(query, params, function() {
             cb();
           });
       }
       
-      //else {
-      //   cb();
-      //}
+      else {
+         cb();
+      }
    }],
    function(err) {
       if (!err) {
