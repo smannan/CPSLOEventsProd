@@ -222,7 +222,7 @@ router.put('/:id', function(req, res) {
             cnn.chkQry('SELECT * from Event WHERE id = $1 && title = $2',
              [req.params.id, body.title], 
              function (err, rows) {
-               if (vld.check(!rows.rows.length, Tags.dupTitle, null, cb)) {
+               if (vld.check(!rows, Tags.dupTitle, null, cb)) {
                   cb();
                }
 
