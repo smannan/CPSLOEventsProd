@@ -264,6 +264,7 @@ router.put('/:id', function(req, res) {
    }],
    function(err) {
       if (!err) {
+         console.log('UPDATED EVENT');
          res.status(200).end()
       }
       cnn.release();
