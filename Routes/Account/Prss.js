@@ -180,12 +180,12 @@ router.put('/:id/Rsvs/:rsvId', function(req, res) {
       	cnn.chkQry('select * from Person where id = $1', [prsId], cb);
    },
    function(prss, fields, cb) { // Check for existence of reservation
-   	if (vld.check(prss.length, Tags.notFound, null, cb))
+   	if (vld.check(prss.rows.length, Tags.notFound, null, cb))
    		cnn.chkQry('select * from Reservation where id = $1 and prsId = $2', 
    	 	 [rsvId, prsId], cb);
    },
    function(rsvs, fields, cb) { // update indicated reservations
-      if (vld.check(rsvs.length, Tags.notFound, null, cb) &&
+      if (vld.check(rsvs.rows.length, Tags.notFound, null, cb) &&
        vld.check(body.status === "Going" || body.status === "Maybe" ||
        body.status === "Not Going", Tags.badValue, ["status"], cb))
          cnn.chkQry(query, [body.status, rsvId], cb);
