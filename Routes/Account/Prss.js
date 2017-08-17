@@ -156,10 +156,14 @@ router.get('/:id/Rsvs', function(req, res) {
       	cnn.chkQry('select * from Person where id = $1', [parseInt(prsId)], cb);
    },
    function(prss, fields, cb) { // Get indicated reservations
+      console.log('FOUND RSVS FOR PERSON');
+      console.log(prss.rows);
       if (vld.check(prss.rows.length, Tags.notFound, null, cb))
-         cnn.chkQry(query, [prsId], cb);
+         cnn.chkQry(query, [parseInt(prsId)], cb);
    },
    function(rsvs, fields, cb) { // Return retrieved reservations
+      console.log('retrieved reservations');
+      console.log(rsvs.rows);
       res.json(rsvs.rows);
       cb();
    }],
