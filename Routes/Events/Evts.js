@@ -242,6 +242,9 @@ router.put('/:id', function(req, res) {
 
          for (var property in body) {
             if (body.hasOwnProperty(property)) {
+               if (property === 'date') {
+                  body.date = new Date(body.date);
+               }
                params.push(body[property]);
                query += property + '=$' + i + ',';
                i += 1;
