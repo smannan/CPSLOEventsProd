@@ -78,8 +78,11 @@ app.controller('evtOverviewController',
             var year = $scope.date2.getUTCFullYear()
 
             if ($scope.time == null) {
-               hours = parseInt(($scope.evts[$index].date/(1000*60*60))%24);
-               min = parseInt(($scope.evts[$index].date/(1000*60))%60);
+               var d = new Date($scope.evts[$index].date);
+               hours = d.getHours();
+               min = d.getMinutes();
+               console.log(hours);
+               console.log(min);
             }
 
             else {
