@@ -100,8 +100,11 @@ app.controller('evtOverviewController',
       })
       .then(function(response) {
          var url = "/Evts";
-         if ($state.params && $state.params.prsId) 
-            url += "?owner=" + $state.params.prsId;
+         console.log($state.params);
+         if ($state.params && $state.params.prsid) {
+            url += "?owner=" + $state.params.prsid;
+         }
+         console.log(url);
          // Remove info from input fields
          for (var i in $scope.evt) {
             delete $scope.evt[i];
