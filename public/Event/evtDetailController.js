@@ -135,7 +135,7 @@ app.controller("evtDetailController",
             mdDlg.login($scope, "User with the email " + $scope.email +
              " was not found!", "Invalid Email", ["Okay", null]);
          else {
-            var prsId = response.data[0].id;
+            var prsId = response.data.rows[0].id;
             return $http.post('/Evts/' + evtId + '/Rsvs', {"prsId": prsId, "status": "Not Going"});
          }
       })
@@ -144,7 +144,7 @@ app.controller("evtDetailController",
       })
       .then(function(response) {
          delete $scope.email;
-         $scope.rsvs = response.data;
+         $scope.rsvs = response.data.rows;
          return getMyRsv();
       })
       .catch(function(err) {
