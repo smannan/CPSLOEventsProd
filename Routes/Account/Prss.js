@@ -147,13 +147,13 @@ router.get('/:id/Rsvs', function(req, res) {
 	var cnn = req.cnn;
 	var prsId = req.params.id;
 	var query = 'select r.id, p.firstName, p.lastName, r.status, r.evtId,' +
-	 ' e.title, e.date from Reservation r join Event e on r.evtId = e.id' +
-	 ' join Person p on r.prsId = p.id where p.id = $1';
+	 ' e.title, e.date from Reservation r inner join Event e on r.evtId = e.id' +
+	 ' inner join Person p on r.prsId = p.id where p.id = $1';
 
    async.waterfall([
    function(cb) {  // Check for existence of person
    	if (vld.checkPrsOK(prsId, cb))
-      	cnn.chkQry('select * from Person where id = $1', [prsId], cb);
+      	cnn.chkQry('select * from Person where id = $1', [parseInt(prsId)], cb);
    },
    function(prss, fields, cb) { // Get indicated reservations
       if (vld.check(prss.rows.length, Tags.notFound, null, cb))
@@ -179,7 +179,7 @@ router.put('/:id/Rsvs/:rsvId', function(req, res) {
 	async.waterfall([
    function(cb) {  // Check for existence of person
    	if (vld.checkPrsOK(prsId, cb))
-      	cnn.chkQry('select * from Person where id = $1', [prsId], cb);
+      	cnn.chkQry('select * from Person where id = $1', [parseInt(prsId)], cb);
    },
    function(prss, fields, cb) { // Check for existence of reservation
    	if (vld.check(prss.rows.length, Tags.notFound, null, cb))
