@@ -57,7 +57,6 @@ app.controller('evtOverviewController',
 
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
-      $scope.prevEvt = $scope.evts[$index];
       var hours;
       var min;
 
@@ -79,8 +78,8 @@ app.controller('evtOverviewController',
             var year = $scope.date2.getUTCFullYear()
 
             if ($scope.time == null) {
-               hours = parseInt((prevEvt.date/(1000*60*60))%24);
-               min = parseInt((prevEvt.date/(1000*60))%60);
+               hours = parseInt(($scope.evts[$index].date/(1000*60*60))%24);
+               min = parseInt(($scope.evts[$index].date/(1000*60))%60);
             }
 
             else {
