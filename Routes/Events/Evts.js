@@ -243,7 +243,7 @@ router.put('/:id', function(req, res) {
          for (var property in body) {
             if (body.hasOwnProperty(property)) {
                params.push(body[property]);
-               query += property + '=$' + i + ',';
+               query += property + '=$(' + i + '),';
                i += 1;
             }
          }
