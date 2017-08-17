@@ -125,10 +125,13 @@ app.controller("evtDetailController",
          preserveScope:true
       })
       .then(function() {
+         console.log($scope.email);
          return $http.get('/Prss?email=' + $scope.email);
       })
       .then(function(response) {
-         if (!response.data.length)
+         console.log('FOUND PERSON');
+         console.log(response.data.rows);
+         if (!response.data.rows.length)
             mdDlg.login($scope, "User with the email " + $scope.email +
              " was not found!", "Invalid Email", ["Okay", null]);
          else {

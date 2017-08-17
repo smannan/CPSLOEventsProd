@@ -18,8 +18,8 @@ router.get('/', function(req, res) {
    };
 
    if (email) {
-      req.cnn.chkQry('select id, email from Person where email  = $1',
-       [email], handler);
+      req.cnn.chkQry('select id, email from Person where email like $1',
+       [email+"%"], handler);
    }
    else {
       req.cnn.chkQry('select id, email from Person', handler);
