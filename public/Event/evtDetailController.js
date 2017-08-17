@@ -144,7 +144,7 @@ app.controller("evtDetailController",
       })
       .then(function(response) {
          delete $scope.email;
-         $scope.rsvs = response.data.rows;
+         $scope.rsvs = response.data;
          return getMyRsv();
       })
       .catch(function(err) {
