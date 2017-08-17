@@ -58,6 +58,9 @@ app.controller('evtOverviewController',
    $scope.editEvt = function($index) {
       var evtId = $scope.evts[$index].id;
       $scope.prevEvt = $scope.evts[$index];
+      var hours;
+      var min;
+
       console.log($scope.prevEvt);
 
       $scope.dlgTitle = "Edit Event";
@@ -74,8 +77,18 @@ app.controller('evtOverviewController',
             var day = $scope.date2.getUTCDate()
             var month = $scope.date2.getUTCMonth()
             var year = $scope.date2.getUTCFullYear()
-            var hours = $scope.time.getHours()
-            var min = $scope.time.getMinutes()
+
+            if ($scope.time == null) {
+               hours = parseInt((prevEvt.date/(1000*60*60))%24);
+               min = parseInt((prevEvt.date/(1000*60))%60);
+            }
+
+            else {
+               hours = $scope.time.getHours();
+               min = $scope.time.getMinutes();
+            }
+             
+             
             var date = new Date(year, month, day, hours, min)
             
             $scope.evt.date = date.getTime()
