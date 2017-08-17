@@ -111,9 +111,11 @@ router.post('/', function(req, res) {
 
          body.orgId = req.session.id;
          body.date = new Date(body.date);
+
          if (body.private === null || body.private === "") {
-            body.private = true;
+            body.private = false;
          }
+         
          console.log(body);
          //cnn.chkQry("insert into Event set ?", body, cb);
          cnn.chkQry("insert into Event " + 
