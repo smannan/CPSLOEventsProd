@@ -51,7 +51,12 @@ router.post('/', function(req, res) {
    function(existingPrss, fields, cb) {  // If no duplicates, insert new Person
       if (vld.check(!existingPrss.rows.length, Tags.dupEmail, null, cb)) {
          console.log("Inserting person");
+         console.log("first name " + body.firstName);
          
+         if (body.firstName == null) {
+            body.firstName = "";
+         }
+
          cnn.chkQry('insert into Person ' + 
             '(firstName, lastName, email, password, city, state, zip, country)' +
             'values ($1, $2, $3, $4, $5, $6, $7, $8);',
