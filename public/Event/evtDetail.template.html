@@ -7,7 +7,7 @@
 
 <md-toolbar layout="row" class="md-accent md-hue-3">
 <div class="md-toolbar-tools">
-   <span>{{events[0].title}}</span>
+   <span>{{events.title}}</span>
 
    <md-button class="md-icon-button md-primary" inline aria-label="Edit"
     ng-click="editEvt(events[0])" 
@@ -20,7 +20,7 @@
 
 <md-content flex layout-padding>
    <h4 class="md-dense" style="font-style: italic">
-       {{events[0].date | date:'medium'}} @ {{events[0].addr}} {{events[0].zip}}
+       {{events.date | date:'medium'}} @ {{events.addr}} {{events.zip}}
    </h4>
    <!--
    <h2 class="md-dense" style="font-weight:200">
@@ -28,7 +28,7 @@
    </h2>
    -->
    
-   <p>{{events[0].descr}}</p>
+   <p>{{events.descr}}</p>
    
    <div layout="row" layout-align="center center">
       <md-button ng-init="g = 'Going'" ng-disabled="checkRsv(g)" class="md-primary md-raised" ng-click="changeMyRsv(g)">{{g}}</md-button>
