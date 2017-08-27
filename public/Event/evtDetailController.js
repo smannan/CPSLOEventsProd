@@ -16,10 +16,9 @@ app.controller("evtDetailController",
    // Get event information
    $http.get('/Evts/' + evtId)
    .then(function(response) {
-      $scope.events = response.data;
+      $scope.events = response.data.length > 0 ? response.data[0] : response.data;
       console.log($scope.events);
       console.log($scope.events.length);
-      console.log($scope.events[0]);
       return $http.get('/Evts/' + evtId + '/Rsvs');
    })
    .then(function(response) {
