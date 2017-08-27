@@ -18,6 +18,7 @@ app.controller("evtDetailController",
    .then(function(response) {
       $scope.events = response.data;
       console.log($scope.events);
+      console.log($scope.events.length);
       console.log($scope.events[0]);
       return $http.get('/Evts/' + evtId + '/Rsvs');
    })
