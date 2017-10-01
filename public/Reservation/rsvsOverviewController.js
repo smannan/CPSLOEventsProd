@@ -15,6 +15,9 @@ app.controller('rsvsOverviewController',
    $scope.changeMyRsv = function($index, s) {
       var rid = $scope.rsvs[$index].id;
       var pid = $rs.user.id;
+
+      console.log(rid)
+      console.log(pid)
       
       $http.put('/Prss/' + pid + '/Rsvs/' + rid, {status: s})
       .then(function () {

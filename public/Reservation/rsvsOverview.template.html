@@ -8,7 +8,8 @@
 <md-content>
    <md-list flex>
       <md-divider></md-divider>
-         <md-list-item class="md-3-line" ng-repeat="item in rsvs" ui-sref="evtDetail({evtId:{{item.evtId}}})">
+         <md-list-item class="md-3-line" ng-repeat="item in rsvs" ui-sref="evtDetail({evtId:{{item.evtid}}})">
+
             <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}"/>
                <div class="md-list-item-text" layout="column">
                   <span flex></span>
